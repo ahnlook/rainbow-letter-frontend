@@ -11,6 +11,7 @@ import autoSavingSuccess from '../../assets/autoSave_success.svg';
 import autoSavingFail from '../../assets/autoSave_fail.svg';
 
 function AppBar() {
+  const navigate = useNavigate();
   const location = useLocation();
   const normalizedPath = normalizePath(location.pathname);
   const params = Object.keys(useParams())[0];
@@ -24,7 +25,6 @@ function AppBar() {
     return null;
   }
 
-  const navigate = useNavigate();
   const { title } = config;
 
   const handleBack = () => {
