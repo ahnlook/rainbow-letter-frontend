@@ -1,12 +1,13 @@
 import React, { Suspense, useState, useEffect } from 'react';
 import { format } from 'date-fns';
+import { useLocation } from 'react-router-dom';
 
 import NoPets from 'components/MyPetsTemplate/NoPets';
 import Spinner from 'components/Spinner';
 import { PetResponse } from 'types/pets';
 import { LetterListResponse } from 'types/letters';
 import { getPets } from 'api/pets';
-import { useLocation } from 'react-router-dom';
+import { getLocalDate } from 'utils/date';
 
 const PetInfoCard = React.lazy(
   () => import('components/LetterBox/PetInfoCard')
@@ -45,7 +46,7 @@ export default function LetterBoxRenew() {
   }, []);
 
   const mappedLetterListByDate = letterList.map((letter) =>
-    format(letter.createdAt, 'yyyy-MM-dd')
+    format(getLocalDate(letter.createdAt), 'yyyy-MM-dd')
   );
 
   if (isLoading) {

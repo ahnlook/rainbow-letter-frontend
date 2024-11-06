@@ -147,3 +147,8 @@ export const formatDay = (value: number) => {
       return '토';
   }
 };
+
+export const getLocalDate = (date: string | Date) => {
+  const utcDate = new Date(date);
+  return new Date(utcDate.getTime() + utcDate.getTimezoneOffset() * 60000);
+};

@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { format, subDays, getDaysInMonth } from 'date-fns';
 
+import { getLocalDate } from 'utils/date';
+
 const CALENDER_LENGTH = 35;
 const WEEK_CALENDAR_LENGTH = 42;
 const DEFAULT_TRASH_VALUE = '0';
@@ -27,10 +29,12 @@ const useCalendar = (monthCurrentDate?: Date) => {
   const prevDayListForWeeks = Array.from({ length: prevDaysCount }).map(
     (_, i) =>
       format(
-        new Date(
-          currentDate.getFullYear(),
-          currentDate.getMonth() - 1,
-          prevMonthLastDay - prevDaysCount + i + 1
+        getLocalDate(
+          new Date(
+            currentDate.getFullYear(),
+            currentDate.getMonth() - 1,
+            prevMonthLastDay - prevDaysCount + i + 1
+          )
         ),
         'yyyy-MM-dd'
       )
@@ -39,7 +43,9 @@ const useCalendar = (monthCurrentDate?: Date) => {
   const currentDayListForWeeks = Array.from({ length: totalMonthDays }).map(
     (_, i) =>
       format(
-        new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1),
+        getLocalDate(
+          new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1)
+        ),
         'yyyy-MM-dd'
       )
   );
@@ -47,7 +53,9 @@ const useCalendar = (monthCurrentDate?: Date) => {
   const nextDayListForWeeks = Array.from({ length: nextDaysCount }).map(
     (_, i) =>
       format(
-        new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i + 1),
+        getLocalDate(
+          new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i + 1)
+        ),
         'yyyy-MM-dd'
       )
   );
