@@ -31,7 +31,7 @@ export default function MonthCalendar({
   const dispatch = useDispatch();
 
   // hooks
-  const { currentDate, setCurrentDate, weekCalendarList } =
+  const { currentDate, setCurrentDate, monthCalendarList } =
     useCalendar(currentWeekDate);
 
   // state
@@ -44,20 +44,20 @@ export default function MonthCalendar({
   }, []);
 
   const firstDayOfTheMonth = useMemo(() => {
-    const firstDayOfTheMonth = weekCalendarList[0].find(
+    const firstDayOfTheMonth = monthCalendarList[0].find(
       (date: string) => Number(date) !== 0
     );
 
     return firstDayOfTheMonth;
-  }, [weekCalendarList]);
+  }, [monthCalendarList]);
 
   const lastDayOfTheMonth = useMemo(() => {
-    const lastDayOfTheMonth = weekCalendarList[
-      weekCalendarList.length - 1
+    const lastDayOfTheMonth = monthCalendarList[
+      monthCalendarList.length - 1
     ].findLast((date: string) => Number(date) !== 0);
 
     return lastDayOfTheMonth;
-  }, [weekCalendarList]);
+  }, [monthCalendarList]);
 
   useEffect(() => {
     (async () => {
@@ -169,8 +169,8 @@ export default function MonthCalendar({
           </button>
         </header>
         <ul className="mt-[30px] w-[354px]">
-          {weekCalendarList &&
-            weekCalendarList.map((dayArr: string[]) => (
+          {monthCalendarList &&
+            monthCalendarList.map((dayArr: string[]) => (
               <li className="flex flex-row justify-start gap-2.5">
                 {dayArr.map((day) =>
                   day === '0' ? (

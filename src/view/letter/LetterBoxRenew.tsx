@@ -7,7 +7,6 @@ import Spinner from 'components/Spinner';
 import { PetResponse } from 'types/pets';
 import { LetterListResponse } from 'types/letters';
 import { getPets } from 'api/pets';
-import { getLocalDate } from 'utils/date';
 
 const PetInfoCard = React.lazy(
   () => import('components/LetterBox/PetInfoCard')
@@ -46,7 +45,7 @@ export default function LetterBoxRenew() {
   }, []);
 
   const mappedLetterListByDate = letterList.map((letter) =>
-    format(getLocalDate(letter.createdAt), 'yyyy-MM-dd')
+    format(letter.createdAt, 'yyyy-MM-dd')
   );
 
   if (isLoading) {

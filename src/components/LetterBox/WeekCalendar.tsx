@@ -37,12 +37,7 @@ export default function WeekCalendar({
   const { isCalendarOpen } = useSelector((state: RootState) => state.letter);
 
   // hooks
-  const {
-    currentDate,
-    setCurrentDate,
-    weekCalendarListForWeeks,
-    weekCalendarList,
-  } = useCalendar();
+  const { currentDate, setCurrentDate, weekCalendarList } = useCalendar();
 
   // state
   const [weekCalendar, setWeekCalendar] = useState<number[]>([]);
@@ -66,8 +61,7 @@ export default function WeekCalendar({
     const findIndex = weekCalendarList.findIndex((weeks: string[]) =>
       weeks.includes(format(currentDate, 'yyyy-MM-dd'))
     );
-
-    setWeekCalendar(weekCalendarListForWeeks[findIndex]);
+    setWeekCalendar(weekCalendarList[findIndex]);
   }, [currentDate]);
 
   const onClickNextWeek = useCallback(() => {
