@@ -19,6 +19,7 @@ const DAY_OF_THE_WEEK = ['일', '월', '화', '수', '목', '금', '토'];
 
 type Props = {
   setDate: (date: Date) => void;
+  date: Date;
   letterList: string[];
   setLetterList: (date: LetterListResponse[]) => void;
   selectedPet: null | PetResponse;
@@ -27,6 +28,7 @@ type Props = {
 
 export default function WeekCalendar({
   setDate,
+  date,
   letterList,
   setLetterList,
   selectedPet,
@@ -37,7 +39,7 @@ export default function WeekCalendar({
   const { isCalendarOpen } = useSelector((state: RootState) => state.letter);
 
   // hooks
-  const { currentDate, setCurrentDate, weekCalendarList } = useCalendar();
+  const { currentDate, setCurrentDate, weekCalendarList } = useCalendar(date);
 
   // state
   const [weekCalendar, setWeekCalendar] = useState<number[]>([]);

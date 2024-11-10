@@ -66,6 +66,7 @@ export default function LetterBoxRenew() {
           />
           <WeekCalendar
             setDate={setDate}
+            date={date}
             letterList={mappedLetterListByDate}
             setLetterList={setLetterList}
             selectedPet={selectedPet}
