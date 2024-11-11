@@ -39,7 +39,7 @@ export default function WeekCalendar({
   const { isCalendarOpen } = useSelector((state: RootState) => state.letter);
 
   // hooks
-  const { currentDate, setCurrentDate, weekCalendarList } = useCalendar(date);
+  const { currentDate, setCurrentDate, weekCalendarList } = useCalendar();
 
   // state
   const [weekCalendar, setWeekCalendar] = useState<number[]>([]);

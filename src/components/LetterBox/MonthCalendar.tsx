@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { format, addDays, subMonths, subDays, lastDayOfMonth } from 'date-fns';
+import { format, addDays, lastDayOfMonth } from 'date-fns';
 import { useDispatch } from 'react-redux';
+import { toZonedTime } from 'date-fns-tz';
 
 import BottomSheet from 'components/Common/BottomSheet';
 import CalendarController from 'components/LetterBox/CalendarController';
@@ -30,9 +31,12 @@ export default function MonthCalendar({
   // redux
   const dispatch = useDispatch();
 
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const localDate = toZonedTime(currentWeekDate, timeZone);
+
   // hooks
   const { currentDate, setCurrentDate, monthCalendarList } =
-    useCalendar(currentWeekDate);
+    useCalendar(localDate);
 
   // state
   const [isShow, setIsShow] = useState(false);

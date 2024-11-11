@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { format, subDays, getDaysInMonth } from 'date-fns';
+import { subDays, getDaysInMonth } from 'date-fns';
+import { format, toZonedTime } from 'date-fns-tz';
 
 const CALENDAR_LENGTH = 35;
 const WEEK_CALENDAR_LENGTH = 42;
@@ -7,12 +8,11 @@ const DEFAULT_TRASH_VALUE = '0';
 const DAY_OF_WEEK = 7;
 
 const useCalendar = (monthCurrentDate?: Date) => {
-  const [currentDate, setCurrentDate] = useState(
-    monthCurrentDate ? new Date(monthCurrentDate.toISOString()) : new Date()
-  );
+  const date = new Date();
+  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const localDate = toZonedTime(date, timeZone);
 
-  const formatToUTC = (date: Date) =>
-    format(new Date(date.toISOString()), 'yyyy-MM-dd');
+  const [currentDate, setCurrentDate] = useState(monthCurrentDate || localDate);
 
   const totalMonthDays = getDaysInMonth(currentDate);
   const firstDayOfMonth = new Date(
@@ -27,26 +27,29 @@ const useCalendar = (monthCurrentDate?: Date) => {
 
   const prevDayListForWeeks = Array.from({ length: prevDaysCount }).map(
     (_, i) =>
-      formatToUTC(
+      format(
         new Date(
           currentDate.getFullYear(),
           currentDate.getMonth() - 1,
           prevMonthLastDay - prevDaysCount + i + 1
-        )
+        ),
+        'yyyy-MM-dd'
       )
   );
 
   const currentDayListForWeeks = Array.from({ length: totalMonthDays }).map(
     (_, i) =>
-      formatToUTC(
-        new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1)
+      format(
+        new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1),
+        'yyyy-MM-dd'
       )
   );
 
   const nextDayListForWeeks = Array.from({ length: nextDaysCount }).map(
     (_, i) =>
-      formatToUTC(
-        new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i + 1)
+      format(
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i + 1),
+        'yyyy-MM-dd'
       )
   );
 
@@ -73,8 +76,9 @@ const useCalendar = (monthCurrentDate?: Date) => {
   }).map(() => DEFAULT_TRASH_VALUE);
 
   const currentDayList = Array.from({ length: totalMonthDays }).map((_, i) =>
-    formatToUTC(
-      new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1)
+    format(
+      new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1),
+      'yyyy-MM-dd'
     )
   );
 
