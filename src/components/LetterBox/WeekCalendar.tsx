@@ -19,7 +19,6 @@ const DAY_OF_THE_WEEK = ['일', '월', '화', '수', '목', '금', '토'];
 
 type Props = {
   setDate: (date: Date) => void;
-  date: Date;
   letterList: string[];
   setLetterList: (date: LetterListResponse[]) => void;
   selectedPet: null | PetResponse;
@@ -28,7 +27,6 @@ type Props = {
 
 export default function WeekCalendar({
   setDate,
-  date,
   letterList,
   setLetterList,
   selectedPet,
