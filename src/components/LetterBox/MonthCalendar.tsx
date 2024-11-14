@@ -79,7 +79,7 @@ export default function MonthCalendar({
   }, [firstDayOfTheMonth]);
 
   const mappedLetterListByDate = monthLetterList.map((letter: any) =>
-    format(letter.createdAt, 'yyyy-MM-dd')
+    format(new Date(letter.createdAt), 'yyyy-MM-dd')
   );
 
   const handlePetsListShow = useCallback(() => {
@@ -99,12 +99,22 @@ export default function MonthCalendar({
     );
   }, [currentDate]);
 
-  const onClickDateButton = useCallback((date: string) => {
-    setDate(new Date(date));
-    setCurrentWeekDate(new Date(date));
-    const action = letterSlice.actions.setCalendarClose();
-    dispatch(action);
-  }, []);
+  const onClickDateButton = useCallback(
+    (date: string) => {
+      const selectedDate = new Date(
+        Date.UTC(
+          new Date(date).getFullYear(),
+          new Date(date).getMonth(),
+          new Date(date).getDate()
+        )
+      );
+      setDate(selectedDate);
+      setCurrentWeekDate(selectedDate);
+      const action = letterSlice.actions.setCalendarClose();
+      dispatch(action);
+    },
+    [dispatch]
+  );
 
   const onClickCalendarClose = useCallback(() => {
     const action = letterSlice.actions.setCalendarClose();
@@ -114,15 +124,19 @@ export default function MonthCalendar({
 
   const isActiveDate = useCallback(
     (date: string) => {
-      if (format(currentDate, 'yyyy-MM-dd') === date) {
-        return true;
-      }
-
-      return false;
+      const selectedDate = new Date(
+        Date.UTC(
+          new Date(date).getFullYear(),
+          new Date(date).getMonth(),
+          new Date(date).getDate()
+        )
+      );
+      return (
+        format(currentDate, 'yyyy-MM-dd') === format(selectedDate, 'yyyy-MM-dd')
+      );
     },
     [currentDate]
   );
-
   const isExistWrittenLetter = useCallback(
     (date: string) => {
       return mappedLetterListByDate.includes(date);
@@ -131,8 +145,16 @@ export default function MonthCalendar({
   );
 
   const isToday = useCallback((date: string) => {
-    const today = format(new Date(), 'yyyy-MM-dd');
-
+    const today = format(
+      new Date(
+        Date.UTC(
+          new Date().getFullYear(),
+          new Date().getMonth(),
+          new Date().getDate()
+        )
+      ),
+      'yyyy-MM-dd'
+    );
     return today === date ? 'bg-orange-400' : 'bg-gray-2';
   }, []);
 

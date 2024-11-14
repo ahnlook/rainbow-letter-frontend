@@ -19,14 +19,15 @@ const LetterList = React.lazy(() => import('components/LetterBox/LetterList'));
 
 export default function LetterBoxRenew() {
   const newDate = new Date();
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const localDate = toZonedTime(newDate, timeZone);
+  const utcDate = new Date(
+    Date.UTC(newDate.getFullYear(), newDate.getMonth(), newDate.getDate())
+  );
 
   const { state } = useLocation();
+  const [date, setDate] = useState(utcDate);
   const [letterList, setLetterList] = useState<LetterListResponse[]>([]);
   const [petsList, setPetsList] = useState<PetResponse[]>([]);
   const [selectedPet, setSelectedPet] = useState<PetResponse | null>(null);
-  const [date, setDate] = useState(localDate);
   const [isEditing, setIsEditing] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 

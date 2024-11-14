@@ -77,8 +77,15 @@ export default function WeekCalendar({
   }, [currentDate]);
 
   const onClickDateButton = useCallback((date: number) => {
-    setCurrentDate(new Date(date));
-    setDate(new Date(date));
+    const selectedDate = new Date(
+      Date.UTC(
+        new Date(date).getFullYear(),
+        new Date(date).getMonth(),
+        new Date(date).getDate()
+      )
+    );
+    setCurrentDate(selectedDate);
+    setDate(selectedDate);
     setIsEditing(false);
   }, []);
 
@@ -90,11 +97,16 @@ export default function WeekCalendar({
 
   const isActiveDate = useCallback(
     (date: number) => {
-      if (format(currentDate, 'yyyy-MM-dd') === String(date)) {
-        return true;
-      }
-
-      return false;
+      const selectedDate = new Date(
+        Date.UTC(
+          new Date(date).getFullYear(),
+          new Date(date).getMonth(),
+          new Date(date).getDate()
+        )
+      );
+      return (
+        format(currentDate, 'yyyy-MM-dd') === format(selectedDate, 'yyyy-MM-dd')
+      );
     },
     [currentDate]
   );
@@ -107,7 +119,16 @@ export default function WeekCalendar({
   );
 
   const isToday = useCallback((date: number) => {
-    const today = format(new Date(), 'yyyy-MM-dd');
+    const today = format(
+      new Date(
+        Date.UTC(
+          new Date().getFullYear(),
+          new Date().getMonth(),
+          new Date().getDate()
+        )
+      ),
+      'yyyy-MM-dd'
+    );
 
     return today === String(date) ? 'bg-orange-400' : 'bg-gray-2';
   }, []);
