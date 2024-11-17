@@ -101,15 +101,8 @@ export default function MonthCalendar({
 
   const onClickDateButton = useCallback(
     (date: string) => {
-      const selectedDate = new Date(
-        Date.UTC(
-          new Date(date).getFullYear(),
-          new Date(date).getMonth(),
-          new Date(date).getDate()
-        )
-      );
-      setDate(selectedDate);
-      setCurrentWeekDate(selectedDate);
+      setDate(new Date(date));
+      setCurrentWeekDate(new Date(date));
       const action = letterSlice.actions.setCalendarClose();
       dispatch(action);
     },
@@ -124,19 +117,11 @@ export default function MonthCalendar({
 
   const isActiveDate = useCallback(
     (date: string) => {
-      const selectedDate = new Date(
-        Date.UTC(
-          new Date(date).getFullYear(),
-          new Date(date).getMonth(),
-          new Date(date).getDate()
-        )
-      );
-      return (
-        format(currentDate, 'yyyy-MM-dd') === format(selectedDate, 'yyyy-MM-dd')
-      );
+      return format(currentDate, 'yyyy-MM-dd') === date;
     },
     [currentDate]
   );
+
   const isExistWrittenLetter = useCallback(
     (date: string) => {
       return mappedLetterListByDate.includes(date);
@@ -145,16 +130,8 @@ export default function MonthCalendar({
   );
 
   const isToday = useCallback((date: string) => {
-    const today = format(
-      new Date(
-        Date.UTC(
-          new Date().getFullYear(),
-          new Date().getMonth(),
-          new Date().getDate()
-        )
-      ),
-      'yyyy-MM-dd'
-    );
+    const today = format(new Date(), 'yyyy-MM-dd');
+
     return today === date ? 'bg-orange-400' : 'bg-gray-2';
   }, []);
 
