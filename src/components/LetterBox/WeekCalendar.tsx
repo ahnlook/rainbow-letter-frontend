@@ -61,8 +61,15 @@ export default function WeekCalendar({
     const findIndex = weekCalendarList.findIndex((weeks: string[]) =>
       weeks.includes(format(currentDate, 'yyyy-MM-dd'))
     );
+
     setWeekCalendar(weekCalendarList[findIndex]);
+    console.log('currentDate', currentDate);
+    console.log('formatData', format(currentDate, 'yyyy-MM-dd'));
+    console.log('weekCalendarList', weekCalendarList);
+    console.log('findIndex', findIndex);
+    console.log('weekCalendarList[findIndex]', weekCalendarList[findIndex]);
   }, [currentDate]);
+  console.log('weekCalendar', weekCalendar);
 
   const onClickNextWeek = useCallback(() => {
     setCurrentDate(addDays(currentDate, 7));

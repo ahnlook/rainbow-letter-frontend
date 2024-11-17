@@ -31,12 +31,8 @@ export default function MonthCalendar({
   // redux
   const dispatch = useDispatch();
 
-  const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const localDate = toZonedTime(currentWeekDate, timeZone);
-
   // hooks
-  const { currentDate, setCurrentDate, monthCalendarList } =
-    useCalendar(localDate);
+  const { currentDate, setCurrentDate, monthCalendarList } = useCalendar();
 
   // state
   const [isShow, setIsShow] = useState(false);

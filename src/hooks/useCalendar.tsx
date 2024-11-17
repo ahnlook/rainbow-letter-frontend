@@ -119,22 +119,10 @@ const useCalendar = (monthCurrentDate?: Date) => {
   const date = new Date();
   const userTime = formatInTimeZone(date, userTimeZone, 'yyyy-MM-dd HH:mm');
   const korTime = formatInTimeZone(date, 'Asia/Seoul', 'yyyy-MM-dd HH:mm');
-
-  console.log('현재 설정된 시간: ', currentDate);
-  console.log('이번 달이 총 며칠인지: ', totalMonthDays);
-  console.log('이번 달의 1일: ', firstDayOfMonth);
-  console.log('이번 달의 1일이 무슨 요일인지: ', prevDaysCount);
-  console.log('이전 달의 마지막 날: ', prevMonthLastDay);
-  console.log('다음 달 1일이 무슨 요일인지: ', nextDaysCount);
-  console.log('이번 달 첫번째 주의 저번 달 날짜들: ', prevDayListForWeeks);
-  console.log('이번 달 날짜들: ', currentDayListForWeeks);
-  console.log('이번 달 마지막 주의 다음 달의 날짜들: ', totalMonthDays);
   console.log(
-    '이번 달의 저번 달 날짜들부터 이번 달의 다음 달 날짜들: ',
-    currentCalendarListForWeeks
+    '저번 달, 다음 달 겹친 날을 7개씩 이중 배열로 가공',
+    weekCalendarList
   );
-  console.log('현재 유저 시간(테스트): ', userTime);
-  console.log('한국 시간으로 강제: ', korTime);
 
   return {
     currentDate,
