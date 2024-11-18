@@ -40,7 +40,7 @@ export default function WeekCalendar({
   const { currentDate, setCurrentDate, weekCalendarList } = useCalendar();
 
   // state
-  const [weekCalendar, setWeekCalendar] = useState<number[]>([]);
+  const [weekCalendar, setWeekCalendar] = useState<string[]>([]);
 
   // etc.
   const yearAndMonth = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
@@ -63,13 +63,7 @@ export default function WeekCalendar({
     );
 
     setWeekCalendar(weekCalendarList[findIndex]);
-    console.log('currentDate', currentDate);
-    console.log('formatData', format(currentDate, 'yyyy-MM-dd'));
-    console.log('weekCalendarList', weekCalendarList);
-    console.log('findIndex', findIndex);
-    console.log('weekCalendarList[findIndex]', weekCalendarList[findIndex]);
   }, [currentDate]);
-  console.log('weekCalendar', weekCalendar);
 
   const onClickNextWeek = useCallback(() => {
     setCurrentDate(addDays(currentDate, 7));
@@ -83,7 +77,7 @@ export default function WeekCalendar({
     setIsEditing(false);
   }, [currentDate]);
 
-  const onClickDateButton = useCallback((date: number) => {
+  const onClickDateButton = useCallback((date: string) => {
     setCurrentDate(new Date(date));
     setDate(new Date(date));
     setIsEditing(false);
@@ -96,27 +90,26 @@ export default function WeekCalendar({
   }, [dispatch]);
 
   const isActiveDate = useCallback(
-    (date: number) => {
-      if (format(currentDate, 'yyyy-MM-dd') === String(date)) {
-        return true;
-      }
-
-      return false;
+    (date: string) => {
+      const localDate = format(new Date(date), 'yyyy-MM-dd');
+      return format(currentDate, 'yyyy-MM-dd') === localDate;
     },
     [currentDate]
   );
 
   const isExistWrittenLetter = useCallback(
-    (date: number) => {
+    (date: string) => {
       return letterList.includes(String(date));
     },
     [letterList]
   );
 
-  const isToday = useCallback((date: number) => {
+  const isToday = useCallback((date: string) => {
     const today = format(new Date(), 'yyyy-MM-dd');
 
-    return today === String(date) ? 'bg-orange-400' : 'bg-gray-2';
+    const localDate = format(new Date(date), 'yyyy-MM-dd');
+
+    return today === localDate ? 'bg-orange-400' : 'bg-gray-2';
   }, []);
 
   return (
@@ -158,7 +151,7 @@ export default function WeekCalendar({
           </ul>
           <ul className="mt-1.5 flex justify-around">
             {weekCalendar &&
-              weekCalendar.map((day: number) => (
+              weekCalendar.map((day: string) => (
                 <li
                   key={`letterBox-calendar-${day}`}
                   className="flex flex-col items-center justify-center"
@@ -175,7 +168,7 @@ export default function WeekCalendar({
                   <p
                     className={`${isActiveDate(day) ? 'bg-orange-400 text-white' : 'text-gray-5'} flex w-[30px] items-center justify-center rounded-[10px] text-xs`}
                   >
-                    {format(day, 'dd')}
+                    {format(new Date(day), 'dd')}
                   </p>
                 </li>
               ))}

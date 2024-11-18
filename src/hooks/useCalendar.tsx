@@ -115,15 +115,6 @@ const useCalendar = (monthCurrentDate?: Date) => {
     return acc;
   }, []);
 
-  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const date = new Date();
-  const userTime = formatInTimeZone(date, userTimeZone, 'yyyy-MM-dd HH:mm');
-  const korTime = formatInTimeZone(date, 'Asia/Seoul', 'yyyy-MM-dd HH:mm');
-  console.log(
-    '저번 달, 다음 달 겹친 날을 7개씩 이중 배열로 가공',
-    weekCalendarList
-  );
-
   return {
     currentDate,
     setCurrentDate,
