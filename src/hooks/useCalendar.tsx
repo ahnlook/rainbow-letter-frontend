@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { format, subDays, getDaysInMonth } from 'date-fns';
-import { formatInTimeZone } from 'date-fns-tz';
-import { toZonedTime } from 'date-fns-tz';
 
 const CALENDER_LENGTH = 35;
 const WEEK_CALENDAR_LENGTH = 42;
@@ -24,37 +22,45 @@ const useCalendar = (monthCurrentDate?: Date) => {
   const nextDaysCount = // 다음 달 1일이 무슨 요일인지
     (WEEK_CALENDAR_LENGTH - totalMonthDays - prevDaysCount) % DAY_OF_WEEK;
 
-  // 이번 달 첫번째 주의 저번 달 날짜들
+  const normalizeDate = (date: Date): Date => {
+    const normalized = new Date(date);
+    normalized.setHours(12, 0, 0, 0);
+    return normalized;
+  };
+
+  // 이전 달 날짜들 계산
   const prevDayListForWeeks = Array.from({ length: prevDaysCount }).map(
-    (_, i) =>
-      format(
+    (_, i) => {
+      const date = normalizeDate(
         new Date(
           currentDate.getFullYear(),
           currentDate.getMonth() - 1,
           prevMonthLastDay - prevDaysCount + i + 1
-        ),
-        'yyyy-MM-dd'
-      )
+        )
+      );
+      return format(date, 'yyyy-MM-dd');
+    }
   );
 
-  // 이번 달 날짜들
+  // 현재 달 날짜들 계산
   const currentDayListForWeeks = Array.from({ length: totalMonthDays }).map(
-    (_, i) =>
-      format(
-        new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1),
-        'yyyy-MM-dd'
-      )
+    (_, i) => {
+      const date = normalizeDate(
+        new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1)
+      );
+      return format(date, 'yyyy-MM-dd');
+    }
   );
 
-  // 이번 달 마지막 주의 다음 달의 날짜들
+  // 다음 달 날짜들 계산
   const nextDayListForWeeks = Array.from({ length: nextDaysCount }).map(
-    (_, i) =>
-      format(
-        new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i + 1),
-        'yyyy-MM-dd'
-      )
+    (_, i) => {
+      const date = normalizeDate(
+        new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, i + 1)
+      );
+      return format(date, 'yyyy-MM-dd');
+    }
   );
-
   // 이번 달의 저번 달 날짜들부터 이번 달의 다음 달 날짜들
   const currentCalendarListForWeeks = [
     ...prevDayListForWeeks,
@@ -84,13 +90,13 @@ const useCalendar = (monthCurrentDate?: Date) => {
     ),
   }).map(() => DEFAULT_TRASH_VALUE);
 
-  // 이번 달 날짜들
-  const currentDayList = Array.from({ length: totalMonthDays }).map((_, i) =>
-    format(
-      new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1),
-      'yyyy-MM-dd'
-    )
-  );
+  // 현재 달 날짜들 (monthCalendarList용)
+  const currentDayList = Array.from({ length: totalMonthDays }).map((_, i) => {
+    const date = normalizeDate(
+      new Date(currentDate.getFullYear(), currentDate.getMonth(), i + 1)
+    );
+    return format(date, 'yyyy-MM-dd');
+  });
 
   // 이번 달 마지막 주의 다음 달의 날짜들(0)
   const nextDayList = Array.from({
@@ -117,7 +123,14 @@ const useCalendar = (monthCurrentDate?: Date) => {
 
   return {
     currentDate,
-    setCurrentDate,
+    setCurrentDate: (date: Date | ((prev: Date) => Date)) => {
+      // setCurrentDate 호출 시에도 날짜 정규화 적용
+      if (date instanceof Date) {
+        setCurrentDate(normalizeDate(date));
+      } else {
+        setCurrentDate((prev) => normalizeDate(date(prev)));
+      }
+    },
     weekCalendarList,
     monthCalendarList,
   };
