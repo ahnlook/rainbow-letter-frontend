@@ -62,6 +62,10 @@ export default function WeekCalendar({
       weeks.includes(format(currentDate, 'yyyy-MM-dd'))
     );
 
+    // const updateWeekCalendar = weekCalendarList[findIndex].map((date: string) =>
+    //   format(new Date(date), 'dd')
+    // );
+
     setWeekCalendar(weekCalendarList[findIndex]);
   }, [currentDate]);
 
@@ -151,27 +155,30 @@ export default function WeekCalendar({
           </ul>
           <ul className="mt-1.5 flex justify-around">
             {weekCalendar &&
-              weekCalendar.map((day: string) => (
-                <li
-                  key={`letterBox-calendar-${day}`}
-                  className="flex flex-col items-center justify-center"
-                >
-                  <button
-                    type="button"
-                    onClick={() => onClickDateButton(day)}
-                    className={`${isExistWrittenLetter(day) ? 'bg-orange-50' : isToday(day)} mb-1.5 h-[3.125rem] w-11 rounded-lg`}
+              weekCalendar.map((day: string) => {
+                const date = new Date(day);
+                return (
+                  <li
+                    key={`letterBox-calendar-${day}`}
+                    className="flex flex-col items-center justify-center"
                   >
-                    {isExistWrittenLetter(day) && (
-                      <img src={Stamp} alt="썸네일" className="mx-auto" />
-                    )}
-                  </button>
-                  <p
-                    className={`${isActiveDate(day) ? 'bg-orange-400 text-white' : 'text-gray-5'} flex w-[30px] items-center justify-center rounded-[10px] text-xs`}
-                  >
-                    {format(new Date(day), 'dd')}
-                  </p>
-                </li>
-              ))}
+                    <button
+                      type="button"
+                      onClick={() => onClickDateButton(day)}
+                      className={`${isExistWrittenLetter(day) ? 'bg-orange-50' : isToday(day)} mb-1.5 h-[3.125rem] w-11 rounded-lg`}
+                    >
+                      {isExistWrittenLetter(day) && (
+                        <img src={Stamp} alt="썸네일" className="mx-auto" />
+                      )}
+                    </button>
+                    <p
+                      className={`${isActiveDate(day) ? 'bg-orange-400 text-white' : 'text-gray-5'} flex w-[30px] items-center justify-center rounded-[10px] text-xs`}
+                    >
+                      {format(date, 'dd')}
+                    </p>
+                  </li>
+                );
+              })}
           </ul>
         </article>
       </section>
