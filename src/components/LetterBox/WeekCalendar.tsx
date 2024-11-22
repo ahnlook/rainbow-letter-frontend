@@ -62,10 +62,6 @@ export default function WeekCalendar({
       weeks.includes(format(currentDate, 'yyyy-MM-dd'))
     );
 
-    // const updateWeekCalendar = weekCalendarList[findIndex].map((date: string) =>
-    //   format(new Date(date), 'dd')
-    // );
-
     setWeekCalendar(weekCalendarList[findIndex]);
   }, [currentDate]);
 
@@ -116,7 +112,11 @@ export default function WeekCalendar({
     return today === localDate ? 'bg-orange-400' : 'bg-gray-2';
   }, []);
 
-  console.log(weekCalendar);
+  const toUTCDate = (day: string): Date => {
+    const [year, month, date] = day.split('-').map(Number);
+    return new Date(Date.UTC(year, month - 1, date)); // UTC 기준 Date 생성
+  };
+
   return (
     <>
       <section className="px-[1.125rem] py-[30px]">
@@ -157,9 +157,8 @@ export default function WeekCalendar({
           <ul className="mt-1.5 flex justify-around">
             {weekCalendar &&
               weekCalendar.map((day: string) => {
-                const localDate = new Date(day);
-                const date = localDate.getDate();
-
+                const utcDate = toUTCDate(day);
+                const date = utcDate.getUTCDate();
                 return (
                   <li
                     key={`letterBox-calendar-${day}`}
