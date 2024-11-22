@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { format, addDays, subDays } from 'date-fns';
+import { format, addDays, subDays, parseISO } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from 'store';
@@ -116,6 +116,7 @@ export default function WeekCalendar({
     return today === localDate ? 'bg-orange-400' : 'bg-gray-2';
   }, []);
 
+  console.log(weekCalendar);
   return (
     <>
       <section className="px-[1.125rem] py-[30px]">
@@ -156,6 +157,8 @@ export default function WeekCalendar({
           <ul className="mt-1.5 flex justify-around">
             {weekCalendar &&
               weekCalendar.map((day: string) => {
+                const dateInKST = parseISO(day);
+                console.log(dateInKST);
                 return (
                   <li
                     key={`letterBox-calendar-${day}`}
@@ -173,7 +176,7 @@ export default function WeekCalendar({
                     <p
                       className={`${isActiveDate(day) ? 'bg-orange-400 text-white' : 'text-gray-5'} flex w-[30px] items-center justify-center rounded-[10px] text-xs`}
                     >
-                      {format(new Date(day), 'yyyy-MM-dd')}
+                      {format(dateInKST, 'dd')}
                     </p>
                   </li>
                 );
