@@ -157,8 +157,9 @@ export default function WeekCalendar({
           <ul className="mt-1.5 flex justify-around">
             {weekCalendar &&
               weekCalendar.map((day: string) => {
-                const dateInKST = parseISO(day);
-                console.log(dateInKST);
+                const localDate = new Date(day);
+                const date = localDate.getDate();
+
                 return (
                   <li
                     key={`letterBox-calendar-${day}`}
@@ -176,7 +177,7 @@ export default function WeekCalendar({
                     <p
                       className={`${isActiveDate(day) ? 'bg-orange-400 text-white' : 'text-gray-5'} flex w-[30px] items-center justify-center rounded-[10px] text-xs`}
                     >
-                      {format(dateInKST, 'dd')}
+                      {date}
                     </p>
                   </li>
                 );
