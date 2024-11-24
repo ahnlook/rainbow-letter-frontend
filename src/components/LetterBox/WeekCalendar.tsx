@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { format, addDays, subDays, parseISO } from 'date-fns';
+import { format, addDays, subDays } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { RootState } from 'store';
@@ -89,14 +89,6 @@ export default function WeekCalendar({
     setIsEditing(false);
   }, [dispatch]);
 
-  const isActiveDate = useCallback(
-    (date: string) => {
-      const localDate = format(new Date(date), 'yyyy-MM-dd');
-      return format(currentDate, 'yyyy-MM-dd') === localDate;
-    },
-    [currentDate]
-  );
-
   const isExistWrittenLetter = useCallback(
     (date: string) => {
       return letterList.includes(String(date));
@@ -106,15 +98,20 @@ export default function WeekCalendar({
 
   const isToday = useCallback((date: string) => {
     const today = format(new Date(), 'yyyy-MM-dd');
-
-    const localDate = format(new Date(date), 'yyyy-MM-dd');
-
-    return today === localDate ? 'bg-orange-400' : 'bg-gray-2';
+    return today === date ? 'bg-orange-400' : 'bg-gray-2';
   }, []);
+
+  const isActiveDate = useCallback(
+    (date: string) => {
+      const localDate = format(new Date(date), 'yyyy-MM-dd');
+      return format(currentDate, 'yyyy-MM-dd') === localDate;
+    },
+    [currentDate]
+  );
 
   const toUTCDate = (day: string): Date => {
     const [year, month, date] = day.split('-').map(Number);
-    return new Date(Date.UTC(year, month - 1, date)); // UTC 기준 Date 생성
+    return new Date(Date.UTC(year, month - 1, date));
   };
 
   return (

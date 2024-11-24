@@ -111,13 +111,6 @@ export default function MonthCalendar({
     setCurrentWeekDate(SAVE_DATE);
   }, [dispatch]);
 
-  const isActiveDate = useCallback(
-    (date: string) => {
-      return format(currentDate, 'yyyy-MM-dd') === date;
-    },
-    [currentDate]
-  );
-
   const isExistWrittenLetter = useCallback(
     (date: string) => {
       return mappedLetterListByDate.includes(date);
@@ -127,9 +120,21 @@ export default function MonthCalendar({
 
   const isToday = useCallback((date: string) => {
     const today = format(new Date(), 'yyyy-MM-dd');
-
     return today === date ? 'bg-orange-400' : 'bg-gray-2';
   }, []);
+
+  const isActiveDate = useCallback(
+    (date: string) => {
+      const localDate = format(new Date(date), 'yyyy-MM-dd');
+      return format(currentDate, 'yyyy-MM-dd') === localDate;
+    },
+    [currentDate]
+  );
+
+  const toUTCDate = (day: string): Date => {
+    const [year, month, date] = day.split('-').map(Number);
+    return new Date(Date.UTC(year, month - 1, date));
+  };
 
   return (
     <>
@@ -171,8 +176,11 @@ export default function MonthCalendar({
           {monthCalendarList &&
             monthCalendarList.map((dayArr: string[]) => (
               <li className="flex flex-row justify-start gap-2.5">
-                {dayArr.map((day) =>
-                  day === '0' ? (
+                {dayArr.map((day) => {
+                  const utcDate = toUTCDate(day);
+                  const date = utcDate.getUTCDate();
+
+                  return day === '0' ? (
                     <div className="mb-3">
                       <button type="button" className="mb-1 size-[42px]">
                         {day === '0'}
@@ -192,11 +200,11 @@ export default function MonthCalendar({
                       <p
                         className={`${isActiveDate(day) ? 'bg-orange-400 text-white' : 'text-gray-5'} mx-auto w-[30px] rounded-[10px] text-center text-xs`}
                       >
-                        {day !== '0' && format(day, 'dd')}
+                        {day !== '0' && date}
                       </p>
                     </div>
-                  )
-                )}
+                  );
+                })}
               </li>
             ))}
         </ul>
