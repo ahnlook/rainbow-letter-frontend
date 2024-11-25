@@ -125,8 +125,20 @@ export default function MonthCalendar({
 
   const isActiveDate = useCallback(
     (date: string) => {
-      const localDate = format(new Date(date), 'yyyy-MM-dd');
-      return format(currentDate, 'yyyy-MM-dd') === localDate;
+      const utcDate = new Date(date);
+      const localDate = new Date(
+        utcDate.getUTCFullYear(),
+        utcDate.getUTCMonth(),
+        utcDate.getUTCDate()
+      );
+
+      const currentLocalDate = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate()
+      );
+
+      return localDate.getTime() === currentLocalDate.getTime();
     },
     [currentDate]
   );

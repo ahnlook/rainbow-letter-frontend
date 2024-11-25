@@ -78,8 +78,9 @@ export default function WeekCalendar({
   }, [currentDate]);
 
   const onClickDateButton = useCallback((date: string) => {
-    setCurrentDate(new Date(date));
-    setDate(new Date(date));
+    const utcDate = toUTCDate(date);
+    setCurrentDate(utcDate);
+    setDate(utcDate);
     setIsEditing(false);
   }, []);
 
@@ -103,8 +104,20 @@ export default function WeekCalendar({
 
   const isActiveDate = useCallback(
     (date: string) => {
-      const localDate = format(new Date(date), 'yyyy-MM-dd');
-      return format(currentDate, 'yyyy-MM-dd') === localDate;
+      const utcDate = new Date(date);
+      const localDate = new Date(
+        utcDate.getUTCFullYear(),
+        utcDate.getUTCMonth(),
+        utcDate.getUTCDate()
+      );
+
+      const currentLocalDate = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate()
+      );
+
+      return localDate.getTime() === currentLocalDate.getTime();
     },
     [currentDate]
   );

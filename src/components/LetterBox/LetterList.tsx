@@ -65,8 +65,15 @@ export default function LetterList({
       format(letter.createdAt, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
   );
 
-  const formattedDay = formatDay(getDay(date));
-  const dateAndDay = `${format(date, 'M월 dd일')} ${formattedDay}요일`;
+  const localDate = useMemo(() => {
+    const utcDate = new Date(
+      date.getTime() + date.getTimezoneOffset() * 60 * 1000
+    );
+    return utcDate;
+  }, [date]);
+
+  const formattedDay = formatDay(getDay(localDate));
+  const dateAndDay = `${format(localDate, 'M월 dd일')} ${formattedDay}요일`;
 
   const isToday = useMemo(() => {
     const today = format(new Date(), 'yyyy-MM-dd');
