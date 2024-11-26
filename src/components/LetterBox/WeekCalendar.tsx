@@ -104,20 +104,20 @@ export default function WeekCalendar({
 
   const isActiveDate = useCallback(
     (date: string) => {
-      const utcDate = new Date(date);
-      const localDate = new Date(
-        utcDate.getUTCFullYear(),
-        utcDate.getUTCMonth(),
-        utcDate.getUTCDate()
+      const selectedDate = new Date(date);
+      const localSelectedDate = new Date(
+        selectedDate.getFullYear(),
+        selectedDate.getMonth(),
+        selectedDate.getDate()
       );
 
-      const currentLocalDate = new Date(
+      const localCurrentDate = new Date(
         currentDate.getFullYear(),
         currentDate.getMonth(),
         currentDate.getDate()
       );
 
-      return localDate.getTime() === currentLocalDate.getTime();
+      return localSelectedDate.getTime() === localCurrentDate.getTime();
     },
     [currentDate]
   );
