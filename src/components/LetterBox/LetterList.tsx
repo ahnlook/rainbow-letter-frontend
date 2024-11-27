@@ -64,12 +64,8 @@ export default function LetterList({
     (letter) =>
       format(letter.createdAt, 'yyyy-MM-dd') === format(date, 'yyyy-MM-dd')
   );
-
   const localDate = useMemo(() => {
-    const utcDate = new Date(
-      date.getTime() + date.getTimezoneOffset() * 60 * 1000
-    );
-    return utcDate;
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }, [date]);
 
   const formattedDay = formatDay(getDay(localDate));

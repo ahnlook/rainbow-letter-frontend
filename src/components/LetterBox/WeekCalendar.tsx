@@ -104,12 +104,8 @@ export default function WeekCalendar({
 
   const isActiveDate = useCallback(
     (date: string) => {
-      const selectedDate = new Date(date);
-      const localSelectedDate = new Date(
-        selectedDate.getFullYear(),
-        selectedDate.getMonth(),
-        selectedDate.getDate()
-      );
+      const [year, month, day] = date.split('-').map(Number);
+      const localSelectedDate = new Date(year, month - 1, day);
 
       const localCurrentDate = new Date(
         currentDate.getFullYear(),
