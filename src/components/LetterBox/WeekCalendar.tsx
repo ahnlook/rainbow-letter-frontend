@@ -78,9 +78,11 @@ export default function WeekCalendar({
   }, [currentDate]);
 
   const onClickDateButton = useCallback((date: string) => {
-    const utcDate = toUTCDate(date);
-    setCurrentDate(utcDate);
-    setDate(utcDate);
+    const [year, month, day] = date.split('-').map(Number);
+    const selectedDate = new Date(year, month - 1, day);
+
+    setCurrentDate(selectedDate);
+    setDate(selectedDate);
     setIsEditing(false);
   }, []);
 
