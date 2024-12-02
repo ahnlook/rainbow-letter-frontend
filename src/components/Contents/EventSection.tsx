@@ -10,7 +10,7 @@ export default function EventSection() {
       <p className="mt-3 text-[14px] font-[400] leading-[21px] text-gray-1">
         이벤트에 참여하면 무지개편지가 선물을 드려요!
       </p>
-      <Link to="http://pf.kakao.com/_MNevG/106999676" target="_blank">
+      <Link to="http://pf.kakao.com/_MNevG/107641271" target="_blank">
         <img
           src={Event}
           alt="아이 소개 이미지"
