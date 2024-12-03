@@ -8,7 +8,7 @@ export default function EventSection() {
         무지개가족 이벤트
       </h2>
       <p className="mt-3 text-[14px] font-[400] leading-[21px] text-gray-1">
-        이벤트에 참여하면 무지개편지가 선물을 드려요!
+        무지개편지가 준비한 이벤트에 참여해보세요!
       </p>
       <Link to="http://pf.kakao.com/_MNevG/107641271" target="_blank">
         <img
