@@ -165,15 +165,15 @@ const PromptForm = ({ prompt }: PromptFormProps) => {
       <h2 className="text-heading-3">프롬프트 {prompt?.type}</h2>
       <div className="flex flex-col gap-y-2">
         <h3 className="text-solo-label-pc">Header (required)</h3>
-        <TextArea rows={2} placeholder="maxLength is 6" maxLength={6} />
+        <TextArea rows={2} placeholder="" />
       </div>
       <div className="flex flex-col gap-y-2">
         <h3 className="text-solo-label-pc">Content (required)</h3>
-        <TextArea rows={6} placeholder="maxLength is 6" maxLength={6} />
+        <TextArea rows={6} placeholder="" />
       </div>
       <div className="flex flex-col gap-y-2">
         <h3 className="text-solo-label-pc">Additional (required)</h3>
-        <TextArea rows={2} placeholder="maxLength is 6" maxLength={6} />
+        <TextArea rows={2} placeholder="" />
       </div>
       <div className="flex flex-col gap-y-2">
         <h3 className="text-solo-label-pc">Settings (optional)</h3>
