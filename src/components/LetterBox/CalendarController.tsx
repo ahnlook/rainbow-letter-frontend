@@ -1,7 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Up from '../../assets/ic_calendar_up.svg';
 import Down from '../../assets/ic_calendar_down.svg';
+import { T } from 'types/translate';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
+import { formatMonthName } from 'utils/date';
 
 type Props = {
   currentDate: Date;
@@ -14,6 +19,8 @@ export default function CalendarController({
   setCurrentDate,
   handlePetsListShow,
 }: Props) {
+  const { t }: T = useTranslation();
+  const { lng } = useSelector((state: RootState) => state.common);
   const [year, setYear] = useState(currentDate.getFullYear());
   const [month, setMonth] = useState(currentDate.getMonth());
 
@@ -52,9 +59,19 @@ export default function CalendarController({
     handlePetsListShow(false);
   }, [year, month]);
 
+  const monthValue = useMemo(() => {
+    if (lng === 'ko') {
+      return month + 1;
+    }
+
+    return formatMonthName(month + 1);
+  }, [lng, month]);
+
   return (
     <article className="flex flex-col justify-center pt-[50px]">
-      <div className="flex flex-row items-center justify-center">
+      <div
+        className={`${lng === 'ko' ? 'flex-row' : 'flex-row-reverse'} flex items-center justify-center`}
+      >
         <div className="flex flex-col items-center gap-1">
           <button type="button" onClick={handleUpYear} className="p-2">
             <img src={Up} alt="위 버튼" />
@@ -64,24 +81,24 @@ export default function CalendarController({
             <img src={Down} alt="아래 버튼" />
           </button>
         </div>
-        <p className="mx-5">년</p>
+        <p className="mx-5">{t('letterBox.year')}</p>
         <div className="flex flex-col items-center gap-1">
           <button type="button" onClick={handleUpMonth} className="p-2">
             <img src={Up} alt="위 버튼" />
           </button>
-          <p className="text-[30px] font-[500]">{month + 1}</p>
+          <p className="text-[30px] font-[500]">{monthValue}</p>
           <button type="button" onClick={handleDownMonth} className="p-2">
             <img src={Down} alt="아래 버튼" />
           </button>
         </div>
-        <p className="ml-5">월</p>
+        <p className="ml-5">{t('letterBox.month')}</p>
       </div>
       <button
         type="button"
         onClick={onClickConfirmButton}
         className="mx-auto mt-[30px] rounded-[22px] bg-orange-400 px-[30px] py-2.5 text-white"
       >
-        확인
+        {t('letterBox.confirm')}
       </button>
     </article>
   );

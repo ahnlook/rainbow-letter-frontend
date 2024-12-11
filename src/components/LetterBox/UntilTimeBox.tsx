@@ -16,8 +16,8 @@ export default function UntilTimeBox() {
       <div className="flex">
         <div>
           <div className="flex gap-1">
-            <TimeNumberItem value={String(hours)[0]} />
-            <TimeNumberItem value={String(hours)[1]} />
+            <TimeNumberItem value={hours.length === 2 ? hours[0] : '0'} />
+            <TimeNumberItem value={hours.length === 2 ? hours[1] : hours[0]} />
           </div>
           <p className="mt-1 text-center text-[10px] leading-[10px] text-white">
             Hours
@@ -26,8 +26,10 @@ export default function UntilTimeBox() {
         <img src={Divide} alt="시간" className="mx-1 mb-3" />
         <div>
           <div className="flex gap-1">
-            <TimeNumberItem value={String(minutes)[0]} />
-            <TimeNumberItem value={String(minutes)[1]} />
+            <TimeNumberItem value={minutes.length === 2 ? minutes[0] : '0'} />
+            <TimeNumberItem
+              value={minutes.length === 2 ? minutes[1] : minutes[0]}
+            />
           </div>
           <p className="mt-1 text-center text-[10px] leading-[10px] text-white">
             Minutes

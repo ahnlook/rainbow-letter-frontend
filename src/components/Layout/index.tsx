@@ -26,7 +26,7 @@ function Layout() {
   }, [pathname]);
 
   useEffect(() => {
-    const detectedLanguage = i18n.language;
+    const detectedLanguage = i18n.language.split('-')[0];
     i18n.changeLanguage(detectedLanguage);
     dispatch(commonSlice.actions.setLng(detectedLanguage));
   }, []);

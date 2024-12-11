@@ -25,31 +25,31 @@ interface ErrorMessage {
 const LOGIN_MESSAGE: Message[] = [
   {
     pathname: '/login',
-    title: '다시 와주셨네요!',
-    sns: 'SNS로 간편 로그인하기',
-    describe: '또는 이메일로 로그인하기',
-    findPassword: '비밀번호 찾기',
+    title: 'login.welcome',
+    sns: 'login.snsLogin',
+    describe: 'login.emailLogin',
+    findPassword: 'login.forgot',
     button: {
       google: '구글로 간편 로그인하기',
-      default: '로그인하기',
+      default: 'login.login',
     },
     link: {
       address: '/sign-up',
-      value: '회원가입',
+      value: 'login.signUp',
     },
   },
   {
     pathname: '/sign-up',
-    title: '무료로 편지를 써보세요!',
-    sns: 'SNS로 간편 가입하기',
-    describe: '또는 이메일로 가입하기',
+    title: 'signUp.welcome',
+    sns: 'signUp.snsLogin',
+    describe: 'signUp.emailLogin',
     button: {
       google: '구글로 간편 가입하기',
-      default: '가입하기',
+      default: 'signUp.signUp',
     },
     link: {
       address: '/login',
-      value: '로그인하기',
+      value: 'signUp.login',
     },
   },
 ];

@@ -16,13 +16,13 @@ import useCalendar from 'hooks/useCalendar';
 import { useTranslation } from 'react-i18next';
 import { T } from 'types/translate';
 import { RootState } from 'store';
+import { formatMonthName } from 'utils/date';
 
 type Props = {
   setDate: (date: Date) => void;
   currentWeekDate: Date;
   setCurrentWeekDate: (date: Date) => void;
   selectedPet: null | PetResponse;
-  yearAndMonth: string;
 };
 
 export default function MonthCalendar({
@@ -30,7 +30,6 @@ export default function MonthCalendar({
   setCurrentWeekDate,
   currentWeekDate,
   selectedPet,
-  yearAndMonth,
 }: Props) {
   // redux
   const dispatch = useDispatch();
@@ -40,10 +39,22 @@ export default function MonthCalendar({
   const { currentDate, setCurrentDate, monthCalendarList } = useCalendar();
   const { t }: T = useTranslation();
 
+  useEffect(() => {
+    setCurrentDate(currentWeekDate);
+  }, []);
+
   // state
   const [isShow, setIsShow] = useState(false);
   const [monthLetterList, setMonthLetterList] = useState<any>([]);
   const SAVE_DATE = currentWeekDate;
+
+  // etc.
+  const yearAndMonth = useMemo(() => {
+    if (lng === 'ko') {
+      return `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
+    }
+    return `${formatMonthName(currentDate.getMonth() + 1)} ${currentDate.getFullYear()}`;
+  }, [lng, currentDate]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -168,7 +179,7 @@ export default function MonthCalendar({
           <button
             type="button"
             onClick={onClickPrevMonth}
-            className="flex items-center gap-1.5"
+            className="flex items-center gap-1.5 p-2"
           >
             <img src={Left} alt="왼쪽 화살표 아이콘" />
             <span className="mt-px text-[12px]">
@@ -186,7 +197,7 @@ export default function MonthCalendar({
           <button
             type="button"
             onClick={onClickNextMonth}
-            className="flex items-center gap-1.5"
+            className="flex items-center gap-1.5 p-2"
           >
             <span className="mt-px text-[12px]">
               {t('letterBox.nextMonth')}

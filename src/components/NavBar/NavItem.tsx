@@ -6,6 +6,7 @@ type NavItemProps = {
   label: string;
   Icon: ElementType;
   useStroke?: boolean;
+  className?: string;
 };
 
 type IconWrapperProps = {
@@ -21,7 +22,14 @@ function IconWrapper({ Icon, isActive, useStroke = true }: IconWrapperProps) {
   return <Icon {...iconProps} />;
 }
 
-function NavItem({ to, label, Icon, useStroke = true }: NavItemProps) {
+function NavItem({
+  to,
+  label,
+  Icon,
+  useStroke = true,
+  className,
+}: NavItemProps) {
+  const style = className || '';
   return (
     <NavLink
       to={to}
@@ -29,7 +37,7 @@ function NavItem({ to, label, Icon, useStroke = true }: NavItemProps) {
     >
       {({ isActive }) => (
         <>
-          <div className="size-[26px]">
+          <div className={`${style} size-[26px]`}>
             <IconWrapper
               Icon={Icon}
               isActive={isActive}

@@ -6,6 +6,7 @@ import {
   ChangeEvent,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
 import UserInput from 'components/Login/UserInput';
@@ -17,6 +18,7 @@ import { passwordError, emailError, emailErrorMessage } from 'utils/errorData';
 import { saveToken } from 'utils/localStorage';
 import { validateEmail, validatePassword } from 'utils/validators';
 import { LoginRequest, ErrorData } from 'types/user';
+import { T } from 'types/translate';
 
 type Props = {
   message: Message;
@@ -24,6 +26,7 @@ type Props = {
 
 export default function SignUpForm({ message: { describe, button } }: Props) {
   const navigate = useNavigate();
+  const { t }: T = useTranslation();
   const [profile, setProfile] = useState<LoginRequest>({
     email: '',
     password: '',
@@ -84,7 +87,7 @@ export default function SignUpForm({ message: { describe, button } }: Props) {
     <section className="mt-9">
       <header className="flex items-center justify-between">
         <div className="w-[5.25rem] border-t" />
-        <h3 className="text-solo-small">{describe}</h3>
+        <h3 className="text-solo-small">{t(describe)}</h3>
         <div className="w-[5.25rem] border-t" />
       </header>
       <form className="mt-6">
@@ -94,7 +97,7 @@ export default function SignUpForm({ message: { describe, button } }: Props) {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setProfile({ ...profile, email: e.target.value })
           }
-          placeholder="이메일을 입력해주세요"
+          placeholder={t('signUp.emailPlaceholder')}
           isNotValid={errorData && emailError(errorData)}
           errorMessage={errorData && emailErrorMessage(errorData)}
         />
@@ -104,7 +107,7 @@ export default function SignUpForm({ message: { describe, button } }: Props) {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setProfile({ ...profile, password: e.target.value })
           }
-          placeholder="비밀번호를 입력해주세요"
+          placeholder={t('signUp.passwordPlaceholder')}
           isNotValid={errorData && passwordError(errorData)}
           errorMessage={errorData && errorData?.message}
         />
@@ -115,7 +118,7 @@ export default function SignUpForm({ message: { describe, button } }: Props) {
           className={`${
             errorData ? 'bg-gray-1 text-gray-1' : 'bg-orange-400 text-white'
           } mt-6 flex w-full items-center justify-center rounded-2xl py-[1.375rem] text-heading-3`}
-          value={button.default}
+          value={t(button.default)}
         />
       </form>
     </section>

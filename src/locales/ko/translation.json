@@ -2,6 +2,28 @@
   "appBar": {
     "letterBox": "편지함"
   },
+  "login": {
+    "welcome": "다시 와주셨네요!",
+    "snsLogin": "SNS로 간편 로그인하기",
+    "emailLogin": "또는 이메일로 로그인하기",
+    "forgot": "비밀번호 찾기",
+    "login": "로그인하기",
+    "signUp": "회원가입",
+    "emailPlaceholder": "이메일을 입력해주세요",
+    "passwordPlaceholder": "비밀번호를 입력해주세요"
+  },
+  "signUp": {
+    "welcome": "무료로 편지를 써보세요!",
+    "snsLogin": "SNS로 간편 가입하기",
+    "emailLogin": "또는 이메일로 가입하기",
+    "login": "로그인하기",
+    "signUp": "가입하기",
+    "emailPlaceholder": "이메일을 입력해주세요",
+    "passwordPlaceholder": "비밀번호를 입력해주세요",
+    "agree": "전체 동의",
+    "terms": "서비스 이용약관 동의",
+    "policy": "개인정보 처리방침 동의"
+  },
   "letterBox": {
     "updateProfile": "프로필 수정",
     "description": "아이에게 나는 사랑하는 ",
@@ -23,6 +45,18 @@
     "tooltipUpLine": "아래 편지를 눌러",
     "tooltipDownLine": "삭제할 편지를 선택할 수 있어요!",
     "replying": "답장중",
-    "received": "답장 완료"
+    "received": "답장 완료",
+    "year": "년",
+    "month": "월",
+    "confirm": "확인"
+  },
+  "modal": {
+    "delete": {
+      "titleUpLine": "선택한 편지를 삭제할까요?",
+      "titleDownLine": "",
+      "alert": "삭제한 편지는 되돌릴 수 없어요.",
+      "cancel": "돌아가기",
+      "delete": "편지 삭제하기"
+    }
   }
 }

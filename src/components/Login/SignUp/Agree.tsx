@@ -1,7 +1,9 @@
 import { useState, useEffect, ChangeEvent } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import CheckBox from 'components/Login/SignUp/CheckBox';
 import ArrowLink from 'components/Login/SignUp/ArrowLink';
+import { T } from 'types/translate';
 
 const CHECK_LIST = [
   { id: 0, name: '서비스 이용약관 동의' },
@@ -13,6 +15,7 @@ type Props = {
 };
 
 export default function Agree({ setIsChecked }: Props) {
+  const { t }: T = useTranslation();
   const [checkItems, setCheckItems] = useState<string[]>([]);
 
   useEffect(() => {
@@ -47,7 +50,7 @@ export default function Agree({ setIsChecked }: Props) {
       <article className="mb-3 flex items-center gap-3 rounded-2xl bg-gray-2 py-[0.813rem] pl-[1.375rem]">
         <CheckBox
           id="all-checkBox"
-          label="전체 동의"
+          label={t('signUp.agree')}
           onChange={handleAllCheck}
           checked={CHECK_LIST.length === checkItems.length}
         />
@@ -55,7 +58,7 @@ export default function Agree({ setIsChecked }: Props) {
       <article className="relative mb-[0.813rem] flex gap-3 pl-[1.375rem] pr-6">
         <CheckBox
           id="service-checkbox"
-          label="서비스 이용약관 동의"
+          label={t('signUp.terms')}
           onChange={handleSingleCheck}
           checked={checkItems.includes('서비스 이용약관 동의')}
         />
@@ -64,7 +67,7 @@ export default function Agree({ setIsChecked }: Props) {
       <article className="relative flex gap-3 pl-[1.375rem] pr-6">
         <CheckBox
           id="infomation-checkbox"
-          label="개인정보 처리방침 동의"
+          label={t('signUp.policy')}
           onChange={handleSingleCheck}
           checked={checkItems.includes('개인정보 처리방침 동의')}
         />

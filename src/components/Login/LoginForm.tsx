@@ -6,6 +6,7 @@ import {
   ChangeEvent,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
 import UserInput from 'components/Login/UserInput';
@@ -15,6 +16,7 @@ import { tryLogin } from 'api/user';
 import { passwordError, emailError, emailErrorMessage } from 'utils/errorData';
 import { saveToken } from 'utils/localStorage';
 import { ErrorData } from 'types/user';
+import { T } from 'types/translate';
 
 type Props = {
   message: Message;
@@ -22,6 +24,7 @@ type Props = {
 
 export default function LoginForm({ message: { describe, button } }: Props) {
   const navigate = useNavigate();
+  const { t }: T = useTranslation();
   const [profile, setProfile] = useState({
     email: '',
     password: '',
@@ -55,7 +58,7 @@ export default function LoginForm({ message: { describe, button } }: Props) {
     <section className="mt-10">
       <header className="flex items-center justify-between">
         <div className="w-[5.25rem] border-t" />
-        <h3 className="text-solo-small">{describe}</h3>
+        <h3 className="text-solo-small">{t(describe)}</h3>
         <div className="w-[5.25rem] border-t" />
       </header>
       <form className="mt-6">
@@ -65,7 +68,7 @@ export default function LoginForm({ message: { describe, button } }: Props) {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setProfile({ ...profile, email: e.target.value })
           }
-          placeholder="이메일을 입력해주세요"
+          placeholder={t('login.emailPlaceholder')}
           isNotValid={errorData && emailError(errorData)}
           errorMessage={errorData && emailErrorMessage(errorData)}
           className="mb-3.5"
@@ -76,13 +79,13 @@ export default function LoginForm({ message: { describe, button } }: Props) {
           onChange={(e: ChangeEvent<HTMLInputElement>) =>
             setProfile({ ...profile, password: e.target.value })
           }
-          placeholder="비밀번호를 입력해주세요"
+          placeholder={t('login.passwordPlaceholder')}
           isNotValid={errorData && passwordError(errorData)}
           errorMessage={errorData && errorData.message}
         />
         <SubmitButton
           onclick={(e: MouseEvent<HTMLButtonElement>) => onClickLoginButton(e)}
-          value={button.default}
+          value={t(button.default)}
           disabled={errorData !== null}
           className={`${
             errorData ? 'bg-gray-1 text-gray-1' : 'bg-orange-400 text-white'

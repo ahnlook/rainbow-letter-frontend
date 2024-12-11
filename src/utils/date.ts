@@ -209,9 +209,11 @@ export const getTimeUntilKST10AM = () => {
   }
 
   const timeDifferenceMs = KSTTarget.getTime() - nowUTC.getTime();
-  const hours = Math.floor(timeDifferenceMs / (1000 * 60 * 60));
-  const minutes =
+  const calHours = Math.floor(timeDifferenceMs / (1000 * 60 * 60));
+  const calMinutes =
     Math.floor((timeDifferenceMs % (1000 * 60 * 60)) / (1000 * 60)) + 1;
 
+  const hours = String(calHours);
+  const minutes = String(calMinutes);
   return { hours, minutes };
 };

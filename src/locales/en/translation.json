@@ -2,13 +2,35 @@
   "appBar": {
     "letterBox": "MailBox"
   },
+  "login": {
+    "welcome": "Welcome back!",
+    "snsLogin": "Sign up with",
+    "emailLogin": "Sign up with Email",
+    "forgot": "Forgot password?",
+    "login": "Log in",
+    "signUp": "Sign up",
+    "emailPlaceholder": "Email address",
+    "passwordPlaceholder": "Password"
+  },
+  "signUp": {
+    "welcome": "Write a letter for free!",
+    "snsLogin": "Sign up with",
+    "emailLogin": "Sign up with Email",
+    "login": "Log in",
+    "signUp": "Sign up",
+    "emailPlaceholder": "Email address",
+    "passwordPlaceholder": "Password",
+    "agree": "Agree to all",
+    "terms": "Terms & conditions",
+    "policy": "Privacy policy"
+  },
   "letterBox": {
     "updateProfile": "Edit Profile",
     "description": "To my baby, I am a loving ",
     "prevWeek": "Last Week",
     "nextWeek": "Next Week",
-    "prevMonth": "Last Month",
-    "nextMonth": "Next Month",
+    "prevMonth": "",
+    "nextMonth": "",
     "weekdayAbbrSunday": "SUN",
     "weekdayAbbrMonday": "MON",
     "weekdayAbbrTuesday": "TUE",
@@ -30,6 +52,18 @@
     "tooltipUpLine": "Tap a letter below",
     "tooltipDownLine": "if you’d like to delete it.",
     "replying": "REPLYING",
-    "received": "REPLY RECEIVED"
+    "received": "REPLY RECEIVED",
+    "year": "",
+    "month": "",
+    "confirm": "Confirm"
+  },
+  "modal": {
+    "delete": {
+      "titleUpLine": "Do you want to delete the",
+      "titleDownLine": "selected letter?",
+      "alert": "Deleted letters cannot be restored.",
+      "cancel": "Cancel",
+      "delete": "Delete"
+    }
   }
 }

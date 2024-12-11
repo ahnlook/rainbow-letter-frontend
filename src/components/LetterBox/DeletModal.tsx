@@ -1,3 +1,6 @@
+import { useTranslation } from 'react-i18next';
+
+import { T } from 'types/translate';
 import ErrorIcon from '../../assets/Error_icon.svg';
 
 type Props = {
@@ -9,16 +12,17 @@ export default function DeleteModal({
   setIsModalOpen,
   onClickDeleteButton,
 }: Props) {
+  const { t }: T = useTranslation();
+
   return (
     <div className="w-full px-[1.562rem] py-10">
       <header className="flex flex-col items-center justify-center text-center">
         <img src={ErrorIcon} alt="편지지" />
         <h3 className="mt-5 whitespace-pre-wrap text-heading-3 font-bold">
-          선택한 편지를 삭제할까요?
+          {t('modal.delete.titleUpLine')}
+          {t('modal.delete.titleDownLine')}
         </h3>
-        <span className="mt-3 text-[#FF0000]">
-          삭제한 편지는 되돌릴 수 없어요.
-        </span>
+        <span className="mt-3 text-[#FF0000]">{t('modal.delete.alert')}</span>
       </header>
       <div className="mt-[30px] flex gap-3">
         <button
@@ -26,16 +30,16 @@ export default function DeleteModal({
           onClick={() => {
             setIsModalOpen(false);
           }}
-          className="rounded-[8px] border-none bg-gray-4 px-6 py-2.5 text-[16px] text-gray-5"
+          className="w-1/2 rounded-[8px] border-none bg-gray-4 py-2.5 text-[16px] text-gray-5"
         >
-          돌아가기
+          {t('modal.delete.cancel')}
         </button>
         <button
           type="button"
           onClick={onClickDeleteButton}
-          className="rounded-[8px] border-none bg-orange-400 px-6 py-2.5 text-[16px] text-white"
+          className="w-1/2 rounded-[8px] border-none bg-orange-400 py-2.5 text-[16px] text-white"
         >
-          편지 삭제하기
+          {t('modal.delete.delete')}
         </button>
       </div>
     </div>

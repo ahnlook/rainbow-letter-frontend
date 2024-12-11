@@ -1,5 +1,6 @@
+import { useSelector } from 'react-redux';
+
 import PetsSection from 'components/Home/PetsSection';
-import ContentsSection from 'components/Home/ContentsSection';
 import LetterShowcase from 'components/LetterShowcase';
 import OpenTalk from 'components/Home/OpenTalk';
 import PhoneButton from 'components/Home/PhoneButton';
@@ -12,8 +13,11 @@ import LetterPostButton from 'components/LetterPostButton';
 import HomeDivider from 'components/Home/Divider';
 import PWAGuide from 'components/PWAGuide';
 import MainBanners from 'components/MainBanner/MainBanners';
+import { RootState } from 'store';
+import NavBarForEn from 'components/NavBar/NavBarForEn';
 
 export default function LandingPage() {
+  const { lng } = useSelector((state: RootState) => state.common);
   const token = getToken();
 
   return (
@@ -29,7 +33,7 @@ export default function LandingPage() {
       <PhoneButton />
       <Divider />
       <HomeFooter />
-      <NavBar />
+      {lng === 'ko' ? <NavBar /> : <NavBarForEn />}
       <BottomSheet />
     </main>
   );

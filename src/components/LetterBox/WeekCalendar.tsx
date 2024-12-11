@@ -221,7 +221,6 @@ export default function WeekCalendar({
           currentWeekDate={currentDate}
           setCurrentWeekDate={setCurrentDate}
           selectedPet={selectedPet}
-          yearAndMonth={yearAndMonth}
         />
       )}
       <Divider />
