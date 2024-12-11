@@ -12,7 +12,6 @@ import PWALanding from 'view/home/PWALanding';
 import Home from 'view/home/Home';
 import Donate from 'view/home/Donate';
 import Auth from 'view/account/Auth';
-// import LetterBox from 'view/letter/LetterBox';
 import LetterBoxRenew from 'view/letter/LetterBoxRenew';
 import DetailLetter from 'view/letter/DetailLetter';
 import ShareLetter from 'view/letter/ShareLetter';
@@ -35,6 +34,7 @@ import Contents from 'view/contents/Contents';
 import ToolTip from 'components/ToolTip';
 import LetterShowcase from 'components/LetterShowcase';
 import AdModal from 'components/WebView/AdModal';
+import Prompt from 'components/admin/setting/Prompt';
 
 function Router() {
   const { isOpen } = useSelector((state: State) => state.modal);
@@ -72,7 +72,6 @@ function Router() {
               <Route path="/my-pets/register" element={<PetRegistration />} />
               <Route path="/my-pets/edit" element={<PetEdit />} />
               <Route path="/write-letter" element={<WriteLetter />} />
-              {/* <Route path="/letter-box" element={<LetterBox />} /> */}
               <Route path="/letter-box" element={<LetterBoxRenew />} />
               <Route path="/letter-box/:letterId" element={<DetailLetter />} />
               <Route path="/saved-image" element={<SavedImage />} />
@@ -80,6 +79,7 @@ function Router() {
           </Route>
           {/* NOTE: 관리자 권한이 필요한 페이지 */}
           <Route element={<AdminLayout />}>
+            <Route path="/admin/setting-prompt" element={<Prompt />} />
             <Route path="/admin/letters" element={<Letters />} />
             <Route path="/admin/letters/:letterId" element={<LetterDetail />} />
           </Route>

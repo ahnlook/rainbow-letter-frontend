@@ -17,7 +17,6 @@ import { getReplyStatus, replyStatusInfo } from '../LetterTable/TableRow';
 import { formatImageType } from 'utils/image';
 
 const MAX_CONTENT_LENGTH = 1000;
-const AIOption = ['GPT', 'GEMINI'];
 
 function LetterDetailForm({
   letterId,
@@ -26,19 +25,19 @@ function LetterDetailForm({
   onLetterClick,
 }) {
   const [newContent, setNewContentValue] = useState({
-    GPT: '',
-    GEMINI: '',
+    promptA: '',
+    promptB: '',
   });
-  const [selectedAI, setSelectedAI] = useState(AIOption[0]);
+  const [selectedPrompt, setSelectedPrompt] = useState('promptA');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { user, pet, letter, reply, recent } = letterData;
-  const isGPT = selectedAI === AIOption[0];
+  const isPromptA = selectedPrompt === 'promptA';
 
   const handleAiOptionToggle = (option) => {
-    setSelectedAI(option);
+    setSelectedPrompt(option);
   };
 
   const handleRegenerateClick = () => {
@@ -50,15 +49,15 @@ function LetterDetailForm({
     if (reply?.submitTime) return alert('이미 답장을 보낸 편지입니다.');
 
     const newSummary = extractFirstTenChars(
-      isGPT ? newContent.GPT : newContent.GEMINI
+      isPromptA ? newContent.promptA : newContent.promptB
     );
     dispatch(
       editReply({
         replyId: reply?.id,
         editedReply: {
-          promptType: isGPT ? 'A' : 'B',
+          promptType: isPromptA ? 'A' : 'B',
           summary: newSummary,
-          content: isGPT ? newContent.GPT : newContent.GEMINI,
+          content: isPromptA ? newContent.promptA : newContent.promptB,
         },
       })
     );
@@ -71,9 +70,13 @@ function LetterDetailForm({
 
   useEffect(() => {
     if (reply && (reply?.promptA || reply?.promptB)) {
-      setNewContentValue({ GPT: reply?.promptA, GEMINI: reply?.promptB });
+      setNewContentValue({ promptA: reply?.promptA, promptB: reply?.promptB });
     }
   }, [reply?.promptA, reply?.promptB]);
+
+  useEffect(() => {
+    setSelectedPrompt(reply.promptType);
+  }, [reply.promptType]);
 
   if (!letterData) {
     return <div>Loading...</div>;
@@ -108,7 +111,7 @@ function LetterDetailForm({
                 <span className="whitespace-nowrap">
                   {formatDateToYYMMDD(user.createdAt)}
                 </span>
-                <span className="whitespace-nowrap">{letter.id}</span>
+                <span className="whitespace-nowrap">{user.count}</span>
                 <span className="whitespace-nowrap">
                   {formatDateToYYMMDD(letter.createdAt)}
                 </span>
@@ -260,24 +263,26 @@ function LetterDetailForm({
         <div className="relative flex w-full items-center justify-between overflow-hidden rounded border border-yellow-50 bg-white">
           <div
             className={`absolute top-0 h-full w-1/2 bg-yellow-50 transition-transform duration-300 ease-in-out ${
-              selectedAI === 'GPT' ? 'translate-x-0' : 'translate-x-full'
+              selectedPrompt === 'promptA'
+                ? 'translate-x-0'
+                : 'translate-x-full'
             }`}
           />
           <button
             className={`z-10 w-1/2 py-1 text-center ${
-              isGPT ? 'font-semibold text-black' : 'text-gray-500'
+              isPromptA ? 'font-semibold text-black' : 'text-gray-500'
             }`}
-            onClick={() => handleAiOptionToggle(AIOption[0])}
+            onClick={() => handleAiOptionToggle('promptA')}
           >
-            GPT
+            prompt A
           </button>
           <button
             className={`z-10 w-1/2 py-1 text-center ${
-              isGPT ? 'text-gray-500' : 'font-semibold text-black'
+              isPromptA ? 'text-gray-500' : 'font-semibold text-black'
             }`}
-            onClick={() => handleAiOptionToggle(AIOption[1])}
+            onClick={() => handleAiOptionToggle('promptB')}
           >
-            GEMINI
+            prompt B
           </button>
         </div>
         <main className="flex h-[80vh] grow">
@@ -285,19 +290,19 @@ function LetterDetailForm({
             className="w-full resize-none rounded-lg bg-gray-100 p-5"
             maxLength={MAX_CONTENT_LENGTH}
             disabled={reply?.submitTime}
-            value={isGPT ? newContent.GPT : newContent.GEMINI}
+            value={isPromptA ? newContent.promptA : newContent.promptB}
             onChange={({ target }) =>
               setNewContentValue(
-                isGPT
-                  ? { ...newContent, GPT: target.value }
-                  : { ...newContent, GEMINI: target.value }
+                isPromptA
+                  ? { ...newContent, promptA: target.value }
+                  : { ...newContent, promptB: target.value }
               )
             }
           />
         </main>
         <footer className="flex justify-between">
           <div className="mr-3 text-solo-label text-gray-1">
-            {`${isGPT ? newContent.GPT.length : newContent.GEMINI.length} / ${MAX_CONTENT_LENGTH}`}
+            {`${isPromptA ? newContent.promptA.length : newContent.promptB.length} / ${MAX_CONTENT_LENGTH}`}
           </div>
           {isModal ? (
             <button

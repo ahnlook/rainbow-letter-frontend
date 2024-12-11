@@ -11,6 +11,10 @@ type AppBarConfig = {
 };
 
 const appBarConfig: AppBarConfig = {
+  '/admin/setting-prompt': {
+    title: '프롬프트 관리',
+    backTo: -1,
+  },
   '/admin/letters': {
     title: '편지 리스트 관리',
     backTo: -1,
