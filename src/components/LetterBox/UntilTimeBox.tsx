@@ -6,7 +6,8 @@ export default function UntilTimeBox() {
   const { hours, minutes } = getTimeUntilKST10AM();
 
   return (
-    <div className="bg-letterTimeBg flex h-[80px] items-center gap-4 bg-no-repeat px-4 py-3 text-[#424242]">
+    // eslint-disabled
+    <div className="flex h-[80px] items-center gap-4 bg-letterTimeBg bg-no-repeat px-4 py-3 text-[#424242]">
       <p className="text-[12px] font-bold leading-[14px]">
         Until the Next
         <br />
