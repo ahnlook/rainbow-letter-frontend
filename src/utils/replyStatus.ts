@@ -25,9 +25,9 @@ export const checkLetterStatus = (
 export const letterReplyStatus = (reply: string) => {
   switch (reply) {
     case 'REQUEST':
-      return '답장 중';
+      return 'replying';
     case 'RESPONSE':
-      return '답장완료';
+      return 'received';
     default:
       return null;
   }

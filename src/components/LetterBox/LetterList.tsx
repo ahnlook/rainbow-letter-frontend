@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { format, getDay } from 'date-fns';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { RootState } from 'store';
 import Modal from 'components/Modal';
@@ -9,11 +10,12 @@ import LetterItem from 'components/LetterBox/LetterItem';
 import Button from 'components/Button';
 import { LetterListResponse } from 'types/letters';
 import { PetResponse } from 'types/pets';
-import { formatDay } from 'utils/date';
+import { formatDay, formatMonthName, formatKoDay } from 'utils/date';
 import { getLetterList, deleteLetter } from 'api/letter';
 import Plus from '../../assets/ic_letterBox_plus.svg';
 import Info from '../../assets/ic_letterBox_info.svg';
 import DeleteModal from './DeletModal';
+import { T } from '../../types/translate';
 
 type Props = {
   date: Date;
@@ -33,6 +35,8 @@ export default function LetterList({
   setLetterList,
 }: Props) {
   const navigate = useNavigate();
+  const { t }: T = useTranslation();
+  const { lng } = useSelector((state: RootState) => state.common);
   const { isCalendarOpen } = useSelector((state: RootState) => state.letter);
   const [selectedLetterList, setSelectedLetterList] = useState<number[]>([]);
   const [filteredLetterList, setFilteredLetterList] = useState<
@@ -68,8 +72,13 @@ export default function LetterList({
     return new Date(date.getFullYear(), date.getMonth(), date.getDate());
   }, [date]);
 
-  const formattedDay = formatDay(getDay(localDate));
-  const dateAndDay = `${format(localDate, 'M월 dd일')} ${formattedDay}요일`;
+  const dateAndDay = useMemo(() => {
+    if (lng === 'ko') {
+      return `${format(localDate, 'M월 dd일')} ${formatKoDay(getDay(localDate))}요일`;
+    }
+
+    return `${t(formatDay(getDay(localDate)))}, ${formatMonthName(date.getMonth() + 1)} ${date.getDate()}`;
+  }, [lng, date]);
 
   const isToday = useMemo(() => {
     const today = format(new Date(), 'yyyy-MM-dd');
@@ -126,8 +135,8 @@ export default function LetterList({
         className={`${isEditing && !isSelectLetterItem ? 'opacity-100' : 'opacity-0'} absolute right-[73px] top-[36px] z-10 mb-2 rounded-[12px] border border-orange-400 bg-white px-3 py-2 text-center transition-opacity duration-300`}
       >
         <p className="text-[12px]">
-          아래 편지를 눌러 <br />
-          삭제할 편지를 선택할 수 있어요!
+          {t('letterBox.tooltipUpLine')} <br />
+          {t('letterBox.tooltipDownLine')}
         </p>
         <div className="absolute left-1/2 top-[49px] size-2 -translate-x-1/2 rotate-[315deg] border-b border-l border-orange-400 bg-white"></div>
       </div>
@@ -138,7 +147,11 @@ export default function LetterList({
           onClick={!isSelectLetterItem ? onClickEditButton : handleLocalModal}
           className={`${isSelectLetterItem ? 'border-[#FF0000] bg-[#ff0000]/[.25] text-[#FF0000]' : 'border-gray-1 text-gray-1'} rounded-[50px] border px-4 py-[4.5px] text-caption-pc leading-[12px]`}
         >
-          {!isEditing ? '편집' : isSelectLetterItem ? '삭제' : '취소'}
+          {!isEditing
+            ? t('letterBox.edit')
+            : isSelectLetterItem
+              ? t('letterBox.delete')
+              : t('letterBox.cancel')}
         </button>
       </div>
       {isEditing ? (
@@ -176,23 +189,27 @@ export default function LetterList({
         >
           <img src={Plus} alt="add" />
           <span className="pt-px text-[18px] font-bold leading-[18px] text-orange-400">
-            편지쓰기
+            {t('letterBox.writeLetter')}
           </span>
         </Button>
       )}
-      <iframe
-        src="https://ads-partners.coupang.com/widgets.html?id=794420&template=carousel&trackingCode=AF8807113&subId=&width=390&height=100&tsource="
-        width="360"
-        height="100"
-        className="mt-6"
-      />
-      <div className="mt-4 flex items-start gap-[6.5px]">
-        <img src={Info} alt="인포 아이콘" />
-        <p className="text-[12px] font-[300] text-[#424242]">
-          이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를
-          제공받습니다.
-        </p>
-      </div>
+      {lng === 'ko' && (
+        <>
+          <iframe
+            src="https://ads-partners.coupang.com/widgets.html?id=794420&template=carousel&trackingCode=AF8807113&subId=&width=390&height=100&tsource="
+            width="360"
+            height="100"
+            className="mt-6"
+          />
+          <div className="mt-4 flex items-start gap-[6.5px]">
+            <img src={Info} alt="인포 아이콘" />
+            <p className="text-[12px] font-[300] text-[#424242]">
+              이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의
+              수수료를 제공받습니다.
+            </p>
+          </div>
+        </>
+      )}
       {isModalOpen && (
         <Modal
           isLocalOpen={isModalOpen}

@@ -1,9 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { PetResponse } from 'types/pets';
 import { calculateDDay } from 'utils/date';
 import TagItem from 'components/LetterBox/TagItem';
+import { T } from '../../types/translate';
 
 type Props = {
   pet: PetResponse | null;
@@ -11,6 +13,7 @@ type Props = {
 
 export default function InfoBox({ pet }: Props) {
   const navigate = useNavigate();
+  const { t }: T = useTranslation();
 
   const onClickProfileUpdateButton = () => {
     navigate('/my-pets/edit', { state: pet?.id });
@@ -34,7 +37,7 @@ export default function InfoBox({ pet }: Props) {
             type="button"
             onClick={onClickProfileUpdateButton}
           >
-            프로필 수정
+            {t('letterBox.updateProfile')}
           </button>
         </article>
         <ul className="mt-2.5 flex flex-row gap-1.5">
@@ -48,7 +51,7 @@ export default function InfoBox({ pet }: Props) {
             ))}
         </ul>
         <p className="mt-4 text-[18px] font-[400]">
-          아이에게 나는 사랑하는 {pet?.owner}
+          {t('letterBox.description')} {pet?.owner}
         </p>
       </div>
     </header>

@@ -1,61 +1,61 @@
 interface AppBar {
   [key: string]: {
-    title: string;
+    titleKey: string;
   };
 }
 
 const appBarConfig: AppBar = {
   '/my-page': {
-    title: '마이페이지',
+    titleKey: 'appBar.myPage',
   },
   '/my-page/faqs': {
-    title: '자주 묻는 질문',
+    titleKey: 'appBar.faqs',
   },
   '/my-page/leave': {
-    title: '회원 탈퇴',
+    titleKey: '회원 탈퇴',
   },
   '/my-pets': {
-    title: '우리아이',
+    titleKey: '우리아이',
   },
   '/my-pets/register': {
-    title: '등록하기',
+    titleKey: '등록하기',
   },
   '/my-pets/edit': {
-    title: '수정하기',
+    titleKey: '수정하기',
   },
   '/my-page/password': {
-    title: '비밀번호 변경하기',
+    titleKey: '비밀번호 변경하기',
   },
   '/write-letter': {
-    title: '편지쓰기',
+    titleKey: '편지쓰기',
   },
   '/letter-box': {
-    title: '편지함',
+    titleKey: 'appBar.letterBox',
   },
   // TODO: 변경
   '/letter-box-renew': {
-    title: '편지함',
+    titleKey: '편지함',
   },
   '/saved-image': {
-    title: '이미지 저장',
+    titleKey: '이미지 저장',
   },
   '/my-page/register': {
-    title: '등록하기',
+    titleKey: '등록하기',
   },
   '/contents': {
-    title: '컨텐츠',
+    titleKey: '컨텐츠',
   },
   letterId: {
-    title: '편지함',
+    titleKey: '편지함',
   },
   shareLink: {
-    title: '편지함',
+    titleKey: '편지함',
   },
   '/admin/letters': {
-    title: '편지 리스트 관리',
+    titleKey: '편지 리스트 관리',
   },
   '/admin/pets': {
-    title: '반려동물 리스트 관리',
+    titleKey: '반려동물 리스트 관리',
   },
 };
 

@@ -60,11 +60,16 @@
 
 @font-face {
   font-family: 'Gyobomungo2019';
-  src: url('fonts/KyoboHandwriting2019.otf') format('woff');
+  src: url('assets/fonts/KyoboHandwriting2019.otf') format('woff');
 }
 
 @font-face {
   font-family: 'Pretendard';
   src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff')
     format('woff');
+}
+
+@font-face {
+  font-family: 'HelveticaNowDisplay';
+  src: url('assets/fonts/HelveticaNowDisplay.woff') format('woff');
 }

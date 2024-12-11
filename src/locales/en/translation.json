@@ -1,0 +1,35 @@
+{
+  "appBar": {
+    "letterBox": "MailBox"
+  },
+  "letterBox": {
+    "updateProfile": "Edit Profile",
+    "description": "To my baby, I am a loving ",
+    "prevWeek": "Last Week",
+    "nextWeek": "Next Week",
+    "prevMonth": "Last Month",
+    "nextMonth": "Next Month",
+    "weekdayAbbrSunday": "SUN",
+    "weekdayAbbrMonday": "MON",
+    "weekdayAbbrTuesday": "TUE",
+    "weekdayAbbrWednesday": "WED",
+    "weekdayAbbrThursday": "THU",
+    "weekdayAbbrFriday": "FRI",
+    "weekdayAbbrSaturday": "SAT",
+    "weekdayFullSunday": "Sunday",
+    "weekdayFullMonday": "Monday",
+    "weekdayFullTuesday": "Tuesday",
+    "weekdayFullWednesday": "Wednesday",
+    "weekdayFullThursday": "Thursday",
+    "weekdayFullFriday": "Friday",
+    "weekdayFullSaturday": "Saturday",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "writeLetter": "Write a Letter",
+    "tooltipUpLine": "Tap a letter below",
+    "tooltipDownLine": "if you’d like to delete it.",
+    "replying": "REPLYING",
+    "received": "REPLY RECEIVED"
+  }
+}

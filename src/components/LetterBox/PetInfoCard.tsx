@@ -1,6 +1,3 @@
-import { useEffect } from 'react';
-
-import { getPets } from 'api/pets';
 import { PetResponse } from 'types/pets';
 import CoverImage from 'components/Common/CoverImage';
 import InfoBox from 'components/LetterBox/InfoBox';

@@ -129,7 +129,7 @@ export const formatDateWithSlash = (date: string) => {
   return `${year}/${month}/${day}(${dayOfWeek})`;
 };
 
-export const formatDay = (value: number) => {
+export const formatKoDay = (value: number) => {
   switch (value) {
     case 0:
       return '일';
@@ -146,4 +146,72 @@ export const formatDay = (value: number) => {
     default:
       return '토';
   }
+};
+
+export const formatDay = (value: number) => {
+  switch (value) {
+    case 0:
+      return 'letterBox.weekdayFullSunday';
+    case 1:
+      return 'letterBox.weekdayFullMonday';
+    case 2:
+      return 'letterBox.weekdayFullTuesday';
+    case 3:
+      return 'letterBox.weekdayFullWednesday';
+    case 4:
+      return 'letterBox.weekdayFullThursday';
+    case 5:
+      return 'letterBox.weekdayFullFriday';
+    default:
+      return 'letterBox.weekdayFullSaturday';
+  }
+};
+
+export const formatMonthName = (month: number) => {
+  switch (month) {
+    case 1:
+      return 'January';
+    case 2:
+      return 'February';
+    case 3:
+      return 'March';
+    case 4:
+      return 'April';
+    case 5:
+      return 'May';
+    case 6:
+      return 'June';
+    case 7:
+      return 'July';
+    case 8:
+      return 'August';
+    case 9:
+      return 'September';
+    case 10:
+      return 'October';
+    case 11:
+      return 'November';
+    case 12:
+      return 'December';
+  }
+};
+
+export const getTimeUntilKST10AM = () => {
+  const nowUTC = new Date();
+
+  const KST_OFFSET_HOURS = 9;
+  const KSTTarget = new Date(nowUTC);
+
+  KSTTarget.setUTCHours(10 - KST_OFFSET_HOURS, 0, 0, 0);
+
+  if (nowUTC.getTime() >= KSTTarget.getTime()) {
+    KSTTarget.setUTCDate(KSTTarget.getUTCDate() + 1);
+  }
+
+  const timeDifferenceMs = KSTTarget.getTime() - nowUTC.getTime();
+  const hours = Math.floor(timeDifferenceMs / (1000 * 60 * 60));
+  const minutes =
+    Math.floor((timeDifferenceMs % (1000 * 60 * 60)) / (1000 * 60)) + 1;
+
+  return { hours, minutes };
 };

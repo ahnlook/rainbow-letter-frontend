@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { format, addDays, subDays } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { RootState } from 'store';
 import useCalendar from 'hooks/useCalendar';
@@ -14,8 +15,9 @@ import Stamp from '../../assets/ic_letterBox_stamp.svg';
 import { PetResponse } from 'types/pets';
 import { getLetterList } from 'api/letter';
 import { LetterListResponse } from 'types/letters';
-
-const DAY_OF_THE_WEEK = ['일', '월', '화', '수', '목', '금', '토'];
+import { T } from '../../types/translate';
+import { formatMonthName } from 'utils/date';
+import UntilTimeBox from './UntilTimeBox';
 
 type Props = {
   setDate: (date: Date) => void;
@@ -34,6 +36,17 @@ export default function WeekCalendar({
 }: Props) {
   // redux
   const dispatch = useDispatch();
+  const { t }: T = useTranslation();
+  const DAY_OF_THE_WEEK = [
+    t('letterBox.weekdayAbbrSunday'),
+    t('letterBox.weekdayAbbrMonday'),
+    t('letterBox.weekdayAbbrTuesday'),
+    t('letterBox.weekdayAbbrWednesday'),
+    t('letterBox.weekdayAbbrThursday'),
+    t('letterBox.weekdayAbbrFriday'),
+    t('letterBox.weekdayAbbrSaturday'),
+  ];
+  const { lng } = useSelector((state: RootState) => state.common);
   const { isCalendarOpen } = useSelector((state: RootState) => state.letter);
 
   // hooks
@@ -43,7 +56,17 @@ export default function WeekCalendar({
   const [weekCalendar, setWeekCalendar] = useState<string[]>([]);
 
   // etc.
-  const yearAndMonth = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
+  const yearAndMonth = useMemo(() => {
+    if (lng === 'ko') {
+      return `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
+    }
+    return `${formatMonthName(currentDate.getMonth() + 1)} ${currentDate.getFullYear()}`;
+  }, [lng, currentDate]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    dispatch(letterSlice.actions.setCalendarClose());
+  }, []);
 
   useEffect(() => {
     (async () => {
@@ -127,15 +150,16 @@ export default function WeekCalendar({
 
   return (
     <>
-      <section className="px-[1.125rem] py-[30px]">
-        <header className="flex justify-between">
+      <section className="px-[1.125rem] py-6">
+        {lng === 'en' && <UntilTimeBox />}
+        <header className="mt-4 flex justify-between">
           <button
             type="button"
             onClick={onClickPrevWeek}
             className="flex items-center gap-1.5"
           >
             <img src={Left} alt="왼쪽 화살표 아이콘" />
-            <span className="mt-px text-[12px]">이전 주</span>
+            <span className="mt-px text-[12px]">{t('letterBox.prevWeek')}</span>
           </button>
           <button
             type="button"
@@ -150,21 +174,14 @@ export default function WeekCalendar({
             onClick={onClickNextWeek}
             className="flex items-center gap-1.5"
           >
-            <span className="mt-px text-[12px]">다음 주</span>
+            <span className="mt-px text-[12px]">{t('letterBox.nextWeek')}</span>
             <img src={Right} alt="오른쪽 화살표 아이콘" />
           </button>
         </header>
         <article className="mt-2">
-          <ul className="flex justify-around">
-            {DAY_OF_THE_WEEK.map((day: string) => (
-              <li key={`letterBox-day-${day}`} className="text-xs text-gray-5">
-                {day}
-              </li>
-            ))}
-          </ul>
           <ul className="mt-1.5 flex justify-around">
             {weekCalendar &&
-              weekCalendar.map((day: string) => {
+              weekCalendar.map((day: string, index) => {
                 const utcDate = toUTCDate(day);
                 const date = utcDate.getUTCDate();
                 return (
@@ -172,6 +189,12 @@ export default function WeekCalendar({
                     key={`letterBox-calendar-${day}`}
                     className="flex flex-col items-center justify-center"
                   >
+                    <span
+                      key={`letterBox-day-${day}`}
+                      className="my-1 text-xs text-gray-5"
+                    >
+                      {DAY_OF_THE_WEEK[index]}
+                    </span>
                     <button
                       type="button"
                       onClick={() => onClickDateButton(day)}
@@ -198,6 +221,7 @@ export default function WeekCalendar({
           currentWeekDate={currentDate}
           setCurrentWeekDate={setCurrentDate}
           selectedPet={selectedPet}
+          yearAndMonth={yearAndMonth}
         />
       )}
       <Divider />

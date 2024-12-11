@@ -6,11 +6,15 @@ import Arrow from 'assets/ic_donate_arrow.svg';
 export default function AppBar() {
   return (
     <Link
-      onClick={() =>
-        window.ReactNativeWebView.postMessage(
-          JSON.stringify({ url: 'https://rainbowletter.co.kr/donate' })
-        )
-      }
+      onClick={() => {
+        if (window.ReactNativeWebView) {
+          window.ReactNativeWebView.postMessage(
+            JSON.stringify({ url: 'https://rainbowletter.co.kr/donate' })
+          );
+        } else {
+          console.warn('ReactNativeWebView is not available.');
+        }
+      }}
       to="/donate"
       target="_blank"
       className="bg-[#F3F3F3]"

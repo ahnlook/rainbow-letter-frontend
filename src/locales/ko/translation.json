@@ -1,0 +1,28 @@
+{
+  "appBar": {
+    "letterBox": "편지함"
+  },
+  "letterBox": {
+    "updateProfile": "프로필 수정",
+    "description": "아이에게 나는 사랑하는 ",
+    "prevWeek": "이전 주",
+    "nextWeek": "다음 주",
+    "prevMonth": "이전 달",
+    "nextMonth": "다음 달",
+    "weekdayAbbrSunday": "일",
+    "weekdayAbbrMonday": "월",
+    "weekdayAbbrTuesday": "화",
+    "weekdayAbbrWednesday": "수",
+    "weekdayAbbrThursday": "목",
+    "weekdayAbbrFriday": "금",
+    "weekdayAbbrSaturday": "토",
+    "edit": "수정",
+    "cancel": "취소",
+    "delete": "삭제",
+    "writeLetter": "편지쓰기",
+    "tooltipUpLine": "아래 편지를 눌러",
+    "tooltipDownLine": "삭제할 편지를 선택할 수 있어요!",
+    "replying": "답장중",
+    "received": "답장 완료"
+  }
+}

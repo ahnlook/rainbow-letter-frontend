@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { format, addDays, lastDayOfMonth } from 'date-fns';
-import { useDispatch } from 'react-redux';
-import { toZonedTime } from 'date-fns-tz';
+import { useDispatch, useSelector } from 'react-redux';
 
 import BottomSheet from 'components/Common/BottomSheet';
 import CalendarController from 'components/LetterBox/CalendarController';
@@ -14,12 +13,16 @@ import Cancel from '../../assets/ic_calendar_x.svg';
 import { PetResponse } from 'types/pets';
 import { getLetterListByDate } from 'api/letter';
 import useCalendar from 'hooks/useCalendar';
+import { useTranslation } from 'react-i18next';
+import { T } from 'types/translate';
+import { RootState } from 'store';
 
 type Props = {
   setDate: (date: Date) => void;
   currentWeekDate: Date;
   setCurrentWeekDate: (date: Date) => void;
   selectedPet: null | PetResponse;
+  yearAndMonth: string;
 };
 
 export default function MonthCalendar({
@@ -27,12 +30,15 @@ export default function MonthCalendar({
   setCurrentWeekDate,
   currentWeekDate,
   selectedPet,
+  yearAndMonth,
 }: Props) {
   // redux
   const dispatch = useDispatch();
 
   // hooks
+  const { lng } = useSelector((state: RootState) => state.common);
   const { currentDate, setCurrentDate, monthCalendarList } = useCalendar();
+  const { t }: T = useTranslation();
 
   // state
   const [isShow, setIsShow] = useState(false);
@@ -81,8 +87,6 @@ export default function MonthCalendar({
   const handlePetsListShow = useCallback(() => {
     setIsShow((prev) => !prev);
   }, []);
-
-  const yearAndMonth = `${currentDate.getFullYear()}년 ${currentDate.getMonth() + 1}월`;
 
   const onClickNextMonth = useCallback(() => {
     const lastDay = lastDayOfMonth(currentDate);
@@ -150,7 +154,9 @@ export default function MonthCalendar({
 
   return (
     <>
-      <section className="absolute inset-0 -top-[66px] z-50 flex h-auto flex-col items-center bg-white px-[1.125rem] pt-[4.125rem]">
+      <section
+        className={`${lng === 'ko' ? '-top-[66px] h-auto' : '-top-[66px] h-dvh'} absolute inset-0 z-50 flex flex-col items-center bg-white px-[1.125rem] pt-[4.125rem]`}
+      >
         <button
           type="button"
           onClick={onClickCalendarClose}
@@ -165,7 +171,9 @@ export default function MonthCalendar({
             className="flex items-center gap-1.5"
           >
             <img src={Left} alt="왼쪽 화살표 아이콘" />
-            <span className="mt-px text-[12px]">이전 달</span>
+            <span className="mt-px text-[12px]">
+              {t('letterBox.prevMonth')}
+            </span>
           </button>
           <button
             type="button"
@@ -180,7 +188,9 @@ export default function MonthCalendar({
             onClick={onClickNextMonth}
             className="flex items-center gap-1.5"
           >
-            <span className="mt-px text-[12px]">다음 달</span>
+            <span className="mt-px text-[12px]">
+              {t('letterBox.nextMonth')}
+            </span>
             <img src={Right} alt="오른쪽 화살표 아이콘" />
           </button>
         </header>
