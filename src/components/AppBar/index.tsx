@@ -35,18 +35,6 @@ function AppBar() {
     (state: RootState) => state.letter
   );
 
-  if (!config) {
-    return null;
-  }
-
-  const { titleKey } = config;
-
-  const handleBack = () => {
-    navigate(-1);
-  };
-
-  const isShowSavingIcon = normalizedPath === '/write-letter' && isExistPet;
-
   const isShowDonateAppBar = useMemo(() => {
     if (lng === 'en') {
       return false;
@@ -60,6 +48,18 @@ function AppBar() {
 
     return false;
   }, [lng, normalizedPath]);
+
+  const { titleKey } = config;
+
+  const handleBack = () => {
+    navigate(-1);
+  };
+
+  const isShowSavingIcon = normalizedPath === '/write-letter' && isExistPet;
+
+  if (!config) {
+    return null;
+  }
 
   return (
     <section className="sticky top-0 z-50 flex flex-col">
