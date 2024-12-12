@@ -1,7 +1,11 @@
-import logo from 'assets/Logo_256px.png';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import logo from 'assets/Logo_256px.png';
+import { T } from 'types/translate';
 
 function LetterPostButton() {
+  const { t }: T = useTranslation();
   return (
     <section className="mx-5 pb-[1.875rem]">
       <Link
@@ -14,7 +18,7 @@ function LetterPostButton() {
         <div className="size-[15px]">
           <img src={logo} alt="logo" width="100%" height="100%" />
         </div>
-        <span className="text-solo-small">내 편지도 걸어보기</span>
+        <span className="text-solo-small">{t('home.postLetterToRainbow')}</span>
       </Link>
     </section>
   );

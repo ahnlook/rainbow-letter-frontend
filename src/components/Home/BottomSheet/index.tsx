@@ -2,18 +2,27 @@ import { useEffect, useRef } from 'react';
 
 import BottomHeader from 'components/Home/BottomSheet/BottomHeader';
 import BottomContent from 'components/Home/BottomSheet/BottomContent';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
 
 export default function BottomSheet() {
   const BottonSheetRef = useRef<HTMLDivElement>(null);
+  const { lng } = useSelector((state: RootState) => state.common);
 
   useEffect(() => {
-    window.addEventListener('beforeinstallprompt', () => {
+    const showBottomSheet = () => {
       BottonSheetRef.current?.style.setProperty(
         'transform',
         `translateY(-${300}px)`
       );
-    });
-  }, []);
+    };
+    if (lng === 'ko') {
+      window.addEventListener('beforeinstallprompt', showBottomSheet);
+    }
+
+    return () =>
+      window.removeEventListener('beforeinstallprompt', showBottomSheet);
+  }, [lng]);
 
   const onBottomSheetCancelClick = () => {
     if (BottonSheetRef.current) {

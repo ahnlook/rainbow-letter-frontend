@@ -1,9 +1,14 @@
 import { useEffect, useState } from 'react';
 import Slider from 'react-slick';
+import { useTranslation } from 'react-i18next';
 
 import LetterItem from 'components/LetterShowcase/LetterItem';
 import { ShowcaseLetter } from './type';
 import useIsWebview from 'hooks/useIsWebview';
+import { T } from 'types/translate';
+import { SHOWCASE_LETTERS_FOR_EN } from './constants';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
 
 const SHOWCASE_CAROUSEL_OPTIONS = {
   swipeToSlide: true,
@@ -21,22 +26,28 @@ const SHOWCASE_CAROUSEL_OPTIONS = {
 
 function LetterShowcase() {
   const isWebview = useIsWebview();
+  const { t }: T = useTranslation();
+  const { lng } = useSelector((state: RootState) => state.common);
   const [letters, setLetters] = useState<ShowcaseLetter[]>();
 
   useEffect(() => {
-    fetch('/showcaseLetters.json')
-      .then((response) => response.json())
-      .then((data) => {
-        const filteredData = data.slice(1);
-        setLetters(filteredData);
-      })
-      .catch((error) => console.error('Error fetching data:', error));
-  }, []);
+    if (lng === 'ko') {
+      fetch('/showcaseLetters.json')
+        .then((response) => response.json())
+        .then((data) => {
+          const filteredData = data.slice(1);
+          setLetters(filteredData);
+        })
+        .catch((error) => console.error('Error fetching data:', error));
+    } else {
+      setLetters(SHOWCASE_LETTERS_FOR_EN);
+    }
+  }, [lng]);
 
   return (
     <section className={`${!isWebview && 'pl-5'} pt-8`}>
       <span className="pb-8 pt-5 text-solo-large font-bold">
-        무지개에 걸린 편지
+        {t('home.letterPostedRainbow')}
       </span>
       <div className="h-6" />
       <Slider {...SHOWCASE_CAROUSEL_OPTIONS} className="h-52">

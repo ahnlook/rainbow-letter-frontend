@@ -24,6 +24,23 @@
     "terms": "서비스 이용약관 동의",
     "policy": "개인정보 처리방침 동의"
   },
+  "home": {
+    "login": "로그인하기",
+    "signUp": "가입하기",
+    "register": "등록하기",
+    "loginAbsent": "앗, 로그인 하셔야 해요",
+    "letterWrtingMethod": "로그인하시면 편지를 보낼 수 있어요",
+    "petsAbsent": "앗, 편지를 받을 아이가 없어요",
+    "suggestRegister": "우리 아이를 등록하러 가볼까요?",
+    "phone": "자살 예방 상담전화 109",
+    "letterPostedRainbow": "무지개에 걸린 편지",
+    "postLetterToRainbow": "내 편지도 걸어보기",
+    "kakaoTalk": "오류 시 오픈카카오톡 문의하기",
+    "contact": "문의 | rainbowletter41@gmail.com",
+    "copyright": "Copyright © 2023 무지개편지",
+    "copyright2": "All Rights Reserved",
+    "blog": "https://blog.naver.com/rainbowletter"
+  },
   "letterBox": {
     "updateProfile": "프로필 수정",
     "description": "아이에게 나는 사랑하는 ",

@@ -1,9 +1,20 @@
+import { useTranslation } from 'react-i18next';
+
 import { PHONE_MESSAGE } from 'components/Home/constants';
 import phone from '../../assets/Phone.svg';
+import { T } from 'types/translate';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
 
 export default function PhoneButton() {
+  const { t }: T = useTranslation();
+  const { lng } = useSelector((state: RootState) => state.common);
   const handlePhoneButtonClick = () => {
-    document.location.href = 'tel:109';
+    if (lng === 'ko') {
+      return (document.location.href = 'tel:109');
+    }
+
+    return (document.location.href = 'tel:988');
   };
 
   return (
@@ -16,7 +27,7 @@ export default function PhoneButton() {
         <div className="size-4">
           <img src={phone} alt="phone" width="100%" height="100%" />
         </div>
-        <p>{PHONE_MESSAGE}</p>
+        <p>{t(PHONE_MESSAGE)}</p>
       </button>
     </section>
   );

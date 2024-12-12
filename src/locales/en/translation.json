@@ -24,6 +24,23 @@
     "terms": "Terms & conditions",
     "policy": "Privacy policy"
   },
+  "home": {
+    "login": "Log in",
+    "signUp": "Sign up",
+    "register": "Register",
+    "loginAbsent": "Oops, please log in",
+    "letterWrtingMethod": "Sign up for free and send a letter!",
+    "petsAbsent": "Oops, register your pet",
+    "suggestRegister": "Register and write a letter!",
+    "phone": "988 SUICIDE & CRISIS LIFELINE",
+    "letterPostedRainbow": "Letters Posted Over the Rainbow",
+    "postLetterToRainbow": "Post my letter as well",
+    "kakaoTalk": "Contact us on KakaoTalk for errors",
+    "contact": "Contact Us  |  rainbowletter41@gmail.com",
+    "copyright": "Copyright © 2024 Rainbow Letter",
+    "copyright2": "All Rights Reserved",
+    "blog": ""
+  },
   "letterBox": {
     "updateProfile": "Edit Profile",
     "description": "To my baby, I am a loving ",

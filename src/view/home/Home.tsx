@@ -15,14 +15,18 @@ import PWAGuide from 'components/PWAGuide';
 import MainBanners from 'components/MainBanner/MainBanners';
 import { RootState } from 'store';
 import NavBarForEn from 'components/NavBar/NavBarForEn';
+import LngSelectBox from 'components/Home/LngSelectBox';
 
 export default function LandingPage() {
   const { lng } = useSelector((state: RootState) => state.common);
   const token = getToken();
 
+  const isKorean = lng === 'ko';
+
   return (
     <main className="relative">
-      <PWAGuide />
+      <LngSelectBox />
+      {isKorean && <PWAGuide />}
       <MainBanners />
       <PetsSection isLoggedIn={!!token} />
       <HomeDivider />
@@ -33,7 +37,7 @@ export default function LandingPage() {
       <PhoneButton />
       <Divider />
       <HomeFooter />
-      {lng === 'ko' ? <NavBar /> : <NavBarForEn />}
+      {isKorean ? <NavBar /> : <NavBarForEn />}
       <BottomSheet />
     </main>
   );

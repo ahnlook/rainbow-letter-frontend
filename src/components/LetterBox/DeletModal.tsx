@@ -20,6 +20,8 @@ export default function DeleteModal({
         <img src={ErrorIcon} alt="편지지" />
         <h3 className="mt-5 whitespace-pre-wrap text-heading-3 font-bold">
           {t('modal.delete.titleUpLine')}
+        </h3>
+        <h3 className="whitespace-pre-wrap text-heading-3 font-bold">
           {t('modal.delete.titleDownLine')}
         </h3>
         <span className="mt-3 text-[#FF0000]">{t('modal.delete.alert')}</span>

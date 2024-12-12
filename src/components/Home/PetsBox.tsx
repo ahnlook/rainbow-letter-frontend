@@ -5,7 +5,7 @@ import { getPetsDashBoard } from 'api/pets';
 import NoPets from 'components/Home/NoPets';
 import NameSection from 'components/Home/NameSection';
 import PetInfo from 'components/Home/PetInfo';
-import Spinner from 'components/Spinner'; // Spinner 추가
+import Spinner from 'components/Spinner';
 
 export default function PetsBox() {
   const [petsList, setPetsList] = useState<PetsDashBoard[]>([]);

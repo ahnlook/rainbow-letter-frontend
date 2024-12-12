@@ -1,8 +1,7 @@
 import { useMemo } from 'react';
 import { useNavigate, useLocation, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from 'store';
-import i18n from 'i18next';
 import { useTranslation } from 'react-i18next';
 
 import appBarConfig from 'components/AppBar/constants';
@@ -13,10 +12,8 @@ import autoSaving from '../../assets/autoSaving.svg';
 import autoSavingSuccess from '../../assets/autoSave_success.svg';
 import autoSavingFail from '../../assets/autoSave_fail.svg';
 import { T } from '../../types/translate';
-import commonSlice from 'store/common/common-slice';
 
 function AppBar() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const { t }: T = useTranslation();
@@ -24,12 +21,6 @@ function AppBar() {
   const normalizedPath = normalizePath(location.pathname);
   const params = Object.keys(useParams())[0];
   const config = appBarConfig[params] || appBarConfig[normalizedPath];
-
-  const toggleLanguage = () => {
-    const nextLng = lng === 'ko' ? 'en' : 'ko';
-    i18n.changeLanguage(nextLng);
-    dispatch(commonSlice.actions.setLng(nextLng));
-  };
 
   const { isSaving, isSuccess, isExistPet } = useSelector(
     (state: RootState) => state.letter
@@ -85,21 +76,6 @@ function AppBar() {
           </article>
         )}
         <section className="flex flex-1 justify-end" />
-        <div className="absolute right-0 flex items-center justify-between gap-2 text-center text-[14px]">
-          <p>{lng === 'ko' ? '한국어' : 'English'}</p>
-          <div
-            className={`flex h-6 w-12 cursor-pointer items-center rounded-full p-1 ${
-              lng === 'ko' ? 'bg-[#666666]' : 'bg-gray-300'
-            }`}
-            onClick={toggleLanguage}
-          >
-            <div
-              className={`size-4 rounded-full bg-white shadow-md transition-transform ${
-                lng === 'ko' ? 'translate-x-6' : 'translate-x-0'
-              }`}
-            />
-          </div>
-        </div>
       </header>
     </section>
   );

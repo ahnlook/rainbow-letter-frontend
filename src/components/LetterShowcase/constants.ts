@@ -1,5 +1,32 @@
 import { ShowcaseLetter } from 'components/LetterShowcase/type';
 
+export const SHOWCASE_LETTERS_FOR_EN: ShowcaseLetter[] = [
+  {
+    id: '1',
+    type: 'reply',
+    petName: 'Mini',
+    content: `Mommy, I look forward to your letter every day and it makes me...`,
+  },
+  {
+    id: '2',
+    type: 'letter',
+    petName: 'TOFU',
+    content: `Tofu, I hope you feel better there and have fun with the friends!`,
+  },
+  {
+    id: '3',
+    type: 'letter',
+    petName: 'Coco',
+    content: `You’ll always be my baby, Coco. Mommy loves you so much!`,
+  },
+  {
+    id: '4',
+    type: 'reply',
+    petName: 'Woojoo',
+    content: `When you miss me, look up at the night sky. I’ll be watching ov...`,
+  },
+];
+
 export const SHOWCASE_LETTERS: ShowcaseLetter[] = [
   {
     id: '1',

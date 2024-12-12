@@ -1,11 +1,13 @@
 import { useNavigate } from 'react-router-dom';
+import { useMemo } from 'react';
 
 import { PetsDashBoard } from 'types/pets';
 import { calculateDDay } from 'utils/date';
 import letter from 'assets/letter.svg';
-import heart from 'assets/fa-regular-heart.svg';
 import arrow from 'assets/ion_chevron-back-home.svg';
 import { formatImageType } from 'utils/image';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
 
 type Props = {
   pet: PetsDashBoard | undefined;
@@ -14,12 +16,21 @@ type Props = {
 
 export default function PetInfo({ pet, letterCount }: Props) {
   const navigate = useNavigate();
+  const { lng } = useSelector((state: RootState) => state.common);
   const deathAnniversaryDDay =
     pet?.deathAnniversary && calculateDDay(pet?.deathAnniversary);
 
   const handleScroll = () => {
     navigate('/letter-box', { state: pet?.id });
   };
+
+  const sentLetterValue = useMemo(() => {
+    if (lng === 'ko') {
+      return `보낸 편지 ${letterCount}회`;
+    }
+
+    return `Letters Sent ${letterCount}`;
+  }, [lng, letterCount]);
 
   return (
     <article
@@ -41,7 +52,7 @@ export default function PetInfo({ pet, letterCount }: Props) {
         <div className="flex flex-col gap-y-2.5 text-solo-small text-gray-1">
           <div className="flex gap-2.5">
             <img src={letter} alt="letter" />
-            <p>보낸 편지 {letterCount}회</p>
+            <p>{sentLetterValue}</p>
           </div>
         </div>
         <img

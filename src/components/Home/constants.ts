@@ -11,19 +11,19 @@ interface Content_Message {
 }
 
 export const INFO_MESSAGES = Object.freeze({
-  LOGIN_ABSENT: '앗, 로그인 하셔야 해요',
-  INFOMATION_ABOUT_LETTER_WRITING_METHOD: '로그인하시면 편지를 보낼 수 있어요',
-  PETS_ABSENT: '앗, 편지를 받을 아이가 없어요',
-  SUGGEST_PETS_REGISTRATION: '우리 아이를 등록하러 가볼까요?',
-  PHONE: '자살 예방 상담전화 109',
+  LOGIN_ABSENT: 'home.loginAbsent',
+  INFOMATION_ABOUT_LETTER_WRITING_METHOD: 'home.letterWrtingMethod',
+  PETS_ABSENT: 'home.petsAbsent',
+  SUGGEST_PETS_REGISTRATION: 'home.suggestRegister',
+  PHONE: 'home.자살 예방 상담전화 109',
   PETS_TITLE: '우리 아이',
   CONTENTS_TITLE: '컨텐츠',
 });
 
 export const USER_ACTIONS = Object.freeze({
-  LOGIN: '로그인하기',
-  SIGH_UP: '가입하기',
-  PEST_REGISTRATION: '등록하기',
+  LOGIN: 'home.login',
+  SIGH_UP: 'home.signUp',
+  PEST_REGISTRATION: 'home.register',
 });
 
 export const CONTENTS_MESSAGE: Content_Message[] = [
@@ -53,12 +53,12 @@ export const BANNER_MESSAGE = Object.freeze({
   title: '무지개마을에서 우리 강아지는',
   description: '강아지 유형 테스트 하러 가기',
 });
-export const PHONE_MESSAGE = '자살예방 상담전화 109';
-export const OPEN_TALK_MESSAGE = '오류 시 오픈카카오톡 문의하기';
+export const PHONE_MESSAGE = 'home.phone';
+export const OPEN_TALK_MESSAGE = 'home.kakaoTalk';
 
 export const FOOTER_MESSAGE = Object.freeze({
-  ADDRESS: '문의 | rainbowletter41@gmail.com',
-  COPYRIGHT: 'Copyright © 2023 무지개편지',
-  COPYRIGHT_2: 'All Rights Reserved',
-  EMAIL: 'https://blog.naver.com/rainbowletter',
+  ADDRESS: 'home.contact',
+  COPYRIGHT: 'home.copyright',
+  COPYRIGHT_2: 'home.copyright2',
+  BLOG: 'home.blog',
 });
