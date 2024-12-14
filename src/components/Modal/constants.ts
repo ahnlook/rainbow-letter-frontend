@@ -35,22 +35,22 @@ export const MODAL_AD_CONTENTS_ITEMS: Modal_AD[] = [
 export const MODAL_MESSAGE: Modal[] = [
   {
     type: 'TOPIC',
-    title: '이런 주제로도 써보세요',
+    title: 'write.suggest',
     body: [
       {
         id: 1,
         prefix: 'Q. ',
-        contents: '오늘은 어떤 하루였나요?',
+        contents: 'write.today',
       },
       {
         id: 2,
         prefix: 'Q. ',
-        contents: '내일은 무엇을 하며 보낼건가요?',
+        contents: 'write.tomorrow',
       },
       {
         id: 3,
         prefix: 'Q. ',
-        contents: '최근 아이의 응원이 필요한 일이 있나요?',
+        contents: 'write.support',
       },
     ],
   },
@@ -100,17 +100,17 @@ export const MODAL_MESSAGE: Modal[] = [
   },
   {
     type: 'IMAGE',
-    title: `어떤 편지를 저장하시겠어요?`,
+    title: `modal.saveImage.title`,
     body: [
       {
         id: 1,
-        contents: '이미지로 저장하시고 싶은 편지를 선택해주세요',
+        contents: 'modal.saveImage.select',
       },
     ],
   },
   {
     type: 'SAVECOMPLETE',
-    title: `편지가 갤러리에 저장되었어요`,
+    title: `modal.saveImage.complete`,
     body: [],
   },
 ];

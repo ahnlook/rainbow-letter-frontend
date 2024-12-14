@@ -27,17 +27,13 @@ const appBarConfig: AppBar = {
     titleKey: '비밀번호 변경하기',
   },
   '/write-letter': {
-    titleKey: '편지쓰기',
+    titleKey: 'appBar.writeLetter',
   },
   '/letter-box': {
     titleKey: 'appBar.letterBox',
   },
-  // TODO: 변경
-  '/letter-box-renew': {
-    titleKey: '편지함',
-  },
   '/saved-image': {
-    titleKey: '이미지 저장',
+    titleKey: 'appBar.savedImage',
   },
   '/my-page/register': {
     titleKey: '등록하기',
@@ -46,7 +42,7 @@ const appBarConfig: AppBar = {
     titleKey: '컨텐츠',
   },
   letterId: {
-    titleKey: '편지함',
+    titleKey: 'appBar.inBox',
   },
   shareLink: {
     titleKey: '편지함',

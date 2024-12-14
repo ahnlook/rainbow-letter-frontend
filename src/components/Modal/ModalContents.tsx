@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import Button from 'components/Button';
 import Input from 'components/Input';
@@ -27,10 +28,12 @@ import ErrorIcon from '../../assets/Error_icon.svg';
 import SaveComplete from '../../assets/save_complete.svg';
 import AlarmIcon from '../../assets/ic_Error_icon.svg';
 import { RootState } from 'store';
+import { T } from 'types/translate';
 
 export default function ModalContents() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t }: T = useTranslation();
   const { type } = useSelector((state: State) => state.modal);
   const { sentLetterTarget } = useSelector((state: RootState) => state.letter);
 
@@ -83,14 +86,14 @@ export default function ModalContents() {
             return (
               <div className="w-full">
                 <header className="mt-7 text-center">
-                  <h3 className="text-heading-3">{title}</h3>
+                  <h3 className="text-heading-3">{t(title)}</h3>
                 </header>
                 <ul className="my-6 text-center text-body-small">
                   {body &&
                     body.map(({ id, prefix, contents }) => (
                       <li key={id} className="mb-2">
                         <span className="text-orange-400">{prefix}</span>
-                        {contents}
+                        {t(contents)}
                       </li>
                     ))}
                 </ul>
@@ -265,10 +268,10 @@ export default function ModalContents() {
               <div className="top-[10%] w-full px-[1.562rem] py-[1.875rem]">
                 <header className="mt-1.5 flex flex-col justify-center text-left">
                   <h3 className="whitespace-pre-wrap text-heading-3">
-                    {title}
+                    {t(title)}
                   </h3>
                   <span className="mt-2.5 text-caption">
-                    {body[0].contents}
+                    {t(body[0].contents)}
                   </span>
                 </header>
                 <div>
@@ -280,7 +283,7 @@ export default function ModalContents() {
                       value="image_letter"
                       defaultChecked
                     >
-                      내가 쓴 편지
+                      {t('modal.saveImage.myLetter')}
                     </Radio>
                     <Radio
                       onClick={setSelectRadio}
@@ -288,7 +291,7 @@ export default function ModalContents() {
                       name="saveImage"
                       value="image_reply"
                     >
-                      아이가 쓴 편지
+                      {t('modal.saveImage.petLetter')}
                     </Radio>
                   </RadioGroup>
                 </div>
@@ -298,7 +301,7 @@ export default function ModalContents() {
                     onClick={onClickSaveButton}
                     className="rounded-[6px] border-none bg-orange-400 px-8 py-2 text-[0.875rem] font-bold text-white"
                   >
-                    저장하기
+                    {t('modal.saveImage.save')}
                   </button>
                 </div>
                 <button
@@ -316,7 +319,7 @@ export default function ModalContents() {
                 <header className="flex flex-col items-center justify-center text-center">
                   <img src={SaveComplete} alt="편지지" />
                   <h3 className="mt-[15px] whitespace-pre-wrap text-heading-3">
-                    {title}
+                    {t(title)}
                   </h3>
                 </header>
                 <div className="mt-6 flex justify-center">
@@ -327,7 +330,7 @@ export default function ModalContents() {
                     }}
                     className="rounded-[8px] border-none bg-orange-400 px-6 py-1 text-[16px] font-bold text-white"
                   >
-                    확인
+                    {t('modal.saveImage.confirm')}
                   </button>
                 </div>
               </div>

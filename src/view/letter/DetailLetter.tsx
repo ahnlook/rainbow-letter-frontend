@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import html2canvas from 'html2canvas';
-
+import { useTranslation } from 'react-i18next';
 import Button from 'components/Button';
 import WrittenLetterPaper from 'components/Write/WrittenLetterPaper';
 import LetterPaperWithImage from 'components/Write/LetterPaperWithImage';
@@ -14,7 +14,10 @@ import DownLoadButton from 'components/Write/DownLoadButton';
 import { RootState, useAppDispatch } from 'store';
 import { getLetter } from 'api/letter';
 import metaData from 'utils/metaData';
-import { formatDateIncludingHangul } from 'utils/date';
+import {
+  formatDateIncludingHangul,
+  formatDateIncludingEnglish,
+} from 'utils/date';
 import { isiPhone } from 'utils/device';
 import { modalActions } from 'store/modal/modal-slice';
 import { letterActions } from 'store/letter/letter-slice';
@@ -23,10 +26,13 @@ import captureLogo from '../../assets/detailLetter_logo.svg';
 import { formatImageType } from 'utils/image';
 import { toolTipActions } from 'store/toolTip/toolTip-slice';
 import { getFirstReplyUser } from 'utils/localStorage';
+import { T } from 'types/translate';
 
 export default function DetailLetter() {
   // redux
   const dispatch = useAppDispatch();
+  const { t }: T = useTranslation();
+  const { lng } = useSelector((state: RootState) => state.common);
   const isSave = useSelector((state: RootState) => state.letter.isSaveToImage);
   const letterType = useSelector((state: RootState) => state.letter.letterType);
   const { isOpen } = useSelector((state: RootState) => state.toolTip);
@@ -169,6 +175,22 @@ export default function DetailLetter() {
 
   const isExistReply = !!letterData?.reply?.content;
 
+  const targetValueFromPet = useMemo(() => {
+    if (lng === 'ko') {
+      return `${letterData?.pet.name}로부터`;
+    }
+
+    return `From. ${letterData?.pet.name}`;
+  }, [lng, letterData?.pet.name]);
+
+  const targetValueToPet = useMemo(() => {
+    if (lng === 'ko') {
+      return `${letterData?.pet.name}에게`;
+    }
+
+    return `Dear. ${letterData?.pet.name}`;
+  }, [lng, letterData?.pet.name]);
+
   return (
     <>
       {letterData && (
@@ -177,9 +199,9 @@ export default function DetailLetter() {
             <div
               className={`${isExistReply ? 'opacity-100' : 'opacity-0'} absolute -right-[10px] -top-[16px] z-50 rounded-[12px] border border-orange-400 bg-white px-3 py-2 text-center transition-opacity duration-300`}
             >
-              <p className="pt-1 text-[12px]">
-                아이와의 편지를 이미지로 <br />
-                저장할 수 있어요
+              <p className={`${lng === 'ko' ? 'pt-[3px]' : ''} text-[12px]`}>
+                {t('inBox.saveUpLine')} <br />
+                {t('inBox.saveDownLine')}
               </p>
               <div className="absolute -top-[5px] right-[18px] z-50 size-2 rotate-[315deg] border-r border-t border-orange-400 bg-white"></div>
             </div>
@@ -192,11 +214,15 @@ export default function DetailLetter() {
             />
             {isExistReply && (
               <WrittenLetterPaper
-                petName={`${letterData.pet.name}로부터`}
+                petName={targetValueFromPet}
                 content={letterData.reply.content}
                 className="pt-[15.187rem]"
                 letterPaperColor="bg-orange-50"
-                date={formatDateIncludingHangul(letterData.reply.submitTime)}
+                date={
+                  lng === 'ko'
+                    ? formatDateIncludingHangul(letterData.letter.createdAt)
+                    : formatDateIncludingEnglish(letterData.letter.createdAt)
+                }
                 saveType={{
                   target: 'reply_down',
                   unTargetValue: 'reply_value',
@@ -205,11 +231,15 @@ export default function DetailLetter() {
               />
             )}
             <WrittenLetterPaper
-              petName={`${letterData.pet.name}에게`}
+              petName={targetValueToPet}
               content={letterData.letter.content}
               className={isExistReply ? 'mt-4' : 'pt-[15.187rem]'}
               letterPaperColor="bg-gray-2"
-              date={formatDateIncludingHangul(letterData.letter.createdAt)}
+              date={
+                lng === 'ko'
+                  ? formatDateIncludingHangul(letterData.letter.createdAt)
+                  : formatDateIncludingEnglish(letterData.letter.createdAt)
+              }
               saveType={{
                 target: 'letter_down',
                 unTargetValue: 'letter_value',
@@ -227,7 +257,7 @@ export default function DetailLetter() {
             onClick={onClickReplyButton}
             className="not-btn mt-12"
           >
-            {USER_ACTIONS.GO_TO_REPLY}
+            {t(USER_ACTIONS.GO_TO_REPLY)}
           </Button>
         </main>
       )}

@@ -1,6 +1,9 @@
 {
   "appBar": {
-    "letterBox": "MailBox"
+    "letterBox": "MailBox",
+    "writeLetter": "Write a Letter",
+    "inBox": "Rainbow Inbox",
+    "savedImage": "Save Image"
   },
   "login": {
     "welcome": "Welcome back!",
@@ -72,7 +75,31 @@
     "received": "REPLY RECEIVED",
     "year": "",
     "month": "",
-    "confirm": "Confirm"
+    "confirm": "Confirm",
+    "select": "Select Your Baby",
+    "add": "Add"
+  },
+  "write": {
+    "add": "ADD",
+    "register": "Please register your baby.",
+    "topic": "TIP: Try writing about this topic too!",
+    "picture": "Share a picture with your baby ",
+    "pictureInfo": "Only one attachment is allowed.",
+    "option": "(Optional)",
+    "send": "Send Letter",
+    "suggest": "Try writing on this topic too",
+    "today": "What kind of day was today?",
+    "tomorrow": "What are you going to do tomorrow?",
+    "support": "Has something happened recently that your child needs support from?"
+  },
+  "inBox": {
+    "reply": "Reply",
+    "saveUpLine": "save your letter with",
+    "saveDownLine": "your child as an image."
+  },
+  "savedImage": {
+    "press": "Press and hold the letter below to save it!",
+    "home": "Go to home"
   },
   "modal": {
     "delete": {
@@ -81,6 +108,15 @@
       "alert": "Deleted letters cannot be restored.",
       "cancel": "Cancel",
       "delete": "Delete"
+    },
+    "saveImage": {
+      "myLetter": "A letter i wrote",
+      "petLetter": "A letter written by a baby",
+      "title": "Which letter would you like to save?",
+      "select": "Please select the letter you want to save as an image.",
+      "complete": "Your letter has been saved",
+      "save": "Save",
+      "confirm": "Confirm"
     }
   }
 }

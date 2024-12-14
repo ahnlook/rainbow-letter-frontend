@@ -1,9 +1,10 @@
 import { ChangeEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { INFO_MESSAGES } from 'components/Write/constants';
 import ImageInput from 'components/Input/ImageInput';
-
 import roundX from '../../assets/roundX.svg';
+import { T } from 'types/translate';
 
 type Props = {
   setImageFile: (file: File | string) => void;
@@ -11,6 +12,7 @@ type Props = {
 
 export default function ImageUploadSection({ setImageFile }: Props) {
   const [previewUrl, setPreviewUrl] = useState<string>('');
+  const { t }: T = useTranslation();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -33,11 +35,11 @@ export default function ImageUploadSection({ setImageFile }: Props) {
   return (
     <section className="mt-10">
       <h4 className="text-solo-large">
-        {INFO_MESSAGES.SUGGEST_SEND_PHOTO}
-        <span className="text-gray-2">{INFO_MESSAGES.OPTION}</span>
+        {t(INFO_MESSAGES.SUGGEST_SEND_PHOTO)}
+        <span className="text-gray-2">{t(INFO_MESSAGES.OPTION)}</span>
       </h4>
       <p className="mb-[1.625rem mt-[0.813rem] text-caption text-gray-2">
-        {INFO_MESSAGES.POSSIBLE_NUMBER}
+        {t(INFO_MESSAGES.POSSIBLE_NUMBER)}
       </p>
       <ImageInput
         imageSrc={previewUrl}

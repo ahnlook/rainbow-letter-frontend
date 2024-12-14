@@ -119,6 +119,14 @@ export const formatDateIncludingHangul = (date: string) => {
   return `${year}년 ${month}월 ${day}일`;
 };
 
+export const formatDateIncludingEnglish = (date: string) => {
+  const year = date.slice(0, 4);
+  const month = date.slice(5, 7);
+  const day = date.slice(8, 10);
+
+  return `${formatMonthName(Number(month))?.slice(0, 3)} ${day}, ${year}`;
+};
+
 export const formatDateWithSlash = (date: string) => {
   const year = date.slice(2, 4);
   const month = date.slice(5, 7);

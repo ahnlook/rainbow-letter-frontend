@@ -31,7 +31,7 @@ export default function LandingPage() {
       <PetsSection isLoggedIn={!!token} />
       <HomeDivider />
       <LetterShowcase />
-      <LetterPostButton />
+      {isKorean && <LetterPostButton />}
       <HomeDivider />
       <OpenTalk />
       <PhoneButton />

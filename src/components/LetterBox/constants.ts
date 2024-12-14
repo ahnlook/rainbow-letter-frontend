@@ -9,5 +9,5 @@ export const INFO_MESSAGES = Object.freeze({
 
 export const USER_ACTIONS = Object.freeze({
   GO_TO_LETTERS: '편지쓰기',
-  GO_TO_REPLY: '답장쓰기',
+  GO_TO_REPLY: 'inBox.reply',
 });

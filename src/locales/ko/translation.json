@@ -1,6 +1,9 @@
 {
   "appBar": {
-    "letterBox": "편지함"
+    "letterBox": "편지함",
+    "writeLetter": "편지쓰기",
+    "inBox": "편지함",
+    "savedImage": "이미지 저장"
   },
   "login": {
     "welcome": "다시 와주셨네요!",
@@ -65,7 +68,31 @@
     "received": "답장 완료",
     "year": "년",
     "month": "월",
-    "confirm": "확인"
+    "confirm": "확인",
+    "select": "아이 선택하기",
+    "add": "추가하기"
+  },
+  "write": {
+    "add": "추가하기",
+    "register": "편지 받을 아이를 등록해주세요",
+    "topic": "TIP. 이런 주제로도 써보세요",
+    "picture": "사진을 보내보세요. ",
+    "pictureInfo": "딱 1장만 보낼 수 있어요.",
+    "option": "(선택)",
+    "send": "편지 보내기",
+    "suggest": "이런 주제로도 써보세요",
+    "today": "오늘은 어떤 하루였나요?",
+    "tomorrow": "내일은 무엇을 하며 보낼건가요?",
+    "support": "최근 아이의 응원이 필요한 일이 있나요?"
+  },
+  "inBox": {
+    "reply": "답장쓰기",
+    "saveUpLine": "아이와의 편지를 이미지로",
+    "saveDownLine": "저장할 수 있어요"
+  },
+  "savedImage": {
+    "press": "아래 편지를 꾹 눌러 저장해보세요!",
+    "home": "홈으로 가기"
   },
   "modal": {
     "delete": {
@@ -74,6 +101,15 @@
       "alert": "삭제한 편지는 되돌릴 수 없어요.",
       "cancel": "돌아가기",
       "delete": "편지 삭제하기"
+    },
+    "saveImage": {
+      "myLetter": "내가 쓴 편지",
+      "petLetter": "아이가 쓴 편지",
+      "title": "어떤 편지를 저장하시겠어요?",
+      "select": "이미지로 저장하시고 싶은 편지를 선택해주세요",
+      "complete": "편지가 갤러리에 저장되었어요",
+      "save": "저장하기",
+      "confirm": "확인"
     }
   }
 }

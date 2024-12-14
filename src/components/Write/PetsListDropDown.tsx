@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import { USER_ACTIONS } from 'components/Write/constants';
 import { PetResponse } from 'types/pets';
 import useDetectClose from 'hooks/useDetectClose';
-
 import dropDownImg from '../../assets/ion_chevron-back.svg';
 import dropUpImg from '../../assets/ion_chevron-up.svg';
 import plusImg from '../../assets/ic_round-plus-black.svg';
+import { T } from 'types/translate';
 
 type Props = {
   petName: string | null;
@@ -20,6 +21,7 @@ export default function PetsListDropDown({
   petsList,
   onclick,
 }: Props) {
+  const { t }: T = useTranslation();
   const dropdown = useRef<HTMLDivElement>(null);
   const { isOpen, setIsOpen } = useDetectClose(dropdown, false);
 
@@ -56,7 +58,7 @@ export default function PetsListDropDown({
               className="flex items-center py-3 pl-3"
             >
               <img src={plusImg} alt={plusImg} />
-              <p>{USER_ACTIONS.ADD}</p>
+              <p>{t(USER_ACTIONS.ADD)}</p>
             </Link>
           </ul>
         )}

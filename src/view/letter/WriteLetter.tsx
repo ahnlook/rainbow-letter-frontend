@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import ClipLoader from 'react-spinners/ClipLoader';
 import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 import ResisterButtonSection from 'components/Write/ResisterButtonSection';
 import PetsListDropDown from 'components/Write/PetsListDropDown';
@@ -36,10 +37,12 @@ import CoverImage from 'components/Common/CoverImage';
 import { LetterRequest } from 'types/letters';
 import { formatImageType } from 'utils/image';
 import Spinner from 'components/Spinner';
+import { T } from 'types/translate';
 
 export default function WriteLetter() {
   const dispatch = useDispatch();
   const location = useLocation();
+  const { t }: T = useTranslation();
   const [petsList, setPetsList] = useState<PetResponse[]>([]);
   const [selectedPet, setSelectedPet] = useState<PetResponse | null>(null);
   const [imageFile, setImageFile] = useState<File | string>('');
@@ -266,7 +269,7 @@ export default function WriteLetter() {
           onClick={onClickSendButton}
           className="mt-[3.625rem]"
         >
-          편지 보내기
+          {t('write.send')}
         </Button>
       ) : (
         <div className="mt-[3.625rem] text-center">

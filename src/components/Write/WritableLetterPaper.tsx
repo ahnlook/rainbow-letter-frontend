@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 
 import LetterLengthCaption from 'components/Write/LetterLengthCaption';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
 
 type Letter = {
   summary: string;
@@ -20,6 +22,7 @@ export default function WritableLetterPaper({
   onchange,
   letter,
 }: Props) {
+  const { lng } = useSelector((state: RootState) => state.common);
   const textarea = useRef<HTMLTextAreaElement>(null);
 
   const onUserGuessInput = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -49,10 +52,20 @@ export default function WritableLetterPaper({
     handleResizeHeight();
   }, [letter.content]);
 
+  const letterTargetValue = useMemo(() => {
+    if (!petName) return '';
+
+    if (lng === 'ko') {
+      return `${petName}에게`;
+    }
+
+    return `Dear. ${petName}`;
+  }, [petName]);
+
   return (
     <section className="relative mt-4 pt-[15.187rem]">
       <section className="rounded-2xl bg-orange-50 px-6 py-8 font-Gyobomungo2019 text-body-letter text-gray-1">
-        <h3>{petName ? `${petName}에게` : ''}</h3>
+        <h3>{letterTargetValue}</h3>
         <textarea
           onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => {
             handleTextarea(e);

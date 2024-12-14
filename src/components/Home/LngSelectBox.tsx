@@ -4,6 +4,7 @@ import i18n from 'i18n';
 
 import { RootState } from 'store';
 import USA from '../../assets/ic_home_usa.svg';
+import Korea from '../../assets/ic_home_korea.svg';
 import Down from '../../assets/ic_home_down.svg';
 import useDetectClose from 'hooks/useDetectClose';
 import commonSlice from 'store/common/common-slice';
@@ -49,7 +50,7 @@ export default function LngSelectBox() {
         className="flex cursor-pointer items-center justify-between rounded-[60px] border border-[#DFDFDF] bg-[#F8F8F8] px-3 py-1"
       >
         <div className="flex items-center gap-3">
-          <img src={USA} alt="usa" />
+          <img src={lng === 'ko' ? Korea : USA} alt="usa" />
           <span className="text-[14px] leading-[14px]">
             {lng === 'ko' ? '한국어' : 'English'}
           </span>
@@ -77,7 +78,7 @@ export default function LngSelectBox() {
               onClick={() => onClickSelectItem('ko')}
               className="flex cursor-pointer items-center gap-3 px-4 py-2 hover:bg-gray-100"
             >
-              <img src={USA} alt="usa" />
+              <img src={Korea} alt="korea" />
               <span className="text-[14px] leading-[14px]">한국어</span>
             </li>
           </ul>
