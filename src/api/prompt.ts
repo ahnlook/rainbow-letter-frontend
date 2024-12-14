@@ -36,7 +36,7 @@ export interface AIPrompt {
 
 export const putAIPrompt = async (promptId: number, prompt: AIPrompt) => {
   const response = await apiRequest.put(
-    `${RESOURCE}/prompt/${promptId}`,
+    `${RESOURCE}/prompts/${promptId}`,
     prompt
   );
 
