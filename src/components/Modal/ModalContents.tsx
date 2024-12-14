@@ -200,9 +200,12 @@ export default function ModalContents() {
                 <header className="flex flex-col items-center justify-center text-center">
                   <img src={ErrorIcon} alt="편지지" />
                   <h3 className="mt-5 whitespace-pre-wrap text-heading-3 font-bold">
-                    {title}
+                    {t('modal.saving.titleUpLine')}
                   </h3>
-                  <span className="mt-3">{body[0].contents}</span>
+                  <h3 className="whitespace-pre-wrap text-heading-3 font-bold">
+                    {t('modal.saving.titleDownLine')}
+                  </h3>
+                  <span className="mt-3">{t(body[0].contents)}</span>
                 </header>
                 <div className="mt-7 flex gap-3">
                   <button
@@ -211,9 +214,9 @@ export default function ModalContents() {
                       dispatch(modalActions.closeModal());
                       navigate('/');
                     }}
-                    className="rounded-[8px] border-none bg-gray-4 px-7 py-2.5 text-[16px] font-bold text-gray-5"
+                    className="w-1/2 text-nowrap rounded-[8px] border-none bg-gray-4 py-2.5 text-[16px] font-bold text-gray-5"
                   >
-                    홈으로
+                    {t('modal.saving.home')}
                   </button>
                   <button
                     type="button"
@@ -223,9 +226,9 @@ export default function ModalContents() {
                       setSessionAutoSaveID(autoSaveID);
                       window.location.reload();
                     }}
-                    className="rounded-[8px] border-none bg-orange-400 px-7 py-2.5 text-[16px] font-bold text-white"
+                    className="w-1/2 text-nowrap rounded-[8px] border-none bg-orange-400 py-2.5 text-[16px] font-bold text-white"
                   >
-                    편지 불러오기
+                    {t('modal.saving.load')}
                   </button>
                 </div>
               </div>

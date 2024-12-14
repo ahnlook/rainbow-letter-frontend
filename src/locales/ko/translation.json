@@ -110,6 +110,13 @@
       "complete": "편지가 갤러리에 저장되었어요",
       "save": "저장하기",
       "confirm": "확인"
+    },
+    "saving": {
+      "titleUpLine": "다른 환경에서",
+      "titleDownLine": "편지를 작성중이예요",
+      "contents": "여기서 계속 작성할까요?",
+      "home": "홈으로",
+      "load": "편지 불러오기"
     }
   }
 }

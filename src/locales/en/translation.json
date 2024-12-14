@@ -117,6 +117,13 @@
       "complete": "Your letter has been saved",
       "save": "Save",
       "confirm": "Confirm"
+    },
+    "saving": {
+      "titleUpLine": "Writing a letter",
+      "titleDownLine": "in a different environment",
+      "contents": "Should I continue writing here?",
+      "home": "Go to home",
+      "load": "Load Letter"
     }
   }
 }

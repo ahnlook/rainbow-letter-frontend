@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import ClipLoader from 'react-spinners/ClipLoader';
 import axios from 'axios';
 import { useTranslation } from 'react-i18next';
@@ -38,11 +38,16 @@ import { LetterRequest } from 'types/letters';
 import { formatImageType } from 'utils/image';
 import Spinner from 'components/Spinner';
 import { T } from 'types/translate';
+import { RootState } from 'store';
+import Modal from 'components/Modal';
+import ReplyInfoModalForEn from 'components/Write/ReplyInfoModalForEn';
 
 export default function WriteLetter() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const location = useLocation();
   const { t }: T = useTranslation();
+  const { lng } = useSelector((state: RootState) => state.common);
   const [petsList, setPetsList] = useState<PetResponse[]>([]);
   const [selectedPet, setSelectedPet] = useState<PetResponse | null>(null);
   const [imageFile, setImageFile] = useState<File | string>('');
@@ -55,6 +60,7 @@ export default function WriteLetter() {
   const [temp, setTemp] = useState<string | undefined>('');
   const [savedLetterId, setSavedLetterId] = useState<number | null>(null);
   const [isFetchLoading, setIsFetchLoading] = useState(true);
+  const [isEnModalOpen, setEnModalOpen] = useState<boolean>(false);
 
   // 편지쓰기 페이지 입장
   useEffect(() => {
@@ -215,6 +221,15 @@ export default function WriteLetter() {
     }
   };
 
+  const isCheckEnModalOpen = () => {
+    const unShow = localStorage.getItem('unshow');
+    if (unShow !== 'true') {
+      return navigate('/letter-box');
+    }
+
+    return setEnModalOpen(true);
+  };
+
   const onClickSendButton = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -226,9 +241,12 @@ export default function WriteLetter() {
       await sendLetter(selectedPet?.id, newLetter);
       await deleteSavedLetter(savedLetterId, selectedPet?.id);
 
-      isCheckPhoneNumberModalOpen();
       dispatch(letterActions.setSentLetterTarget(selectedPet?.id));
-      return dispatch(modalActions.openModal('COMPLETE'));
+      if (lng === 'ko') {
+        isCheckPhoneNumberModalOpen();
+        return dispatch(modalActions.openModal('COMPLETE'));
+      }
+      isCheckEnModalOpen();
     } catch (error) {
       console.log(error);
     } finally {
@@ -275,6 +293,12 @@ export default function WriteLetter() {
         <div className="mt-[3.625rem] text-center">
           <ClipLoader color="#FFB347" />
         </div>
+      )}
+      {isEnModalOpen && (
+        <Modal
+          isLocalOpen={isEnModalOpen}
+          localModalContents={<ReplyInfoModalForEn />}
+        />
       )}
     </main>
   );

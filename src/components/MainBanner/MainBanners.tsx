@@ -43,11 +43,7 @@ function MainBanners() {
     if (EN_BANNER_ITEMS.length === 1) {
       return (
         <>
-          <Link
-            to={EN_BANNER_ITEMS[0].link}
-            target="_blank"
-            className="absolute flex justify-between"
-          >
+          <div className="absolute flex justify-between">
             <div className="flex items-center justify-center">
               <img
                 className="object-fill"
@@ -55,7 +51,7 @@ function MainBanners() {
                 alt="card"
               />
             </div>
-          </Link>
+          </div>
           <div className="h-[40px]" />
         </>
       );
