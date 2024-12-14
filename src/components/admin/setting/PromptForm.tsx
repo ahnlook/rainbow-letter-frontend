@@ -2,6 +2,7 @@ import TextArea from 'antd/es/input/TextArea';
 import { IPrompt } from './Prompt';
 import {
   AIOptions,
+  AIPrompt,
   getAIParameters,
   putAIOptions,
   putAIPrompt,
@@ -44,21 +45,14 @@ const MODEL_CONFIG: { key: keyof AIOptions; name: string; value: any }[] = [
 
 interface PromptFormProps {
   prompt: IPrompt;
+  allParameters: MenuProps['items'];
 }
 
-const PromptForm = ({ prompt }: PromptFormProps) => {
-  const [allParameters, setAllParameters] = useState<MenuProps['items']>([]);
+const PromptForm = ({ prompt, allParameters }: PromptFormProps) => {
   const [selectedParameters, setSelectedParameters] = useState<string[]>([]);
   const [modelConfig, setModelConfig] = useState(MODEL_CONFIG);
-
-  const setParameters = async () => {
-    const response = await getAIParameters();
-    const AIParameters = response.parameters.map((param: string) => ({
-      key: param,
-      label: param,
-    }));
-    setAllParameters(AIParameters);
-  };
+  const [userPrompt, setUserPrompt] = useState('');
+  const [systemPrompt, setSystemPrompt] = useState('');
 
   const initModelConfig = () => {
     const updatedModelConfig = MODEL_CONFIG.map((config) => ({
@@ -102,16 +96,14 @@ const PromptForm = ({ prompt }: PromptFormProps) => {
       });
     };
 
-  const getParametersPayload = () => {
-    if (!selectedParameters) return null;
-
+  const getParametersPayload = (): AIPrompt => {
     const payload = {
       provider: 'OPENAI',
       model: 'model',
-      system: 'system',
-      user: '사용자의 편지 수 : %s',
+      system: systemPrompt || prompt.system,
+      user: userPrompt || prompt.user,
       parameters: selectedParameters,
-    } as const;
+    };
 
     return payload;
   };
@@ -137,6 +129,8 @@ const PromptForm = ({ prompt }: PromptFormProps) => {
     const parametersPayload = getParametersPayload();
     const modelConfigPayload = getModelConfigPayload();
 
+    if (!parametersPayload || !modelConfigPayload) return;
+
     if (modelConfigPayload && parametersPayload) {
       try {
         await Promise.all([
@@ -152,28 +146,34 @@ const PromptForm = ({ prompt }: PromptFormProps) => {
   };
 
   useEffect(() => {
-    setParameters();
     initModelConfig();
-  }, []);
+  }, [prompt?.option]);
 
   useEffect(() => {
     setSelectedParameters(prompt?.parameters);
   }, [prompt]);
 
+  const userPromptValue = userPrompt ? userPrompt : prompt?.user;
+  const systemPromptValue = systemPrompt ? systemPrompt : prompt?.system;
+
   return (
     <section className="flex w-full flex-col gap-y-4 rounded-lg bg-gray-100 p-4 sm:w-1/2">
       <h2 className="text-heading-3">프롬프트 {prompt?.type}</h2>
       <div className="flex flex-col gap-y-2">
-        <h3 className="text-solo-label-pc">Header (required)</h3>
-        <TextArea rows={2} placeholder="" />
+        <h3 className="text-solo-label-pc">User (required)</h3>
+        <TextArea
+          rows={6}
+          value={userPromptValue}
+          onChange={(e) => setUserPrompt(e.target.value)}
+        />
       </div>
       <div className="flex flex-col gap-y-2">
-        <h3 className="text-solo-label-pc">Content (required)</h3>
-        <TextArea rows={6} placeholder="" />
-      </div>
-      <div className="flex flex-col gap-y-2">
-        <h3 className="text-solo-label-pc">Additional (required)</h3>
-        <TextArea rows={2} placeholder="" />
+        <h3 className="text-solo-label-pc">System (required)</h3>
+        <TextArea
+          rows={6}
+          value={systemPromptValue}
+          onChange={(e) => setSystemPrompt(e.target.value)}
+        />
       </div>
       <div className="flex flex-col gap-y-2">
         <h3 className="text-solo-label-pc">Settings (optional)</h3>

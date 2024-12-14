@@ -1,6 +1,12 @@
-import { Radio, Switch } from 'antd';
+import { MenuProps, Radio, Switch } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
-import { AIOptions, getAIConfig, PromptType, putAIConfig } from 'api/prompt';
+import {
+  AIOptions,
+  getAIConfig,
+  getAIParameters,
+  PromptType,
+  putAIConfig,
+} from 'api/prompt';
 import { format } from 'date-fns/format';
 import { useEffect, useRef, useState } from 'react';
 import PromptForm from './PromptForm';
@@ -20,6 +26,7 @@ export interface IPrompt {
 const Prompt = () => {
   const [mainPrompt, setMainPrompt] = useState<PromptType>('A');
   const [isABTestOn, setIsABTestOn] = useState(false);
+  const [allParameters, setAllParameters] = useState<MenuProps['items']>([]);
   const [prompts, setPrompts] = useState<IPrompt[]>([]);
 
   const promptA = prompts.find((prompt) => prompt.type === 'A') as IPrompt;
@@ -63,7 +70,17 @@ const Prompt = () => {
     });
   };
 
+  const setParameters = async () => {
+    const response = await getAIParameters();
+    const AIParameters = response.parameters.map((param: string) => ({
+      key: param,
+      label: param,
+    }));
+    setAllParameters(AIParameters);
+  };
+
   useEffect(() => {
+    setParameters();
     handleGetAIConfig();
   }, []);
 
@@ -94,8 +111,8 @@ const Prompt = () => {
         </div>
       </section>
       <div className="flex flex-col gap-x-4 rounded-lg sm:flex-row">
-        <PromptForm prompt={promptA} />
-        <PromptForm prompt={promptB} />
+        <PromptForm prompt={promptA} allParameters={allParameters} />
+        <PromptForm prompt={promptB} allParameters={allParameters} />
       </div>
     </main>
   );

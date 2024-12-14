@@ -26,8 +26,8 @@ export const putAIConfig = async (config: AIConfig) => {
   return response.data;
 };
 
-interface AIPrompt {
-  provider: 'OPENAI' | 'GEMINI';
+export interface AIPrompt {
+  provider: 'OPENAI' | 'GEMINI' | string;
   model: string;
   system: string;
   user: string;
