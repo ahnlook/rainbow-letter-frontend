@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 
 import Chip from 'components/Chips/Chip';
 import Input from 'components/Input';
@@ -10,6 +12,8 @@ import { usePetRegistration } from '../../contexts/PetRegistrationContext';
 import PetRegistrationSection from './PetRegistrationSection';
 
 function DateOfDeathSection() {
+  const { t } = useTranslation();
+  const { lng } = useSelector((state) => state.common);
   const { mandatoryData, setMandatoryData } = usePetRegistration();
   const [date, setDate] = useState(mandatoryData.deathAnniversary);
   const [isDateInFuture, setIsDateInFuture] = useState(false);
@@ -57,7 +61,7 @@ function DateOfDeathSection() {
   return (
     <PetRegistrationSection title={TITLES.DATE_OF_DEATH}>
       <div className="flex justify-between">
-        <div className="flex items-center">
+        <div className="flex flex-row-reverse items-center">
           <Input
             className="h-11 w-[4.063rem] text-center text-caption"
             type="tel"
@@ -65,9 +69,14 @@ function DateOfDeathSection() {
             value={date?.year || ''}
             onChange={handleInputChange('year')}
           />
-          <span className="p-[0.437rem] text-caption">
-            {DATE_OF_DEATH.YEAR}
-          </span>
+          {lng === 'ko' ? (
+            <span className="p-[0.437rem] text-caption">
+              {DATE_OF_DEATH.YEAR}
+            </span>
+          ) : (
+            <span className="p-[0.437rem] text-caption">/</span>
+          )}
+
           <Input
             className="h-11 w-[3.437rem] text-center text-caption"
             type="tel"
@@ -75,9 +84,13 @@ function DateOfDeathSection() {
             value={date?.month || ''}
             onChange={handleInputChange('month')}
           />
-          <span className="p-[0.437rem] text-caption">
-            {DATE_OF_DEATH.MONTH}
-          </span>
+          {lng === 'ko' ? (
+            <span className="p-[0.437rem] text-caption">
+              {DATE_OF_DEATH.MONTH}
+            </span>
+          ) : (
+            <span className="p-[0.437rem] text-caption">/</span>
+          )}
           <Input
             className="h-11 w-[3.437rem] text-center text-caption"
             type="tel"
@@ -85,11 +98,15 @@ function DateOfDeathSection() {
             value={date?.day || ''}
             onChange={handleInputChange('day')}
           />
-          <span className="p-[0.437rem] text-caption">{DATE_OF_DEATH.DAY}</span>
+          <span
+            className={lng === 'ko' ? 'p-[0.437rem] text-caption' : 'hidden'}
+          >
+            {DATE_OF_DEATH.DAY}
+          </span>
         </div>
         <div className="flex items-center text-nowrap">
           <Chip
-            value={DATE_OF_DEATH.UNKNOWN}
+            value={t(DATE_OF_DEATH.UNKNOWN)}
             isSelected={isChipSelected}
             onClick={handleChipClick}
           />

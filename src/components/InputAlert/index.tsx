@@ -1,3 +1,6 @@
+import { useTranslation } from 'react-i18next';
+import { T } from 'types/translate';
+
 type Props = {
   message: string;
   isVisible: boolean;
@@ -5,6 +8,7 @@ type Props = {
 };
 
 function InputAlert({ message, isVisible, reserveSpace = false }: Props) {
+  const { t }: T = useTranslation();
   if (!isVisible) {
     return null;
   }
@@ -13,7 +17,7 @@ function InputAlert({ message, isVisible, reserveSpace = false }: Props) {
 
   return (
     <div className={`${styles} px-2.5 pt-2.5 text-caption text-alarm-red`}>
-      {message}
+      {t(message)}
     </div>
   );
 }

@@ -3,7 +3,9 @@
     "letterBox": "MailBox",
     "writeLetter": "Write a Letter",
     "inBox": "Rainbow Inbox",
-    "savedImage": "Save Image"
+    "savedImage": "Save Image",
+    "register": "Register My Baby",
+    "edit": "Edit My Baby"
   },
   "login": {
     "welcome": "Welcome back!",
@@ -100,6 +102,25 @@
   "savedImage": {
     "press": "Press and hold the letter below to save it!",
     "home": "Go to home"
+  },
+  "register": {
+    "name": "Name",
+    "day": "Memory Day",
+    "type": "Type",
+    "owner": "To Your Baby, You Are...",
+    "ownerDes": "(This will be used as the name your baby calls you in their reply.)",
+    "personalities": "Your Baby's Personality Type (up to 3)",
+    "option": "(Optional)",
+    "image": "Profile Picture",
+    "registre": "Register",
+    "unknown": "Not sure",
+    "edit": "Edit",
+    "register": "Register",
+    "etc": "Other",
+    "chaWarn": "Please enter up to 20 characters.",
+    "dateWarn": "Please check the date again.",
+    "nameWarn": "The name cannot be changed later",
+    "enterNameWarn": "Please enter name"
   },
   "modal": {
     "delete": {

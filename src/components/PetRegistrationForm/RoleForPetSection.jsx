@@ -4,16 +4,24 @@ import Chips from 'components/Chips';
 import Chip from 'components/Chips/Chip';
 import MiscInput from 'components/Input/MiscInput';
 import InputAlert from 'components/InputAlert';
-import { ROLES_FOR_WOMEN, ROLES_FOR_MEN } from 'components/Chips/constants';
+import {
+  ROLES_FOR_WOMEN,
+  ROLES_FOR_MEN,
+  ROLES_FOR_EN,
+} from 'components/Chips/constants';
 import useAutoFocus from 'hooks/useAutoFocus';
 import { TITLES, INFO_MESSAGES } from './constants';
 import PetRegistrationSection from './PetRegistrationSection';
 import { usePetRegistration } from '../../contexts/PetRegistrationContext';
+import { useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 const ALL_ROLES = [...ROLES_FOR_MEN, ...ROLES_FOR_WOMEN];
 
 function RoleForPetSection() {
   const miscInputRef = useRef(null);
+  const { lng } = useSelector((state) => state.common);
+  const { t } = useTranslation();
   const { mandatoryData, setMandatoryData } = usePetRegistration();
   const [selectedRole, setSelectedRole] = useState(null);
   const [miscValue, setMiscValue] = useState('');
@@ -41,7 +49,10 @@ function RoleForPetSection() {
   };
 
   useEffect(() => {
-    const role = ALL_ROLES.find((t) => t.NAME === mandatoryData.owner);
+    const role =
+      lng === 'ko'
+        ? ALL_ROLES.find((t) => t.NAME === mandatoryData.owner)
+        : ROLES_FOR_EN.find((t) => t.NAME === mandatoryData.owner);
 
     if (role) {
       setSelectedRole(mandatoryData.owner);
@@ -60,17 +71,20 @@ function RoleForPetSection() {
   }, [miscValue]);
 
   return (
-    <PetRegistrationSection title={TITLES.ROLES_FOR_PETS}>
+    <PetRegistrationSection title={TITLES.ROLES_FOR_PETS} description>
       <Chips
-        attributes={ROLES_FOR_WOMEN}
+        attributes={lng === 'ko' ? ROLES_FOR_WOMEN : ROLES_FOR_EN}
         selectedChips={selectedRole ? [selectedRole] : []}
         onChipSelect={handleChipSelect}
       />
-      <Chips
-        attributes={ROLES_FOR_MEN}
-        selectedChips={selectedRole ? [selectedRole] : []}
-        onChipSelect={handleChipSelect}
-      />
+      {lng === 'ko' && (
+        <Chips
+          attributes={ROLES_FOR_MEN}
+          selectedChips={selectedRole ? [selectedRole] : []}
+          onChipSelect={handleChipSelect}
+        />
+      )}
+
       {selectedRole === '기타' ? (
         <>
           <MiscInput
@@ -86,7 +100,10 @@ function RoleForPetSection() {
           />
         </>
       ) : (
-        <Chip value="기타" onClick={() => setSelectedRole('기타')} />
+        <Chip
+          value={t('register.etc')}
+          onClick={() => setSelectedRole('기타')}
+        />
       )}
     </PetRegistrationSection>
   );

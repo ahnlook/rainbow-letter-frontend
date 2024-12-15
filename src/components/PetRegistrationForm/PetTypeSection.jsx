@@ -1,17 +1,21 @@
 import { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Chips from 'components/Chips';
 import Chip from 'components/Chips/Chip';
 import MiscInput from 'components/Input/MiscInput';
 import InputAlert from 'components/InputAlert';
-import { PET_TYPES } from 'components/Chips/constants';
+import { PET_TYPES, PET_TYPES_EN } from 'components/Chips/constants';
 import useAutoFocus from 'hooks/useAutoFocus';
 import { TITLES, INFO_MESSAGES } from './constants';
 import PetRegistrationSection from './PetRegistrationSection';
 import { usePetRegistration } from '../../contexts/PetRegistrationContext';
+import { useSelector } from 'react-redux';
 
 function PetTypeSection() {
   const miscInputRef = useRef(null);
+  const { t } = useTranslation();
+  const { lng } = useSelector((state) => state.common);
   const { mandatoryData, setMandatoryData } = usePetRegistration();
 
   const [selectedType, setSelectedType] = useState(mandatoryData.species);
@@ -38,7 +42,10 @@ function PetTypeSection() {
   };
 
   useEffect(() => {
-    const role = PET_TYPES.find((t) => t.NAME === mandatoryData.species);
+    const role =
+      lng === 'ko'
+        ? PET_TYPES.find((t) => t.NAME === mandatoryData.species)
+        : PET_TYPES_EN.find((t) => t.NAME === mandatoryData.species);
 
     if (role) {
       setSelectedType(mandatoryData.species);
@@ -62,7 +69,7 @@ function PetTypeSection() {
   return (
     <PetRegistrationSection title={TITLES.PET_TYPES}>
       <Chips
-        attributes={PET_TYPES}
+        attributes={lng === 'ko' ? PET_TYPES : PET_TYPES_EN}
         selectedChips={selectedType ? [selectedType] : []}
         onChipSelect={handleChipSelect}
       />
@@ -81,7 +88,10 @@ function PetTypeSection() {
           />
         </>
       ) : (
-        <Chip value="기타" onClick={() => handleChipSelect('기타')} />
+        <Chip
+          value={t('register.etc')}
+          onClick={() => handleChipSelect('기타')}
+        />
       )}
     </PetRegistrationSection>
   );

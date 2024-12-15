@@ -1,27 +1,27 @@
-export const TITLES = {
-  PET_NAME: '아이의 이름은',
-  DATE_OF_DEATH: '아이가 떠난 날',
-  PET_TYPES: '아이의 종류',
-  ROLES_FOR_PETS: '아이에게 당신은',
-  PET_PERSONALITIES: '아이의 평소 성격은 (최대 3개)',
-  PROFILE_IMAGE: '프로필 사진',
-  OPTION: '(선택)',
-};
+export const TITLES = Object.freeze({
+  PET_NAME: 'register.name',
+  DATE_OF_DEATH: 'register.day',
+  PET_TYPES: 'register.type',
+  ROLES_FOR_PETS: 'register.owner',
+  PET_PERSONALITIES: 'register.personalities',
+  PROFILE_IMAGE: 'register.image',
+  OPTION: 'register.option',
+});
 
-export const DATE_OF_DEATH = {
+export const DATE_OF_DEATH = Object.freeze({
   YEAR: '년',
   MONTH: '월',
   DAY: '일',
-  UNKNOWN: '몰라요',
-};
+  UNKNOWN: 'register.unknown',
+});
 
-export const INFO_MESSAGES = {
-  ENTER_NAME: '아이의 이름을 입력해주세요.',
-  UNCHANGEABLE_NAME_NOTICE: '이름은 나중에 수정할 수 없어요.',
-  ENTER_WITHIN_10_CHARS: '10글자 이내로 입력해주세요.',
-  CHECK_DATE_AGAIN: '날짜를 다시 확인해주세요.',
-};
+export const INFO_MESSAGES = Object.freeze({
+  ENTER_NAME: 'register.enterNameWarn',
+  UNCHANGEABLE_NAME_NOTICE: 'register.nameWarn',
+  ENTER_WITHIN_10_CHARS: 'register.chaWarn',
+  CHECK_DATE_AGAIN: 'register.dateWarn',
+});
 
-export const USER_ACTIONS = {
+export const USER_ACTIONS = Object.freeze({
   REGISTER: '등록하기',
-};
+});

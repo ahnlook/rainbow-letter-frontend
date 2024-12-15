@@ -3,7 +3,9 @@
     "letterBox": "편지함",
     "writeLetter": "편지쓰기",
     "inBox": "편지함",
-    "savedImage": "이미지 저장"
+    "savedImage": "이미지 저장",
+    "register": "등록하기",
+    "edit": "수정하기"
   },
   "login": {
     "welcome": "다시 와주셨네요!",
@@ -93,6 +95,24 @@
   "savedImage": {
     "press": "아래 편지를 꾹 눌러 저장해보세요!",
     "home": "홈으로 가기"
+  },
+  "register": {
+    "name": "아이의 이름은",
+    "day": "아이가 떠난 날",
+    "type": "아이의 종류",
+    "owner": "아이에게 당신은",
+    "ownerDes": "",
+    "personalities": "아이의 평소 성격은 (최대 3개)",
+    "option": "(선택)",
+    "image": "프로필 사진",
+    "unknown": "몰라요",
+    "edit": "수정하기",
+    "register": "등록하기",
+    "etc": "기타",
+    "chaWarn": "10글자 이내로 입력해주세요.",
+    "dateWarn": "날짜를 다시 확인해주세요.",
+    "nameWarn": "이름은 나중에 수정할 수 없어요.",
+    "enterNameWarn": "아이의 이름을 입력해주세요."
   },
   "modal": {
     "delete": {

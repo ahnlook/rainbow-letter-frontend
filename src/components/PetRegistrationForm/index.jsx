@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import ClipLoader from 'react-spinners/ClipLoader';
 import Button from 'components/Button';
@@ -19,6 +20,7 @@ import { formatImageType } from '../../utils/image';
 
 function PetRegistrationForm({ petData, isDisabled, handleSubmit }) {
   const { pathname } = useLocation();
+  const { t } = useTranslation();
   const isEdit = pathname.includes('edit');
 
   const { setMandatoryData, setOptionalData } = usePetRegistration();
@@ -67,7 +69,7 @@ function PetRegistrationForm({ petData, isDisabled, handleSubmit }) {
             disabled={!isDisabled || isSubmitting}
             onClick={handleButtonClick(handleSubmit)}
           >
-            <span>등록하기</span>
+            <span>{t(isEdit ? 'register.edit' : 'register.register')}</span>
           </Button>
         ) : (
           <div className="text-center">

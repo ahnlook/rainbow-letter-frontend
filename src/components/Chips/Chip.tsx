@@ -1,3 +1,7 @@
+import { useTranslation } from 'react-i18next';
+
+import { T } from 'types/translate';
+
 type Props = {
   value: string;
   isSelected: boolean;
@@ -7,6 +11,7 @@ type Props = {
 
 function Chip({ className, isSelected, value, onClick }: Props) {
   const styles = className || '';
+  const { t }: T = useTranslation();
 
   return (
     <button
@@ -19,7 +24,7 @@ function Chip({ className, isSelected, value, onClick }: Props) {
           isSelected ? 'font-bold text-orange-400' : 'text-gray-1'
         }`}
       >
-        {value}
+        {t(value)}
       </span>
     </button>
   );

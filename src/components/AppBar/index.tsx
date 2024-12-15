@@ -11,6 +11,9 @@ import chevronLeft from '../../assets/chevronLeft.svg';
 import autoSaving from '../../assets/autoSaving.svg';
 import autoSavingSuccess from '../../assets/autoSave_success.svg';
 import autoSavingFail from '../../assets/autoSave_fail.svg';
+import Saving from '../../assets/ic_bar_saving.svg';
+import Saved from '../../assets/ic_bar_saved.svg';
+import Failed from '../../assets/ic_bar_failed.svg';
 import { T } from '../../types/translate';
 
 function AppBar() {
@@ -67,11 +70,20 @@ function AppBar() {
         {isShowSavingIcon && (
           <article className="absolute right-2.5 z-10">
             {isSaving ? (
-              <img src={autoSaving} alt="자동 저장 중" />
+              <img
+                src={lng === 'ko' ? autoSaving : Saving}
+                alt="자동 저장 중"
+              />
             ) : isSuccess ? (
-              <img src={autoSavingSuccess} alt="자동 저장 결과" />
+              <img
+                src={lng === 'ko' ? autoSavingSuccess : Saved}
+                alt="자동 저장 결과"
+              />
             ) : (
-              <img src={autoSavingFail} alt="자동 저장 결과" />
+              <img
+                src={lng === 'ko' ? autoSavingFail : Failed}
+                alt="자동 저장 결과"
+              />
             )}
           </article>
         )}

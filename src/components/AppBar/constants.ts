@@ -18,10 +18,10 @@ const appBarConfig: AppBar = {
     titleKey: '우리아이',
   },
   '/my-pets/register': {
-    titleKey: '등록하기',
+    titleKey: 'appBar.register',
   },
   '/my-pets/edit': {
-    titleKey: '수정하기',
+    titleKey: 'appBar.edit',
   },
   '/my-page/password': {
     titleKey: '비밀번호 변경하기',

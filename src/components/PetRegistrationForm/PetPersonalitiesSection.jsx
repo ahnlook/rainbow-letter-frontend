@@ -1,11 +1,16 @@
 import Chips from 'components/Chips';
-import { PET_PERSONALITIES } from 'components/Chips/constants';
+import {
+  PET_PERSONALITIES,
+  PET_PERSONALITIES_EN,
+} from 'components/Chips/constants';
 import { TITLES } from './constants';
 import PetRegistrationSection from './PetRegistrationSection';
 import { usePetRegistration } from '../../contexts/PetRegistrationContext';
+import { useSelector } from 'react-redux';
 
 function PetPersonalitiesSection() {
   const { optionalData, setOptionalData } = usePetRegistration();
+  const { lng } = useSelector((state) => state.common);
 
   const handleChipSelect = (value) => {
     const currentPersonalities = optionalData.personalities || [];
@@ -34,7 +39,7 @@ function PetPersonalitiesSection() {
       subTitle={TITLES.OPTION}
     >
       <Chips
-        attributes={PET_PERSONALITIES}
+        attributes={lng === 'ko' ? PET_PERSONALITIES : PET_PERSONALITIES_EN}
         selectedChips={optionalData.personalities || []}
         onChipSelect={handleChipSelect}
       />
