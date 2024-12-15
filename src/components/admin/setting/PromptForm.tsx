@@ -99,7 +99,7 @@ const PromptForm = ({ prompt, allParameters }: PromptFormProps) => {
   const getParametersPayload = (): AIPrompt => {
     const payload = {
       provider: 'OPENAI',
-      model: 'model',
+      model: 'gpt-4o',
       system: systemPrompt || prompt.system,
       user: userPrompt || prompt.user,
       parameters: selectedParameters,
