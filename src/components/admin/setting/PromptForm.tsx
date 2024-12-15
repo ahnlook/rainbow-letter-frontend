@@ -151,10 +151,9 @@ const PromptForm = ({ prompt, allParameters }: PromptFormProps) => {
 
   useEffect(() => {
     setSelectedParameters(prompt?.parameters);
+    setUserPrompt(prompt?.user);
+    setSystemPrompt(prompt?.system);
   }, [prompt]);
-
-  const userPromptValue = userPrompt ? userPrompt : prompt?.user;
-  const systemPromptValue = systemPrompt ? systemPrompt : prompt?.system;
 
   return (
     <section className="flex w-full flex-col gap-y-4 rounded-lg bg-gray-100 p-4 sm:w-1/2">
@@ -163,7 +162,7 @@ const PromptForm = ({ prompt, allParameters }: PromptFormProps) => {
         <h3 className="text-solo-label-pc">User (required)</h3>
         <TextArea
           rows={6}
-          value={userPromptValue}
+          value={userPrompt}
           onChange={(e) => setUserPrompt(e.target.value)}
         />
       </div>
@@ -171,7 +170,7 @@ const PromptForm = ({ prompt, allParameters }: PromptFormProps) => {
         <h3 className="text-solo-label-pc">System (required)</h3>
         <TextArea
           rows={6}
-          value={systemPromptValue}
+          value={systemPrompt}
           onChange={(e) => setSystemPrompt(e.target.value)}
         />
       </div>
