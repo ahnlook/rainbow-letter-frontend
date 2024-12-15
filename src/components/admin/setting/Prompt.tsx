@@ -1,5 +1,4 @@
 import { MenuProps, Radio, Switch } from 'antd';
-import TextArea from 'antd/es/input/TextArea';
 import {
   AIOptions,
   getAIConfig,
@@ -7,8 +6,7 @@ import {
   PromptType,
   putAIConfig,
 } from 'api/prompt';
-import { format } from 'date-fns/format';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PromptForm from './PromptForm';
 
 export interface IPrompt {

@@ -1,12 +1,6 @@
 import TextArea from 'antd/es/input/TextArea';
 import { IPrompt } from './Prompt';
-import {
-  AIOptions,
-  AIPrompt,
-  getAIParameters,
-  putAIOptions,
-  putAIPrompt,
-} from 'api/prompt';
+import { AIOptions, AIPrompt, putAIOptions, putAIPrompt } from 'api/prompt';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { Dropdown, MenuProps } from 'antd';
 
