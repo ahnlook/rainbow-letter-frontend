@@ -145,6 +145,10 @@ const PromptForm = ({ prompt, allParameters }: PromptFormProps) => {
     }
   };
 
+  const handleRemoveParameterClick = (index: number) => {
+    setSelectedParameters((prev) => prev.filter((_, i) => i !== index));
+  };
+
   useEffect(() => {
     initModelConfig();
   }, [prompt?.option]);
@@ -188,9 +192,18 @@ const PromptForm = ({ prompt, allParameters }: PromptFormProps) => {
                       ? 'th'
                       : ['st', 'nd', 'rd'][(n % 10) - 1] || 'th';
                   return (
-                    <li key={index} className="flex w-full justify-between">
+                    <li
+                      key={index}
+                      className="flex w-full items-center justify-between"
+                    >
+                      <button
+                        className="mr-2 hover:text-red-700"
+                        onClick={() => handleRemoveParameterClick(index)}
+                      >
+                        ✖
+                      </button>
                       <span className="w-1/5">{`${n}${suffix}`}</span>
-                      <div className="w-4/5">
+                      <div className="flex w-4/5 justify-between">
                         <Dropdown
                           menu={{
                             items: allParameters,
@@ -199,7 +212,7 @@ const PromptForm = ({ prompt, allParameters }: PromptFormProps) => {
                           trigger={['click']}
                         >
                           <button className="flex w-full justify-between">
-                            <span>{param}</span>
+                            <span>{param || 'Select Parameter'}</span>
                             <span>▾</span>
                           </button>
                         </Dropdown>
