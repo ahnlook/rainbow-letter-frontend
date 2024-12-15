@@ -61,7 +61,9 @@ function DateOfDeathSection() {
   return (
     <PetRegistrationSection title={TITLES.DATE_OF_DEATH}>
       <div className="flex justify-between">
-        <div className="flex flex-row-reverse items-center">
+        <div
+          className={`${lng === 'ko' ? 'flex-row' : 'flex-row-reverse'} flex items-center`}
+        >
           <Input
             className="h-11 w-[4.063rem] text-center text-caption"
             type="tel"
