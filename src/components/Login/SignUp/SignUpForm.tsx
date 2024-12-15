@@ -19,6 +19,8 @@ import { saveToken } from 'utils/localStorage';
 import { validateEmail, validatePassword } from 'utils/validators';
 import { LoginRequest, ErrorData } from 'types/user';
 import { T } from 'types/translate';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
 
 type Props = {
   message: Message;
@@ -27,6 +29,7 @@ type Props = {
 export default function SignUpForm({ message: { describe, button } }: Props) {
   const navigate = useNavigate();
   const { t }: T = useTranslation();
+  const { lng } = useSelector((state: RootState) => state.common);
   const [profile, setProfile] = useState<LoginRequest>({
     email: '',
     password: '',
@@ -68,7 +71,11 @@ export default function SignUpForm({ message: { describe, button } }: Props) {
         e.preventDefault();
         isCheckProperForm();
         if (!isChecked) {
-          return alert('서비스 이용약관 및 개인정보 처리방침을 체크해주세요!');
+          const messag =
+            lng === 'ko'
+              ? '서비스 이용약관 및 개인정보 처리방침을 체크해주세요!'
+              : 'Please check the Terms of Service and Privacy Policy!';
+          return alert(messag);
         }
         await trySignUp(profile);
         const { data } = await tryLogin(profile);
@@ -109,7 +116,7 @@ export default function SignUpForm({ message: { describe, button } }: Props) {
           }
           placeholder={t('signUp.passwordPlaceholder')}
           isNotValid={errorData && passwordError(errorData)}
-          errorMessage={errorData && errorData?.message}
+          errorMessage={errorData ? t(errorData?.message) : ''}
         />
         <Agree setIsChecked={setIsChecked} />
         <SubmitButton

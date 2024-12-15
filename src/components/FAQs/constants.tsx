@@ -2,11 +2,34 @@ export interface Faqs {
   id: number;
   question: string;
   answer: string;
+  des?: string;
   link?: string;
   email?: string;
 }
 
 export const QUESTION_PREFIX = 'Q. ';
+
+export const FAQS_EN: Faqs[] = [
+  {
+    id: 0,
+    question: 'What is Rainbow Letter?',
+    answer:
+      'Rainbow Letter is a service that offers comfort to those grieving the loss of a pet through letter exchanges. Psychologists often emphasize that “writing can be a powerful tool for healing.” We hope this space allows you to fully express your emotions and take the time you need to honor their memory.',
+  },
+  {
+    id: 1,
+    question: 'When can I expect a reply from my pet?',
+    answer:
+      '(For South Korea) Letters written before 11:59 PM will receive a reply the next day at 10 AM. Letters sent after midnight may experience delays in receiving a reply. ',
+    des: '(For Other Countries) The Rainbow Post Office HQ is located in Korea. To receive a reply at 10:00 AM KST the next day, please make sure to send your letter by 11:59 PM KST. ',
+  },
+  {
+    id: 2,
+    question: 'How will I be notified of a reply?',
+    answer: 'We’ll send a notification to your registered email address. ',
+    des: '(For users in South Korea only) If you register your phone number, you’ll receive a text message or a KakaoTalk notification.',
+  },
+];
 
 export const FAQS: Faqs[] = [
   {

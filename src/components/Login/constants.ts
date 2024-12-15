@@ -54,12 +54,6 @@ const LOGIN_MESSAGE: Message[] = [
   },
 ];
 
-// const ERROR_MESSAGE: ErrorMessage = Object.freeze({
-//   NOT_MATCH: '비밀번호를 다시 확인해주세요.',
-//   NOT_VALID_PASSWORD: '영어, 숫자 포함 8자리 이상 입력해주세요.',
-//   NOT_VALID_EMAIL: '이메일 형식이 아닙니다.',
-// });
-
 const ERROR_MESSAGE: ErrorMessage = Object.freeze({
   NOT_MATCH: 'password.match',
   NOT_VALID_PASSWORD: 'password.validPwd',
@@ -67,21 +61,13 @@ const ERROR_MESSAGE: ErrorMessage = Object.freeze({
 });
 
 const FIND_EMAIL_MESSAGE = Object.freeze({
-  TITLE: '비밀번호 재설정',
-  DESCRIPTION: '이메일로 비밀번호 재설정 링크가 발송돼요',
-  SUBMIT: '제출하기',
+  TITLE: 'email.title',
+  DESCRIPTION: 'email.description',
+  SUBMIT: 'email.submit',
   ANNOUNCEMENT_1: '메일을 받지 못했다면',
   ANNOUNCEMENT: '공지사항',
   ANNOUNCEMENT_2: '을 확인해주세요',
 });
-
-// const UPDATE_PASSWORD_MESSAGE = Object.freeze({
-//   TITLE: '비밀번호 변경하기',
-//   DESCRIPTION: '새로운 비밀번호로 입력해주세요.',
-//   NEW_PASSWORD: '새 비밀번호',
-//   NEW_PASSWORD_CONFIRM: '새 비밀번호 확인',
-//   UPDATE: '변경하기',
-// });
 
 const UPDATE_PASSWORD_MESSAGE = Object.freeze({
   TITLE: 'password.title',

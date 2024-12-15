@@ -7,7 +7,8 @@
     "register": "Register My Baby",
     "edit": "Edit My Baby",
     "myPage": "Profile",
-    "leave": "Delete Account"
+    "leave": "Delete Account",
+    "faqs": "FAQs"
   },
   "login": {
     "welcome": "Welcome back!",
@@ -147,6 +148,12 @@
     "leave": "Delete Account",
     "guide": "Account Deletion Information",
     "confirm": "I agree and proceed with deletion."
+  },
+  "email": {
+    "title": "Reset password",
+    "description": "A password reset link will be sent to your email.",
+    "submit": "Submit",
+    "emailPlaceholder": "Please enter your email"
   },
   "modal": {
     "delete": {

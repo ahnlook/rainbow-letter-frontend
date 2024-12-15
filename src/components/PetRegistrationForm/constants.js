@@ -25,3 +25,18 @@ export const INFO_MESSAGES = Object.freeze({
 export const USER_ACTIONS = Object.freeze({
   REGISTER: '등록하기',
 });
+
+export const PERSONALITY_MAPPING = Object.freeze({
+  애교많은: 'Affectionate',
+  사교적인: 'Social',
+  활동적인: 'Active',
+  사고뭉치: 'Mischievous',
+  똑똑한: 'Smart',
+  낯가리는: 'Shy',
+  장난치는: 'Playful',
+  얌전한: 'Well-behaved',
+  예민한: 'Sensitive',
+  순한: 'Gentle',
+  시크한: 'Chic',
+  먹보: 'Food-loving',
+});

@@ -1,4 +1,11 @@
-import { QUESTION_PREFIX, FAQS, Faqs } from 'components/FAQs/constants';
+import {
+  QUESTION_PREFIX,
+  FAQS,
+  Faqs,
+  FAQS_EN,
+} from 'components/FAQs/constants';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
 // import { getFaqs } from '../../api/faqs';
 
 type Props = {
@@ -28,6 +35,7 @@ function FAQ({ FAQData }: Props) {
 }
 
 function FAQs() {
+  const { lng } = useSelector((state: RootState) => state.common);
   // TODO: API 연결 후 수정
   // const [FAQData, setFAQData] = useState([]);
 
@@ -48,9 +56,11 @@ function FAQs() {
   //   fetchAndSetFAQs();
   // }, []);
 
+  const Faqs = lng === 'ko' ? FAQS : FAQS_EN;
+
   return (
     <section className="mt-[1.375rem] flex h-full flex-col gap-y-8">
-      {!!FAQS.length && FAQS.map((faq) => <FAQ key={faq.id} FAQData={faq} />)}
+      {!!Faqs.length && Faqs.map((faq) => <FAQ key={faq.id} FAQData={faq} />)}
     </section>
   );
 }
