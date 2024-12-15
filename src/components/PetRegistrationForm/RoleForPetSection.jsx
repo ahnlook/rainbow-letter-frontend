@@ -71,7 +71,10 @@ function RoleForPetSection() {
   }, [miscValue]);
 
   return (
-    <PetRegistrationSection title={TITLES.ROLES_FOR_PETS} description>
+    <PetRegistrationSection
+      title={TITLES.ROLES_FOR_PETS}
+      description={lng !== 'ko'}
+    >
       <Chips
         attributes={lng === 'ko' ? ROLES_FOR_WOMEN : ROLES_FOR_EN}
         selectedChips={selectedRole ? [selectedRole] : []}
