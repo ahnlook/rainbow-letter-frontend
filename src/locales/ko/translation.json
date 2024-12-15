@@ -5,7 +5,9 @@
     "inBox": "편지함",
     "savedImage": "이미지 저장",
     "register": "등록하기",
-    "edit": "수정하기"
+    "edit": "수정하기",
+    "myPage": "마이 페이지",
+    "leave": "회원 탈퇴"
   },
   "login": {
     "welcome": "다시 와주셨네요!",
@@ -113,6 +115,30 @@
     "dateWarn": "날짜를 다시 확인해주세요.",
     "nameWarn": "이름은 나중에 수정할 수 없어요.",
     "enterNameWarn": "아이의 이름을 입력해주세요."
+  },
+  "myPage": {
+    "profile": "내 정보",
+    "faq": "자주 묻는 질문",
+    "email": "이메일",
+    "password": "비밀번호 변경하기",
+    "delete": "탈퇴하기",
+    "logout": "로그아웃"
+  },
+  "password": {
+    "title": "비밀번호 변경하기",
+    "description": "새로운 비밀번호로 입력해주세요.",
+    "new": "새 비밀번호",
+    "confirm": "새 비밀번호 확인",
+    "update": "변경하기",
+    "placeholder": "비밀번호를 입력해주세요",
+    "confirmPlaceholder": "비밀번호를 입력해주세요",
+    "match": "비밀번호를 다시 확인해주세요.",
+    "validPwd": "영어, 숫자 포함 8자리 이상 입력해주세요."
+  },
+  "delete": {
+    "leave": "탈퇴하기",
+    "guide": "탈퇴 안내사항",
+    "confirm": "위 내용을 확인하였으며, 탈퇴를 진행합니다."
   },
   "modal": {
     "delete": {

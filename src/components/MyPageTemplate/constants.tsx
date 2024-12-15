@@ -1,10 +1,10 @@
 export const PAGE_TITLES = {
-  MY_INFO: '내 정보',
-  FAQ: '자주 묻는 질문',
+  MY_INFO: 'myPage.profile',
+  FAQ: 'myPage.faq',
 };
 
 export const USER_INFO_LABELS = {
-  EMAIL: '이메일',
+  EMAIL: 'myPage.email',
   PHONE: '휴대폰 번호',
   NO_PHONE: '답장 알림과 링크를 카톡으로 받아보세요',
 };
@@ -17,7 +17,7 @@ export const USER_INFO_MESSAGES = {
 export const USER_ACTIONS = {
   EDIT: '수정',
   FINISH: '등록',
-  CHANGE_PASSWORD: '비밀번호 변경하기',
-  LEAVE: '탈퇴하기',
-  LOG_OUT: '로그아웃',
+  CHANGE_PASSWORD: 'myPage.password',
+  LEAVE: 'myPage.delete',
+  LOG_OUT: 'myPage.logout',
 };

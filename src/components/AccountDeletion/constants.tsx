@@ -1,11 +1,21 @@
 export const USER_ACTIONS = {
-  LEAVE: '탈퇴하기',
+  LEAVE: 'delete.leave',
 };
 
 export const ACCOUNT_DELETION = {
-  GUIDELINES_TITLE: '탈퇴 안내사항',
-  CONFIRM_MESSAGE: '위 내용을 확인하였으며, 탈퇴를 진행합니다.',
+  GUIDELINES_TITLE: 'delete.guide',
+  CONFIRM_MESSAGE: 'delete.confirm',
 };
+
+export const ACCOUNT_DELETION_GUIDELINES_TITLE_EN =
+  'When you delete your account:';
+
+export const ACCOUNT_DELETION_GUIDELINES_EN = [
+  'All letters will be permanently deleted.',
+  'Deleted data (letters, pet information, etc.) cannot be recovered.',
+  'Even if you re-register with the same email, the deleted data will not be restored.',
+  'Re-registration is not allowed for one week after account deletion.',
+];
 
 export const ACCOUNT_DELETION_GUIDELINES = [
   {

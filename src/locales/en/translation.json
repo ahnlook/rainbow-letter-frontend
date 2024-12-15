@@ -5,7 +5,9 @@
     "inBox": "Rainbow Inbox",
     "savedImage": "Save Image",
     "register": "Register My Baby",
-    "edit": "Edit My Baby"
+    "edit": "Edit My Baby",
+    "myPage": "Profile",
+    "leave": "Delete Account"
   },
   "login": {
     "welcome": "Welcome back!",
@@ -121,6 +123,30 @@
     "dateWarn": "Please check the date again.",
     "nameWarn": "The name cannot be changed later",
     "enterNameWarn": "Please enter name"
+  },
+  "myPage": {
+    "profile": "My Account",
+    "faq": "FAQs",
+    "email": "Email address",
+    "password": "Change password",
+    "delete": "Delete my account",
+    "logout": "Log out"
+  },
+  "password": {
+    "title": "Change Password",
+    "description": "Please enter a new password.",
+    "new": "New Password",
+    "confirm": "Confirm New Password",
+    "update": "Change Password",
+    "placeholder": "Please enter a new password",
+    "confirmPlaceholder": "Please enter the same password as above",
+    "match": "Please check your password again",
+    "validPwd": "At least 8 characters, including letters and numbers"
+  },
+  "delete": {
+    "leave": "Delete Account",
+    "guide": "Account Deletion Information",
+    "confirm": "I agree and proceed with deletion."
   },
   "modal": {
     "delete": {

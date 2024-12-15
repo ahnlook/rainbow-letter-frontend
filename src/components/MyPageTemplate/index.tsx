@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 
 import { AppDispatch, RootState } from 'store';
 import Divider from 'components/Divider';
@@ -13,8 +14,11 @@ import {
 import { fetchUserInfo } from 'store/user/user-actions';
 import LogOut from 'components/LogOut';
 import { saveToSessionStorage } from 'utils/sessionStorage';
+import { T } from 'types/translate';
 
 function MyPageTemplate() {
+  const { t }: T = useTranslation();
+  const { lng } = useSelector((state: RootState) => state.common);
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user.user);
   saveToSessionStorage('role', user.role);
@@ -25,25 +29,27 @@ function MyPageTemplate() {
 
   return (
     <>
-      <h2 className="p-2.5 text-heading-3">{PAGE_TITLES.MY_INFO}</h2>
+      <h2 className="p-2.5 text-heading-3">{t(PAGE_TITLES.MY_INFO)}</h2>
       <div className="flex flex-col gap-y-[1.375rem]">
         <div>
-          <div className="p-2.5 text-solo-large">{USER_INFO_LABELS.EMAIL}</div>
+          <div className="p-2.5 text-solo-large">
+            {t(USER_INFO_LABELS.EMAIL)}
+          </div>
           <div className="p-2.5 text-solo-medium text-gray-1">
             {user?.email}
           </div>
         </div>
-        <PhoneNumberSection />
+        {lng === 'ko' && <PhoneNumberSection />}
         <MenuItemLink
           to="/my-page/password"
-          label={USER_ACTIONS.CHANGE_PASSWORD}
+          label={t(USER_ACTIONS.CHANGE_PASSWORD)}
         />
         <Divider />
-        <MenuItemLink to="faqs" label={PAGE_TITLES.FAQ} />
-        <MenuItemLink to="leave" label={USER_ACTIONS.LEAVE} />
+        <MenuItemLink to="faqs" label={t(PAGE_TITLES.FAQ)} />
+        <MenuItemLink to="leave" label={t(USER_ACTIONS.LEAVE)} />
         <LogOut>
           <div className="p-2.5 text-solo-large text-alarm-red">
-            {USER_ACTIONS.LOG_OUT}
+            {t(USER_ACTIONS.LOG_OUT)}
           </div>
         </LogOut>
       </div>

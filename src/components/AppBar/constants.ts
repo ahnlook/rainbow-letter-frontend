@@ -12,10 +12,7 @@ const appBarConfig: AppBar = {
     titleKey: 'appBar.faqs',
   },
   '/my-page/leave': {
-    titleKey: '회원 탈퇴',
-  },
-  '/my-pets': {
-    titleKey: '우리아이',
+    titleKey: 'appBar.leave',
   },
   '/my-pets/register': {
     titleKey: 'appBar.register',
@@ -36,7 +33,7 @@ const appBarConfig: AppBar = {
     titleKey: 'appBar.savedImage',
   },
   '/my-page/register': {
-    titleKey: '등록하기',
+    titleKey: 'appBar.register',
   },
   '/contents': {
     titleKey: '컨텐츠',
@@ -45,7 +42,7 @@ const appBarConfig: AppBar = {
     titleKey: 'appBar.inBox',
   },
   shareLink: {
-    titleKey: '편지함',
+    titleKey: 'appBar.inBox',
   },
   '/admin/letters': {
     titleKey: '편지 리스트 관리',

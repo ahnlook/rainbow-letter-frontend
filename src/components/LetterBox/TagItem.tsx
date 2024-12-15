@@ -8,10 +8,7 @@ type Props = {
   bgColor: string;
 };
 
-// #FFF1D4, #FFF8ED, #FFF1D4
-
 export default function TagItem({ value, bgColor }: Props) {
-  // const tag = `#${value}`;
   const { lng } = useSelector((state: RootState) => state.common);
   const tag = useMemo(() => {
     if (lng === 'ko') {
