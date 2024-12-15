@@ -75,8 +75,8 @@ function LetterDetailForm({
   }, [reply?.promptA, reply?.promptB]);
 
   useEffect(() => {
-    setSelectedPrompt(reply.promptType);
-  }, [reply.promptType]);
+    setSelectedPrompt(reply?.promptType);
+  }, [reply?.promptType]);
 
   if (!letterData) {
     return <div>Loading...</div>;
