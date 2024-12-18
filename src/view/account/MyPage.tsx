@@ -8,10 +8,10 @@ function MyPage() {
   const { lng } = useSelector((state: RootState) => state.common);
 
   return (
-    <>
+    <div className="overflow-hidden">
       {lng === 'ko' && <AdminLinks />}
       <MyPageTemplate />
-    </>
+    </div>
   );
 }
 
