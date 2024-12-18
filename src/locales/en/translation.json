@@ -86,7 +86,7 @@
   },
   "write": {
     "add": "ADD",
-    "register": "Please register your baby.",
+    "register": "Please Register Your Baby",
     "topic": "TIP: Try writing about this topic too!",
     "picture": "Share a picture with your baby ",
     "pictureInfo": "Only one attachment is allowed.",
@@ -99,12 +99,17 @@
   },
   "inBox": {
     "reply": "Reply",
-    "saveUpLine": "save your letter with",
-    "saveDownLine": "your child as an image."
+    "saveUpLine": "Save your letter with",
+    "saveDownLine": "your baby as an image",
+    "noPetUpLine": "Oops, it looks like you haven’t",
+    "noPetDownLine": "registered any babies yet",
+    "noPetDescription": "Please register your baby and write them a letter.",
+    "register": "Register"
   },
   "savedImage": {
-    "press": "Press and hold the letter below to save it!",
-    "home": "Go to home"
+    "pressUpLine": "Press and hold the letter below",
+    "pressDownLine": "to save it to your gallery!",
+    "home": "Back to Home"
   },
   "register": {
     "name": "Name",
@@ -164,11 +169,12 @@
       "delete": "Delete"
     },
     "saveImage": {
-      "myLetter": "A letter i wrote",
-      "petLetter": "A letter written by a baby",
+      "myLetter": "Letter I wrote",
+      "petLetter": "Letter from my baby",
       "title": "Which letter would you like to save?",
       "select": "Please select the letter you want to save as an image.",
-      "complete": "Your letter has been saved",
+      "completeUpLine": "Your letter has been",
+      "completeDownLine": "saved to your gallery",
       "save": "Save",
       "confirm": "Confirm"
     },

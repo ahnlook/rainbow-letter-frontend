@@ -322,7 +322,10 @@ export default function ModalContents() {
                 <header className="flex flex-col items-center justify-center text-center">
                   <img src={SaveComplete} alt="편지지" />
                   <h3 className="mt-[15px] whitespace-pre-wrap text-heading-3">
-                    {t(title)}
+                    {t(body[0].contents)}
+                  </h3>
+                  <h3 className="whitespace-pre-wrap text-heading-3">
+                    {t(body[1].contents)}
                   </h3>
                 </header>
                 <div className="mt-6 flex justify-center">

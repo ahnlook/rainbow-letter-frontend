@@ -93,7 +93,11 @@
   "inBox": {
     "reply": "답장쓰기",
     "saveUpLine": "아이와의 편지를 이미지로",
-    "saveDownLine": "저장할 수 있어요"
+    "saveDownLine": "저장할 수 있어요",
+    "noPetUpLine": "우리 아이 프로필을 등록해보세요",
+    "noPetDownLine": "",
+    "noPetDescription": "등록 후에 편지를 보낼 수 있어요",
+    "register": "등록하기"
   },
   "savedImage": {
     "press": "아래 편지를 꾹 눌러 저장해보세요!",

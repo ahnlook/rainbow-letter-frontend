@@ -110,8 +110,11 @@ export const MODAL_MESSAGE: Modal[] = [
   },
   {
     type: 'SAVECOMPLETE',
-    title: `modal.saveImage.complete`,
-    body: [],
+    title: '',
+    body: [
+      { id: 1, contents: `modal.saveImage.completeUpLine` },
+      { id: 2, contents: `modal.saveImage.completeDownLine` },
+    ],
   },
 ];
 

@@ -78,6 +78,7 @@ function AppBar() {
               <img
                 src={lng === 'ko' ? autoSavingSuccess : Saved}
                 alt="자동 저장 결과"
+                // className={lng === 'ko' ? '' : 'size-[100px]'}
               />
             ) : (
               <img

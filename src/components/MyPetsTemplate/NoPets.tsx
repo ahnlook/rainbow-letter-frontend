@@ -1,8 +1,12 @@
+import { useTranslation } from 'react-i18next';
+
 import PetRegisterButton from 'components/MyPetsTemplate/PetRegisterButton';
 import { INFO_MESSAGES, USER_ACTIONS } from './constants';
 import PetHouse from '../../assets/ic_petsHouse.png';
+import { T } from 'types/translate';
 
 function NoPets() {
+  const { t }: T = useTranslation();
   return (
     <div className="flex h-[72vh] items-center justify-center">
       <section className="flex w-full flex-col gap-y-12 text-center">
@@ -12,14 +16,15 @@ function NoPets() {
             alt="동물 집 이미지"
             className="mx-auto mb-2.5 size-[140px]"
           />
-          <span className="p-2.5 text-heading-3">
-            {INFO_MESSAGES.LETTER_RECIPIENT_ABSENT}
+          <span className="pt-2.5 text-heading-3">
+            {t(INFO_MESSAGES.LETTER_RECIPIENT_ABSENT)}
           </span>
+          <span className="text-heading-3">{t('inBox.noPetDownLine')}</span>
           <span className="p-2.5 text-solo-medium">
-            {INFO_MESSAGES.SUGGEST_PET_REGISTRATION}
+            {t(INFO_MESSAGES.SUGGEST_PET_REGISTRATION)}
           </span>
         </div>
-        <PetRegisterButton>{USER_ACTIONS.REGISTER}</PetRegisterButton>
+        <PetRegisterButton>{t(USER_ACTIONS.REGISTER)}</PetRegisterButton>
       </section>
     </div>
   );

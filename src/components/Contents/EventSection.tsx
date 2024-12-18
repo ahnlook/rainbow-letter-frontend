@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import Event from '../../assets/im_contents_event.png';
+
+import NewYear from '../../assets/im_contents_newYear.webp';
 
 export default function EventSection() {
   return (
@@ -12,8 +13,8 @@ export default function EventSection() {
       </p>
       <Link to="http://pf.kakao.com/_MNevG/107641271" target="_blank">
         <img
-          src={Event}
-          alt="아이 소개 이미지"
+          src={NewYear}
+          alt="event-image"
           className="mt-3 h-[265px] w-[354px] rounded-[16px]"
         />
       </Link>
