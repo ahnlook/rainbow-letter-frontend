@@ -54,7 +54,7 @@ export default function LetterBoxRenew() {
 
   return (
     <Suspense fallback={<Spinner />}>
-      {petsList !== null && petsList.length > 1 ? (
+      {petsList !== null && petsList.length < 1 ? (
         <NoPets />
       ) : (
         <main className="relative">
