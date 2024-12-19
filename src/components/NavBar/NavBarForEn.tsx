@@ -18,7 +18,7 @@ function NavBarForEn() {
         />
         <NavItem
           to="/letter-box"
-          label="MAILBOX"
+          label="INBOX"
           Icon={letterBox}
           useStroke={false}
         />
