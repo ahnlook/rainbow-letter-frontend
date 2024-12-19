@@ -21,7 +21,7 @@ import { fetchLetters } from './letters-actions';
 
 const TODAY = formatDateToYMD();
 const DAYS_AGO = 2;
-const DEFAULT_LETTERS_PER_PAGE = 25;
+const DEFAULT_LETTERS_PER_PAGE = 50;
 
 const initialState = {
   filterOption: {

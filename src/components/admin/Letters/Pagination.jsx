@@ -21,15 +21,16 @@ function Pagination() {
     if (totalPages <= maxPagesToShow) {
       startPage = 0;
       endPage = totalPages - 1;
-    } else if (currentPage <= halfPagesToShow) {
-      startPage = 0;
-      endPage = maxPagesToShow - 1;
-    } else if (currentPage + halfPagesToShow >= totalPages) {
-      startPage = totalPages - maxPagesToShow;
-      endPage = totalPages - 1;
     } else {
-      startPage = currentPage - halfPagesToShow;
-      endPage = currentPage + halfPagesToShow;
+      startPage = Math.max(
+        0,
+        Math.min(currentPage - halfPagesToShow, totalPages - maxPagesToShow)
+      );
+      endPage = Math.min(startPage + maxPagesToShow - 1, totalPages - 1);
+
+      if (endPage - startPage + 1 < maxPagesToShow) {
+        startPage = Math.max(0, endPage - maxPagesToShow + 1);
+      }
     }
 
     return Array.from(
@@ -50,9 +51,7 @@ function Pagination() {
           className="size-7 rounded"
           type="button"
           disabled={currentPage === 0}
-          onClick={() => {
-            dispatch(letterUiActions.setFilterOption({ page: 0 }));
-          }}
+          onClick={() => handlePageChange(0)}
         >
           <img src={doubleArrowLeft} alt="<<" />
         </button>
@@ -76,9 +75,7 @@ function Pagination() {
           className="size-7 rounded"
           type="button"
           disabled={currentPage === totalPages - 1}
-          onClick={dispatch(
-            letterUiActions.setFilterOption({ page: totalPages - 1 })
-          )}
+          onClick={() => handlePageChange(totalPages - 1)}
         >
           <img src={doubleArrowRight} alt=">>" />
         </button>
