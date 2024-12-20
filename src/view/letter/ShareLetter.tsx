@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import SentPhoto from 'components/LetterBox/SentPhoto';
 import AppBar from 'components/AppBar';
@@ -13,10 +14,12 @@ import metaData from 'utils/metaData';
 import { formatDateIncludingHangul } from 'utils/date';
 import { isKakaoTalk } from 'utils/device';
 import { formatImageType } from 'utils/image';
+import { T } from 'types/translate';
 
 const TARGET_URL = window.location.href;
 
 export default function ShareLetter() {
+  const { t }: T = useTranslation();
   const [letterData, setLetterData] = useState<any>();
   const navigate = useNavigate();
   const params = useParams();
@@ -66,7 +69,7 @@ export default function ShareLetter() {
             className="sticky bottom-10 mt-12 max-w-[350px]"
             id="sms_reply"
           >
-            {USER_ACTIONS.GO_TO_REPLY}
+            {t(USER_ACTIONS.GO_TO_REPLY)}
           </Button>
         </main>
       )}
