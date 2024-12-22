@@ -19,11 +19,11 @@ function Layout() {
     false;
 
   useEffect(() => {
-    metaData(pathname);
+    metaData(pathname, lng === 'ko');
     return () => {
-      metaData('default');
+      metaData('default', lng === 'ko');
     };
-  }, [pathname]);
+  }, [pathname, lng]);
 
   useEffect(() => {
     const detectedLanguage = i18n.language.split('-')[0];

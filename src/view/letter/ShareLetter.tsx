@@ -15,10 +15,13 @@ import { formatDateIncludingHangul } from 'utils/date';
 import { isKakaoTalk } from 'utils/device';
 import { formatImageType } from 'utils/image';
 import { T } from 'types/translate';
+import { useSelector } from 'react-redux';
+import { RootState } from 'store';
 
 const TARGET_URL = window.location.href;
 
 export default function ShareLetter() {
+  const { lng } = useSelector((state: RootState) => state.common);
   const { t }: T = useTranslation();
   const [letterData, setLetterData] = useState<any>();
   const navigate = useNavigate();
@@ -30,7 +33,7 @@ export default function ShareLetter() {
         return (window.location.href = `kakaotalk://web/openExternal?url=${encodeURIComponent(TARGET_URL)}`);
       }
 
-      metaData(Object.keys(params)[0]);
+      metaData(Object.keys(params)[0], lng === 'ko');
       const { data } = await getShareLetter(params.shareLink);
       setLetterData(data);
     })();
