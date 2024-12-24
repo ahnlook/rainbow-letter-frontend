@@ -118,6 +118,10 @@ const metaDataConfig: MetaData = {
     title: '무지개편지 : 아이 정보 수정',
     description: '아이의 정보를 수정할 수 있어요.',
   },
+  '/contents': {
+    title: '무지개편지 : 콘텐츠',
+    description: '무지개편지 콘텐츠를 확인해보세요.',
+  },
   '/donate': {
     title: '무지개편지 : 후원하기',
     description: '무지개마을을 지켜주세요.',
@@ -205,6 +209,10 @@ const metaDataConfigForEn: MetaData = {
   '/my-pets/edit': {
     title: 'Rainbow Letter : 아이 정보 수정',
     description: '아이의 정보를 수정할 수 있어요.',
+  },
+  '/contents': {
+    title: '무지개편지 : 콘텐츠',
+    description: '무지개편지 콘텐츠를 확인해보세요.',
   },
   '/donate': {
     title: 'Rainbow Letter : 후원하기',
