@@ -39,7 +39,9 @@ function MyPageTemplate() {
             {user?.email}
           </div>
         </div>
-        {lng === 'ko' && <PhoneNumberSection />}
+        {lng === 'ko' && user.id && (
+          <PhoneNumberSection phoneNumber={user.phoneNumber} />
+        )}
         <MenuItemLink
           to="/my-page/password"
           label={t(USER_ACTIONS.CHANGE_PASSWORD)}
