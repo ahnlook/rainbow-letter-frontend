@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import SentPhoto from 'components/LetterBox/SentPhoto';
@@ -11,11 +12,13 @@ import WrittenLetterPaper from 'components/Write/WrittenLetterPaper';
 import CoverImage from 'components/Common/CoverImage';
 import { getShareLetter } from 'api/letter';
 import metaData from 'utils/metaData';
-import { formatDateIncludingHangul } from 'utils/date';
+import {
+  formatDateIncludingHangul,
+  formatDateIncludingEnglish,
+} from 'utils/date';
 import { isKakaoTalk } from 'utils/device';
 import { formatImageType } from 'utils/image';
 import { T } from 'types/translate';
-import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 
 const TARGET_URL = window.location.href;
@@ -43,6 +46,22 @@ export default function ShareLetter() {
     navigate('/write-letter', { state: letterData?.pet.id });
   };
 
+  const targetValueFromPet = useMemo(() => {
+    if (lng === 'ko') {
+      return `${letterData?.pet.name}로부터`;
+    }
+
+    return `From. ${letterData?.pet.name}`;
+  }, [lng, letterData?.pet.name]);
+
+  const targetValueToPet = useMemo(() => {
+    if (lng === 'ko') {
+      return `${letterData?.pet.name}에게`;
+    }
+
+    return `Dear. ${letterData?.pet.name}`;
+  }, [lng, letterData?.pet.name]);
+
   return (
     <>
       {letterData && (
@@ -51,18 +70,26 @@ export default function ShareLetter() {
           <LetterPaperWithImage>
             <CoverImage image={formatImageType(letterData?.pet.image)} />
             <WrittenLetterPaper
-              petName={`${letterData.pet.name}로부터`}
+              petName={targetValueFromPet}
               content={letterData.reply.content}
               className="pt-[15.187rem]"
               letterPaperColor="bg-orange-50"
-              date={formatDateIncludingHangul(letterData.reply.updatedAt)}
+              date={
+                lng === 'ko'
+                  ? formatDateIncludingHangul(letterData.letter.createdAt)
+                  : formatDateIncludingEnglish(letterData.letter.createdAt)
+              }
             />
             <WrittenLetterPaper
-              petName={`${letterData.pet.name}에게`}
+              petName={targetValueToPet}
               content={letterData.letter.content}
               className="mt-4"
               letterPaperColor="bg-gray-2"
-              date={formatDateIncludingHangul(letterData.letter.updatedAt)}
+              date={
+                lng === 'ko'
+                  ? formatDateIncludingHangul(letterData.letter.createdAt)
+                  : formatDateIncludingEnglish(letterData.letter.createdAt)
+              }
             />
           </LetterPaperWithImage>
           {letterData.letter.image && <SentPhoto letterData={letterData} />}
