@@ -19,9 +19,9 @@ function Layout() {
     false;
 
   useEffect(() => {
-    metaData(pathname, lng === 'ko');
+    metaData(pathname);
     return () => {
-      metaData('default', lng === 'ko');
+      metaData('default');
     };
   }, [pathname, lng]);
 

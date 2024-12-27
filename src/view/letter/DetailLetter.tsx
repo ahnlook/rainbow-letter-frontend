@@ -49,7 +49,7 @@ export default function DetailLetter() {
 
   useEffect(() => {
     (async () => {
-      metaData(Object.keys(params)[0], lng === 'ko');
+      metaData(Object.keys(params)[0]);
       const { data } = await getLetter(params.letterId);
       setLetterData(data);
       if (data.reply?.status === 'REPLY') {

@@ -33,7 +33,7 @@ export default function ShareLetter() {
         return (window.location.href = `kakaotalk://web/openExternal?url=${encodeURIComponent(TARGET_URL)}`);
       }
 
-      metaData(Object.keys(params)[0], lng === 'ko');
+      metaData(Object.keys(params)[0]);
       const { data } = await getShareLetter(params.shareLink);
       setLetterData(data);
     })();
