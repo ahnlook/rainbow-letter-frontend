@@ -20,7 +20,7 @@ i18n
       escapeValue: false,
     },
     detection: {
-      order: ['querystring', 'cookie', 'localStorage', 'navigator'],
+      order: ['navigator', 'querystring', 'cookie', 'localStorage'],
       caches: ['localStorage', 'cookie'],
     },
   });
