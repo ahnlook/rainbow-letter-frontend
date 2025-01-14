@@ -100,7 +100,8 @@
     "register": "등록하기"
   },
   "savedImage": {
-    "press": "아래 편지를 꾹 눌러 저장해보세요!",
+    "pressUpLine": "아래 편지를 꾹 눌러 저장해보세요!",
+    "pressDownLine": "",
     "home": "홈으로 가기"
   },
   "register": {
