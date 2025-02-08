@@ -97,7 +97,8 @@
     "noPetUpLine": "우리 아이 프로필을 등록해보세요",
     "noPetDownLine": "",
     "noPetDescription": "등록 후에 편지를 보낼 수 있어요",
-    "register": "등록하기"
+    "register": "등록하기",
+    "sentPhoto": "아이에게 보낸 사진"
   },
   "savedImage": {
     "pressUpLine": "아래 편지를 꾹 눌러 저장해보세요!",

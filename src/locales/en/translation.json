@@ -104,7 +104,8 @@
     "noPetUpLine": "Oops, it looks like you haven’t",
     "noPetDownLine": "registered any babies yet",
     "noPetDescription": "Please register your baby and write them a letter.",
-    "register": "Register"
+    "register": "Register",
+    "sentPhoto": "Picture shared with your baby"
   },
   "savedImage": {
     "pressUpLine": "Press and hold the letter below",
