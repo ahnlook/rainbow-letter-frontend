@@ -12,7 +12,7 @@ type Props = {
 };
 
 export default function LetterStatus({ status, readStatus }: Props) {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const letterStatus = letterReplyStatus(status);
   const isCompleteResponse = status === 'RESPONSE';
   const Icon = isCheckUnread(readStatus, status) ? Check : GrayCheck;

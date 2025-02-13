@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import CheckBox from 'components/Login/SignUp/CheckBox';
 import ArrowLink from 'components/Login/SignUp/ArrowLink';
-import { T } from 'types/translate';
 
 const CHECK_LIST = [
   { id: 0, name: '서비스 이용약관 동의' },
@@ -15,7 +14,7 @@ type Props = {
 };
 
 export default function Agree({ setIsChecked }: Props) {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const [checkItems, setCheckItems] = useState<string[]>([]);
 
   useEffect(() => {

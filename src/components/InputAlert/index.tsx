@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-import { T } from 'types/translate';
 
 type Props = {
   message: string;
@@ -8,7 +7,7 @@ type Props = {
 };
 
 function InputAlert({ message, isVisible, reserveSpace = false }: Props) {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   if (!isVisible) {
     return null;
   }

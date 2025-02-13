@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 
-import { T } from 'types/translate';
 import ErrorIcon from '../../assets/Error_icon.svg';
 
 type Props = {
@@ -12,7 +11,7 @@ export default function DeleteModal({
   setIsModalOpen,
   onClickDeleteButton,
 }: Props) {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
 
   return (
     <div className="w-full px-[1.562rem] py-10">

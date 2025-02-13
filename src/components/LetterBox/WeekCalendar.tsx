@@ -36,7 +36,7 @@ export default function WeekCalendar({
 }: Props) {
   // redux
   const dispatch = useDispatch();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const DAY_OF_THE_WEEK = [
     t('letterBox.weekdayAbbrSunday'),
     t('letterBox.weekdayAbbrMonday'),

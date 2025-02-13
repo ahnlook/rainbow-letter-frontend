@@ -16,10 +16,9 @@ import { removeToken } from 'utils/localStorage';
 import { clearSessionStorage } from 'utils/sessionStorage';
 import check from '../../assets/check.svg';
 import { RootState } from 'store';
-import { T } from 'types/translate';
 
 function AccountDeletion() {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
   const [isConfirmed, setIsConfirmed] = useState(false);
   const navigate = useNavigate();

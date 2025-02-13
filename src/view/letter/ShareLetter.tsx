@@ -18,14 +18,13 @@ import {
 } from 'utils/date';
 import { isKakaoTalk } from 'utils/device';
 import { formatImageType } from 'utils/image';
-import { T } from 'types/translate';
 import { RootState } from 'store';
 
 const TARGET_URL = window.location.href;
 
 export default function ShareLetter() {
   const { lng } = useSelector((state: RootState) => state.common);
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const [letterData, setLetterData] = useState<any>();
   const navigate = useNavigate();
   const params = useParams();

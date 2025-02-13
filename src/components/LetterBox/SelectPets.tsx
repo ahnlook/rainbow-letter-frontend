@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 
 import { PetResponse } from 'types/pets';
 import Plus from '../../assets/ic_letterBox_plus.svg';
-import { T } from 'types/translate';
 
 type Props = {
   list: PetResponse[];
@@ -17,7 +16,7 @@ export default function BottomSheetContents({
   onChange,
   handlePetsListShow,
 }: Props) {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const navigate = useNavigate();
 
   const onClickAddPet = useCallback(() => {

@@ -28,12 +28,11 @@ import ErrorIcon from '../../assets/Error_icon.svg';
 import SaveComplete from '../../assets/save_complete.svg';
 import AlarmIcon from '../../assets/ic_Error_icon.svg';
 import { RootState } from 'store';
-import { T } from 'types/translate';
 
 export default function ModalContents() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { type } = useSelector((state: State) => state.modal);
   const { sentLetterTarget } = useSelector((state: RootState) => state.letter);
 

@@ -1,12 +1,11 @@
 import { useTranslation } from 'react-i18next';
 
 import { Message, SNS_LOGIN } from 'components/Login/constants';
-import { T } from 'types/translate';
 
 type Props = { message: Message };
 
 export default function Header({ message: { title, sns } }: Props) {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   return (
     <section>
       <h2 className="text-heading-2">{t(title)}</h2>

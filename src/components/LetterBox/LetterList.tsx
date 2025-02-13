@@ -35,7 +35,7 @@ export default function LetterList({
   setLetterList,
 }: Props) {
   const navigate = useNavigate();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
   const { isCalendarOpen } = useSelector((state: RootState) => state.letter);
   const [selectedLetterList, setSelectedLetterList] = useState<number[]>([]);

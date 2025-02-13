@@ -26,12 +26,11 @@ import captureLogo from '../../assets/detailLetter_logo.svg';
 import { formatImageType } from 'utils/image';
 import { toolTipActions } from 'store/toolTip/toolTip-slice';
 import { getFirstReplyUser } from 'utils/localStorage';
-import { T } from 'types/translate';
 
 export default function DetailLetter() {
   // redux
   const dispatch = useAppDispatch();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
   const isSave = useSelector((state: RootState) => state.letter.isSaveToImage);
   const letterType = useSelector((state: RootState) => state.letter.letterType);

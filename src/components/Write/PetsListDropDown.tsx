@@ -8,7 +8,6 @@ import useDetectClose from 'hooks/useDetectClose';
 import dropDownImg from '../../assets/ion_chevron-back.svg';
 import dropUpImg from '../../assets/ion_chevron-up.svg';
 import plusImg from '../../assets/ic_round-plus-black.svg';
-import { T } from 'types/translate';
 
 type Props = {
   petName: string | null;
@@ -21,7 +20,7 @@ export default function PetsListDropDown({
   petsList,
   onclick,
 }: Props) {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const dropdown = useRef<HTMLDivElement>(null);
   const { isOpen, setIsOpen } = useDetectClose(dropdown, false);
 

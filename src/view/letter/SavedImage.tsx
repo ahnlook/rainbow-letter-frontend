@@ -5,10 +5,9 @@ import { useTranslation } from 'react-i18next';
 
 import { RootState } from 'store';
 import Button from 'components/Button';
-import { T } from 'types/translate';
 
 export default function SavedImage() {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const savedImageUrl = useSelector(
     (state: RootState) => state.letter.saveImageUrl
   );

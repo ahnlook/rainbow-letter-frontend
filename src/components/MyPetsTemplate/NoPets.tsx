@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next';
 import PetRegisterButton from 'components/MyPetsTemplate/PetRegisterButton';
 import { INFO_MESSAGES, USER_ACTIONS } from './constants';
 import PetHouse from '../../assets/ic_petsHouse.png';
-import { T } from 'types/translate';
 
 function NoPets() {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   return (
     <div className="flex h-[72vh] items-center justify-center">
       <section className="flex w-full flex-col gap-y-12 text-center">

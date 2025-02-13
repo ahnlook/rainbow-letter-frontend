@@ -2,10 +2,9 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { INFO_MESSAGES, USER_ACTIONS } from 'components/Home/constants';
-import { T } from 'types/translate';
 
 export default function LoginBox() {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
 
   return (
     <article className="flex flex-col items-center gap-y-5 rounded-2xl border border-gray-3 px-[1.063rem] py-5">

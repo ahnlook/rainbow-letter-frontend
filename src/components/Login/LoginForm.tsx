@@ -16,7 +16,6 @@ import { tryLogin } from 'api/user';
 import { passwordError, emailError, emailErrorMessage } from 'utils/errorData';
 import { saveToken } from 'utils/localStorage';
 import { ErrorData } from 'types/user';
-import { T } from 'types/translate';
 
 type Props = {
   message: Message;
@@ -24,7 +23,7 @@ type Props = {
 
 export default function LoginForm({ message: { describe, button } }: Props) {
   const navigate = useNavigate();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const [profile, setProfile] = useState({
     email: '',
     password: '',

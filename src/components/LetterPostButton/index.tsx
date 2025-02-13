@@ -2,10 +2,9 @@ import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import logo from 'assets/Logo_256px.png';
-import { T } from 'types/translate';
 
 function LetterPostButton() {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   return (
     <section className="mx-5 pb-[1.875rem]">
       <Link

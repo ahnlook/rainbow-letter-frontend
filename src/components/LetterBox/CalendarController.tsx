@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 import Up from '../../assets/ic_calendar_up.svg';
 import Down from '../../assets/ic_calendar_down.svg';
-import { T } from 'types/translate';
+
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 import { formatMonthName } from 'utils/date';
@@ -19,7 +19,7 @@ export default function CalendarController({
   setCurrentDate,
   handlePetsListShow,
 }: Props) {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
   const [year, setYear] = useState(currentDate.getFullYear());
   const [month, setMonth] = useState(currentDate.getMonth());

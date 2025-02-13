@@ -12,7 +12,7 @@ import {
 import { updatePassword } from 'api/user';
 import { removeToken, saveToken } from 'utils/localStorage';
 import { validatePasswordMatch, validatePassword } from 'utils/validators';
-import { T } from 'types/translate';
+
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 
@@ -28,7 +28,7 @@ type UserInfo = {
 
 export default function Password() {
   const navigate = useNavigate();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
   const [searchParams] = useSearchParams();
   const [userInfo, setUserInfo] = useState<UserInfo>({

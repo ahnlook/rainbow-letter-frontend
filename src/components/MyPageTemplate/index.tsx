@@ -14,10 +14,9 @@ import {
 import { fetchUserInfo } from 'store/user/user-actions';
 import LogOut from 'components/LogOut';
 import { saveToSessionStorage } from 'utils/sessionStorage';
-import { T } from 'types/translate';
 
 function MyPageTemplate() {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
   const dispatch = useDispatch<AppDispatch>();
   const user = useSelector((state: RootState) => state.user.user);

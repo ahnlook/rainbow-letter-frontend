@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 
 import { Message } from 'components/Login/constants';
 import { useTranslation } from 'react-i18next';
-import { T } from 'types/translate';
 
 type Props = {
   message: Message;
@@ -13,7 +12,7 @@ export default function LinkAvailable({
   message: { findPassword, link },
   className,
 }: Props) {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const style = className || '';
 
   return (

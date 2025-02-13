@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import { USER_ACTIONS } from 'components/Write/constants';
 import thinPlus from '../../assets/ic_round-plus.svg';
-import { T } from 'types/translate';
 
 export default function ResisterButtonSection() {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
 
   return (
     <section className="mt-5">

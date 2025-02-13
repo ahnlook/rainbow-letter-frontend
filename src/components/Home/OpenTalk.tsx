@@ -3,10 +3,9 @@ import { useTranslation } from 'react-i18next';
 
 import { OPEN_TALK_MESSAGE } from 'components/Home/constants';
 import kakaoLogo from 'assets/kakao-logo.svg';
-import { T } from 'types/translate';
 
 export default function OpenTalk() {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
 
   return (
     <section className="mb-2.5 mt-9 h-[3.125rem] gap-2.5 px-7">

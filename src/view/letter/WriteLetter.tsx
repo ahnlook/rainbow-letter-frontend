@@ -37,7 +37,7 @@ import CoverImage from 'components/Common/CoverImage';
 import { LetterRequest } from 'types/letters';
 import { formatImageType } from 'utils/image';
 import Spinner from 'components/Spinner';
-import { T } from 'types/translate';
+
 import { RootState } from 'store';
 import Modal from 'components/Modal';
 import ReplyInfoModalForEn from 'components/Write/ReplyInfoModalForEn';
@@ -46,7 +46,7 @@ export default function WriteLetter() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
   const [petsList, setPetsList] = useState<PetResponse[]>([]);
   const [selectedPet, setSelectedPet] = useState<PetResponse | null>(null);

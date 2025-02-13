@@ -3,8 +3,6 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 
-import { T } from 'types/translate';
-
 type Props = {
   isInvalid: boolean;
   value: string;
@@ -16,7 +14,7 @@ const MiscInput = forwardRef(
     { isInvalid, value, onChange, ...props }: Props,
     ref: ForwardedRef<HTMLInputElement> | undefined
   ) => {
-    const { t }: T = useTranslation();
+    const { t } = useTranslation<'translation'>();
     const { lng } = useSelector((state: RootState) => state.common);
     const borderStyle = isInvalid ? 'border-alarm-red' : 'border-orange-400';
 

@@ -2,12 +2,12 @@ import { useTranslation } from 'react-i18next';
 
 import { PHONE_MESSAGE } from 'components/Home/constants';
 import phone from '../../assets/Phone.svg';
-import { T } from 'types/translate';
+
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 
 export default function PhoneButton() {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
   const handlePhoneButtonClick = () => {
     if (lng === 'ko') {

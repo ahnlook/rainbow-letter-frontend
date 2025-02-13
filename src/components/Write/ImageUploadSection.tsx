@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import { INFO_MESSAGES } from 'components/Write/constants';
 import ImageInput from 'components/Input/ImageInput';
 import roundX from '../../assets/roundX.svg';
-import { T } from 'types/translate';
 
 type Props = {
   setImageFile: (file: File | string) => void;
@@ -12,7 +11,7 @@ type Props = {
 
 export default function ImageUploadSection({ setImageFile }: Props) {
   const [previewUrl, setPreviewUrl] = useState<string>('');
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
 
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {

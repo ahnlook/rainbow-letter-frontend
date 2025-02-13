@@ -14,7 +14,7 @@ import { PetResponse } from 'types/pets';
 import { getLetterListByDate } from 'api/letter';
 import useCalendar from 'hooks/useCalendar';
 import { useTranslation } from 'react-i18next';
-import { T } from 'types/translate';
+
 import { RootState } from 'store';
 import { formatMonthName } from 'utils/date';
 
@@ -37,7 +37,7 @@ export default function MonthCalendar({
   // hooks
   const { lng } = useSelector((state: RootState) => state.common);
   const { currentDate, setCurrentDate, monthCalendarList } = useCalendar();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
 
   useEffect(() => {
     setCurrentDate(currentWeekDate);

@@ -9,10 +9,9 @@ import { FIND_EMAIL_MESSAGE } from 'components/Login/constants';
 import { ErrorData } from 'types/user';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
-import { T } from 'types/translate';
 
 export default function Email() {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
   const [auth, setAuth] = useState({ email: '' });
   const [errorData, setErrorData] = useState<ErrorData | null>(null);

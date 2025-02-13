@@ -18,7 +18,7 @@ import { passwordError, emailError, emailErrorMessage } from 'utils/errorData';
 import { saveToken } from 'utils/localStorage';
 import { validateEmail, validatePassword } from 'utils/validators';
 import { LoginRequest, ErrorData } from 'types/user';
-import { T } from 'types/translate';
+
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 
@@ -28,7 +28,7 @@ type Props = {
 
 export default function SignUpForm({ message: { describe, button } }: Props) {
   const navigate = useNavigate();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
   const [profile, setProfile] = useState<LoginRequest>({
     email: '',

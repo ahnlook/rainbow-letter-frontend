@@ -8,14 +8,13 @@ import {
 } from 'components/Login/constants';
 import { validatePassword, validatePasswordMatch } from 'utils/validators';
 import { useTranslation } from 'react-i18next';
-import { T } from 'types/translate';
 
 type Props = {
   onClick: (password: string) => void;
 };
 
 function PasswordResetForm({ onClick }: Props) {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const isValidPassword = validatePassword(newPassword);

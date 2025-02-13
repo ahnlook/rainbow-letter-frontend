@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 
 import CoverImage from 'components/Common/CoverImage';
 import { LetterItemResponse } from 'types/letters';
-import { T } from 'types/translate';
+
 import { formatImageType } from 'utils/image';
 
 type Props = {
@@ -10,7 +10,7 @@ type Props = {
 };
 
 export default function SentPhoto({ letterData }: Props) {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
 
   return (
     <section className="not-img mt-16">

@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import LetterItem from 'components/LetterShowcase/LetterItem';
 import { ShowcaseLetter } from './type';
 import useIsWebview from 'hooks/useIsWebview';
-import { T } from 'types/translate';
+
 import { SHOWCASE_LETTERS_FOR_EN } from './constants';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
@@ -26,7 +26,7 @@ const SHOWCASE_CAROUSEL_OPTIONS = {
 
 function LetterShowcase() {
   const isWebview = useIsWebview();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
   const [letters, setLetters] = useState<ShowcaseLetter[]>();
 

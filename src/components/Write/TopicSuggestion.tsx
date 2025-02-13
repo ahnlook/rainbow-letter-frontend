@@ -4,11 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { INFO_MESSAGES } from 'components/Write/constants';
 import { modalActions } from 'store/modal/modal-slice';
 import InfoImage from '../../assets/gg_info.svg';
-import { T } from 'types/translate';
 
 export default function TopicSuggestion() {
   const dispatch = useDispatch();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
 
   return (
     <article className="mt-2.5">

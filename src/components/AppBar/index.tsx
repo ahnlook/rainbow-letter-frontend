@@ -19,7 +19,7 @@ import { T } from '../../types/translate';
 function AppBar() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
   const normalizedPath = normalizePath(location.pathname);
   const params = Object.keys(useParams())[0];

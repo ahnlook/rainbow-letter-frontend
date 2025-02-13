@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import { FOOTER_MESSAGE } from 'components/Home/constants';
 import blog from '../../assets/blog.png';
-import { T } from 'types/translate';
+
 import { RootState } from 'store';
 
 export default function HomeFooter() {
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
 
   return (

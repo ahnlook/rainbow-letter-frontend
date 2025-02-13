@@ -13,7 +13,7 @@ type Props = {
 
 export default function InfoBox({ pet }: Props) {
   const navigate = useNavigate();
-  const { t }: T = useTranslation();
+  const { t } = useTranslation<'translation'>();
 
   const onClickProfileUpdateButton = () => {
     navigate('/my-pets/edit', { state: pet?.id });
