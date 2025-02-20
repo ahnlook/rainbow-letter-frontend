@@ -3,7 +3,7 @@ import CoverImage from 'components/Common/CoverImage';
 import InfoBox from 'components/LetterBox/InfoBox';
 import PetsToggle from 'components/LetterBox/PetsToggle';
 import Divider from 'components/Home/Divider';
-import { formatImageType } from 'utils/image';
+import { getImage } from 'api/images';
 
 type Props = {
   onChange: (pet: PetResponse) => void;
@@ -26,7 +26,7 @@ export default function PetInfoCard({
         onChange={onChange}
         setIsEditing={setIsEditing}
       />
-      <CoverImage image={formatImageType(selectedPet?.image)} />
+      <CoverImage image={getImage(selectedPet?.image)} />
       <InfoBox pet={selectedPet} />
       <Divider />
     </section>

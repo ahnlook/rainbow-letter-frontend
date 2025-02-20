@@ -21,7 +21,7 @@ export default function HomeFooter() {
         <p>{t(FOOTER_MESSAGE.COPYRIGHT_2)}</p>
       </div>
       {lng === 'ko' && (
-        <Link to={`${FOOTER_MESSAGE.BLOG}`} target="_blank">
+        <Link to="https://blog.naver.com/rainbowletter" target="_blank">
           <img src={blog} width={46} alt="blog" />
         </Link>
       )}

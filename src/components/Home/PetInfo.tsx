@@ -5,9 +5,9 @@ import { PetsDashBoard } from 'types/pets';
 import { calculateDDay } from 'utils/date';
 import letter from 'assets/letter.svg';
 import arrow from 'assets/ion_chevron-back-home.svg';
-import { formatImageType } from 'utils/image';
 import { useSelector } from 'react-redux';
 import { RootState } from 'store';
+import { getImage } from 'api/images';
 
 type Props = {
   pet: PetsDashBoard | undefined;
@@ -38,7 +38,7 @@ export default function PetInfo({ pet, letterCount }: Props) {
       className="relative flex cursor-pointer flex-row items-center rounded-2xl border px-5 py-6"
     >
       <img
-        src={formatImageType(pet?.image)}
+        src={getImage(pet?.image)}
         alt="pet"
         className="mr-7 size-[5.5rem] rounded-full object-cover"
       />

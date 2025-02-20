@@ -5,6 +5,7 @@ type Props = {
   placeholder: string;
   value: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  disabled?: boolean;
 };
 
 function Input({ className, ...props }: Props) {

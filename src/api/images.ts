@@ -1,17 +1,26 @@
 import apiRequest from 'api';
 import { ApiResponse } from 'types/Api';
 import { ImageResponse } from 'types/image';
+import DefaultImage from 'assets/Logo_256px.png';
 
 const RESOURCE = '/api/images';
 
-export const getImage = async (key: string): Promise<string> => {
-  const response = await apiRequest.get(`${RESOURCE}/resources/${key}`);
+const getUploadPath = (type: string) => `/api/images/${type}`;
 
-  return response.request.responseURL;
+export const getImage = (key: string | undefined) => {
+  if (!key) return DefaultImage;
+
+  return `${process.env.REACT_APP_ASSETS_URL}/${key}`;
 };
 
-export const resisterImage = async (file: any): ApiResponse<ImageResponse> => {
-  const response = await apiRequest.post(`${RESOURCE}`, file);
+export const resisterImage = async (
+  file: any,
+  type: string
+): ApiResponse<ImageResponse> => {
+  const response = await apiRequest.post(
+    `${process.env.REACT_APP_UPLOAD_URL}${getUploadPath(type)}`,
+    file
+  );
 
   return response;
 };

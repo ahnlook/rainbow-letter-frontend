@@ -6,7 +6,7 @@ import { USER_ACTIONS, PREFIX } from '../constants';
 import PetCardImage from './PetCardImage';
 import LikeButton from './LikeButton';
 import pen from '../../assets/pen.svg';
-import useGetImage from 'hooks/useGetImage';
+import { getImage } from 'api/images';
 
 function PetCard({ pet }, ref) {
   const navigate = useNavigate();

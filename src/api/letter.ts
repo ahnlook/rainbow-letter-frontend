@@ -70,8 +70,6 @@ export const getAdminLetterDetail = async (
   petId: number | string,
   letterId: number | string
 ) => {
-  console.log(userId, petId, letterId);
-
   const response = await apiRequest.get(
     `/api/admins/letters/${letterId}?user=${userId}&pet=${petId}`
   );

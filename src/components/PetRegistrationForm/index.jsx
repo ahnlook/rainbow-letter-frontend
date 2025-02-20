@@ -16,7 +16,7 @@ import {
   usePetRegistration,
   setInitialPetData,
 } from '../../contexts/PetRegistrationContext';
-import { formatImageType } from '../../utils/image';
+import { getImage } from 'api/images';
 
 function PetRegistrationForm({ petData, isDisabled, handleSubmit }) {
   const { pathname } = useLocation();
@@ -39,7 +39,7 @@ function PetRegistrationForm({ petData, isDisabled, handleSubmit }) {
           deathAnniversary && convertDateStringToObject(deathAnniversary),
         image: {
           id: image,
-          url: formatImageType(image),
+          url: getImage(image),
         },
       });
       setOptionalData({

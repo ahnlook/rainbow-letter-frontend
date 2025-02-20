@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
 import axios from 'axios';
 
 import UserInput from 'components/Login/UserInput';
 import { authEmail } from 'api/user';
 import { FIND_EMAIL_MESSAGE } from 'components/Login/constants';
 import { ErrorData } from 'types/user';
-import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 
 export default function Email() {
@@ -16,6 +16,12 @@ export default function Email() {
   const [auth, setAuth] = useState({ email: '' });
   const [errorData, setErrorData] = useState<ErrorData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (errorData !== null) {
+      setErrorData(null);
+    }
+  }, [auth.email]);
 
   const onClickFindEmailButton = async () => {
     try {

@@ -33,7 +33,7 @@ function Layout() {
 
   return (
     <div
-      className={`${lng === 'ko' ? '' : 'font-HelveticaNowDisplay'} flex size-full min-w-[22.5rem] justify-center bg-white`}
+      className={`${lng === 'ko' ? '' : 'font-HelveticaNowDisplay'} flex size-full min-w-[22.5rem] justify-center`}
     >
       <div
         className={`${

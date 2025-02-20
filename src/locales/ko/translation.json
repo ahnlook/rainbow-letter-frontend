@@ -166,7 +166,8 @@
       "petLetter": "아이가 쓴 편지",
       "title": "어떤 편지를 저장하시겠어요?",
       "select": "이미지로 저장하시고 싶은 편지를 선택해주세요",
-      "complete": "편지가 갤러리에 저장되었어요",
+      "completeUpLine": "편지가 갤러리에 저장되었어요",
+      "completeDownLine": "",
       "save": "저장하기",
       "confirm": "확인"
     },

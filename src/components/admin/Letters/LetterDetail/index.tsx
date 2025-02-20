@@ -28,7 +28,6 @@ function LetterDetail() {
 
     if (!!id) {
       const res = await fetchLetterDetail(id);
-      console.log('res', res);
       setSelectedLetterData(res);
     }
   };

@@ -23,9 +23,9 @@ import { modalActions } from 'store/modal/modal-slice';
 import { letterActions } from 'store/letter/letter-slice';
 import { readReply } from '../../api/reply';
 import captureLogo from '../../assets/detailLetter_logo.svg';
-import { formatImageType } from 'utils/image';
 import { toolTipActions } from 'store/toolTip/toolTip-slice';
 import { getFirstReplyUser } from 'utils/localStorage';
+import { getImage } from 'api/images';
 
 export default function DetailLetter() {
   // redux
@@ -208,9 +208,7 @@ export default function DetailLetter() {
 
           {isExistReply && <DownLoadButton onClick={onClickSaveIcon} />}
           <LetterPaperWithImage>
-            <CoverImageWithTimeStamp
-              image={formatImageType(letterData?.pet.image)}
-            />
+            <CoverImageWithTimeStamp image={getImage(letterData?.pet.image)} />
             {isExistReply && (
               <WrittenLetterPaper
                 petName={targetValueFromPet}

@@ -15,7 +15,7 @@ import Button from 'components/Button';
 import { sendLetter } from 'api/letter';
 import { getUserInfo } from 'api/user';
 import { getPets } from 'api/pets';
-import { resisterImage } from 'api/images';
+import { getImage, resisterImage } from 'api/images';
 import {
   isExistCheckSavedLetter,
   getSavedLetter,
@@ -35,7 +35,6 @@ import { modalActions } from 'store/modal/modal-slice';
 import { letterActions } from 'store/letter/letter-slice';
 import CoverImage from 'components/Common/CoverImage';
 import { LetterRequest } from 'types/letters';
-import { formatImageType } from 'utils/image';
 import Spinner from 'components/Spinner';
 
 import { RootState } from 'store';
@@ -207,7 +206,7 @@ export default function WriteLetter() {
 
   const uploadImage = async (image: string | File) => {
     const formData = generateFormData(image);
-    const { data } = await resisterImage(formData);
+    const { data } = await resisterImage(formData, 'letter');
 
     return data.objectKey;
   };
@@ -270,7 +269,7 @@ export default function WriteLetter() {
         <ResisterButtonSection />
       )}
       <LetterPaperWithImage>
-        <CoverImage image={formatImageType(selectedPet?.image)} />
+        <CoverImage image={getImage(selectedPet?.image)} />
         <WritableLetterPaper
           petName={selectedPet?.name}
           onchange={setLetter}

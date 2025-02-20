@@ -18,8 +18,8 @@ const logout = () => {
   const currentLanguage = getCurrentLanguage();
   const message =
     currentLanguage === 'ko'
-      ? `자동 로그인이 풀렸어요\n로그인은 1주만 유지돼요`
-      : 'Login will only last for 1 week';
+      ? `로그인을 하시면\n더 많은 페이지를 둘러볼 수 있어요`
+      : 'You can browse more pages by logging in.';
   alert(message);
   window.location.href = '/login';
   Promise.reject(new Error('Token is expired'));

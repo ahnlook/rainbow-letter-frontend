@@ -16,7 +16,7 @@ export const calculateDDay = (deathAnniversary: string) => {
 
   return differenceInDays > 0
     ? `D-${Math.ceil(differenceInDays)}`
-    : `D+${Math.abs(Math.ceil(differenceInDays))}`;
+    : `D+${Math.abs(Math.ceil(differenceInDays)) + 1}`;
 };
 
 export const convertDateStringToObject = (dateStr: string) => {

@@ -70,9 +70,9 @@ const usePetForm = (
     return `${year}-${formattedMonth}-${formattedDay}`;
   };
 
-  const uploadImage = async (image: string) => {
+  const uploadImage = async (image: string | File) => {
     const imageFormData = generateFormData(image);
-    const { data } = await resisterImage(imageFormData);
+    const { data } = await resisterImage(imageFormData, 'profile');
 
     return data.objectKey;
   };

@@ -14,7 +14,7 @@ import {
   regenerateReply,
 } from '../../../../store/admin/letters-actions';
 import { getReplyStatus, replyStatusInfo } from '../LetterTable/TableRow';
-import { formatImageType } from 'utils/image';
+import { getImage } from 'api/images';
 
 const MAX_CONTENT_LENGTH = 1000;
 
@@ -208,7 +208,7 @@ function LetterDetailForm({
             <div className="">
               <img
                 className="size-[132px]"
-                src={pet.image ? formatImageType(pet.image) : defaultImage}
+                src={pet.image ? getImage(pet.image) : defaultImage}
                 alt={pet.name}
               />
             </div>
@@ -223,7 +223,7 @@ function LetterDetailForm({
               {letter.image && (
                 <Link
                   className="text-primary underline"
-                  to={formatImageType(letter.image)}
+                  to={getImage(letter.image)}
                   target="_blank"
                 >
                   (사진보기)

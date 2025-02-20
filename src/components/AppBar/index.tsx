@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from 'store';
 import { useTranslation } from 'react-i18next';
 
+import { formatImageRoute } from 'utils/image';
 import appBarConfig from 'components/AppBar/constants';
 import DonateAppBar from 'components/Donate/AppBar';
 import normalizePath from 'utils/normalizers';
@@ -71,18 +72,29 @@ function AppBar() {
           <article className="absolute right-2.5 z-10">
             {isSaving ? (
               <img
-                src={lng === 'ko' ? autoSaving : Saving}
+                src={
+                  lng === 'ko'
+                    ? formatImageRoute(autoSaving)
+                    : formatImageRoute(Saving)
+                }
                 alt="자동 저장 중"
               />
             ) : isSuccess ? (
               <img
-                src={lng === 'ko' ? autoSavingSuccess : Saved}
+                src={
+                  lng === 'ko'
+                    ? formatImageRoute(autoSavingSuccess)
+                    : formatImageRoute(Saved)
+                }
                 alt="자동 저장 결과"
-                // className={lng === 'ko' ? '' : 'size-[100px]'}
               />
             ) : (
               <img
-                src={lng === 'ko' ? autoSavingFail : Failed}
+                src={
+                  lng === 'ko'
+                    ? formatImageRoute(autoSavingFail)
+                    : formatImageRoute(Failed)
+                }
                 alt="자동 저장 결과"
               />
             )}

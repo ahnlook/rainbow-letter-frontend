@@ -17,8 +17,8 @@ import {
   formatDateIncludingEnglish,
 } from 'utils/date';
 import { isKakaoTalk } from 'utils/device';
-import { formatImageType } from 'utils/image';
 import { RootState } from 'store';
+import { getImage } from 'api/images';
 
 const TARGET_URL = window.location.href;
 
@@ -67,7 +67,7 @@ export default function ShareLetter() {
         <main className="relative pb-10">
           <AppBar />
           <LetterPaperWithImage>
-            <CoverImage image={formatImageType(letterData?.pet.image)} />
+            <CoverImage image={getImage(letterData?.pet.image)} />
             <WrittenLetterPaper
               petName={targetValueFromPet}
               content={letterData.reply.content}
