@@ -104,6 +104,6 @@ export const SNS_LOGIN = [
     id: 2,
     icon: KaKaoIcon,
     name: 'kakao',
-    url: `https://rainbowletter.co.kr/api/oauth2/authorization/kakao`,
+    url: `${process.env.REACT_APP_API_URL}/api/oauth2/authorization/kakao`,
   },
 ];
