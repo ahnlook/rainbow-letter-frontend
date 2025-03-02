@@ -2,19 +2,23 @@ import { ChangeEvent, useState } from 'react';
 
 import ImageDeleteButton from 'components/Input/ImageInput/ImageDeleteButton';
 import thinPlus from '../../../assets/thinPlus.svg';
+import Spinner from 'components/Spinner';
+import { MoonLoader } from 'react-spinners';
 
 type Props = {
-  className: string;
   imageSrc: string;
   deleteIcon: string;
+  className?: string;
+  isLoading?: boolean;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   onDelete: () => void;
 };
 
 function ImageInput({
-  className,
+  className = '',
   imageSrc,
   deleteIcon,
+  isLoading = false,
   onChange,
   onDelete,
 }: Props) {
@@ -22,6 +26,16 @@ function ImageInput({
   const styles = className || '';
   const imgStyles = imageSrc ? 'w-full h-full object-cover' : '';
   const [isHover, setIsHover] = useState(false);
+
+  if (isLoading) {
+    return (
+      <div
+        className={`${styles} flex size-[9.75rem] cursor-pointer items-center justify-center overflow-hidden rounded-2xl border border-dashed border-[#616161] bg-gray-2`}
+      >
+        <MoonLoader color="#FFB347" size={40} speedMultiplier={0.5} />
+      </div>
+    );
+  }
 
   return (
     <div
