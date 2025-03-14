@@ -25,3 +25,11 @@ export const getFirstReplyUser = () => {
 export const setFirstReplyUser = () => {
   return localStorage.setItem('firstReply', 'false');
 };
+
+export const getListViewTooltip = () => {
+  return localStorage.getItem('listView');
+};
+
+export const setListViewTooltip = () => {
+  return localStorage.setItem('listView', 'false');
+};

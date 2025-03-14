@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 import NoLetters from 'components/LetterBox/NoLetters';
-import LetterItems from 'components/LetterBox/LetterItems';
+// import LetterItems from 'components/LetterBox/LetterItems';
 import { getLetterList } from 'api/letter';
 import { LetterListResponse } from 'types/letters';
 
@@ -29,18 +29,18 @@ export default function LetterListSection({ pet }: Props) {
     })();
   }, []);
 
-  const filteredLetter: LetterListResponse[] =
-    pet === DEFAULT
-      ? letterList
-      : letterList?.filter((item) => item.petName === pet);
+  // const filteredLetter: LetterListResponse[] =
+  //   pet === DEFAULT
+  //     ? letterList
+  //     : letterList?.filter((item) => item.petName === pet);
 
-  if (filteredLetter !== null && filteredLetter?.length < 1)
-    return <NoLetters pet={pet} />;
+  // if (filteredLetter !== null && filteredLetter?.length < 1)
+  //   return <NoLetters pet={pet} />;
 
   return (
     <section className="mt-6">
       <ul>
-        {filteredLetter &&
+        {/* {filteredLetter &&
           filteredLetter.map((item) => (
             <Link
               to={`/letter-box/${item.id}`}
@@ -49,7 +49,7 @@ export default function LetterListSection({ pet }: Props) {
             >
               <LetterItems key={item.id} letter={item} index={item.number} />
             </Link>
-          ))}
+          ))} */}
       </ul>
     </section>
   );

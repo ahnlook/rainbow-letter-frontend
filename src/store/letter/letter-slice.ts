@@ -9,6 +9,14 @@ const initialState = {
   isCalendarOpen: false,
   sentLetterTarget: null,
   isExistPet: false,
+  letterBoxState: {
+    isExistState: false,
+    isCalendarMode: true,
+    currentDate: '',
+    letterList: [],
+    scroll: 0,
+    readLetterIds: [],
+  },
 };
 
 const letterSlice = createSlice({
@@ -46,6 +54,19 @@ const letterSlice = createSlice({
     },
     setIsExistPet(state, action) {
       state.isExistPet = action.payload;
+    },
+    setLetterBoxState(state, action) {
+      state.letterBoxState = action.payload;
+    },
+    clearLetterBoxState(state) {
+      state.letterBoxState = {
+        isExistState: false,
+        isCalendarMode: false,
+        currentDate: '',
+        letterList: [],
+        scroll: 0,
+        readLetterIds: [],
+      };
     },
   },
 });

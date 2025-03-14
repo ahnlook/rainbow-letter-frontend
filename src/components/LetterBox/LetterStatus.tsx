@@ -4,22 +4,21 @@ import { letterReplyStatus, isCheckUnread } from 'utils/replyStatus';
 import LetterIcon from '../../assets/ic_letterBox_letter.svg';
 import Check from '../../assets/ic_letterBox_green-check.svg';
 import GrayCheck from '../../assets/ic_letterBox_gray-check.svg';
-import { T } from '../../types/translate';
 
 type Props = {
-  status: 'RESPONSE' | 'REQUEST';
-  readStatus: string;
+  submitTime: null | string;
+  isRead: boolean;
 };
 
-export default function LetterStatus({ status, readStatus }: Props) {
+export default function LetterStatus({ submitTime, isRead }: Props) {
   const { t } = useTranslation<'translation'>();
-  const letterStatus = letterReplyStatus(status);
-  const isCompleteResponse = status === 'RESPONSE';
-  const Icon = isCheckUnread(readStatus, status) ? Check : GrayCheck;
-  const TextColor = isCheckUnread(readStatus, status)
+  const letterStatus = letterReplyStatus(submitTime);
+  const isCompleteResponse = submitTime !== null;
+  const Icon = isCheckUnread(isRead, submitTime) ? Check : GrayCheck;
+  const TextColor = isCheckUnread(isRead, submitTime)
     ? 'text-green-100'
     : 'text-gray-5';
-  const bgColor = isCheckUnread(readStatus, status)
+  const bgColor = isCheckUnread(isRead, submitTime)
     ? 'bg-green-50'
     : 'bg-gray-7';
 

@@ -225,3 +225,8 @@ export const getTimeUntilKST10AM = () => {
   const minutes = String(calMinutes);
   return { hours, minutes };
 };
+
+export const toUTCDate = (day: string): Date => {
+  const [year, month, date] = day.split('-').map(Number);
+  return new Date(Date.UTC(year, month - 1, date));
+};

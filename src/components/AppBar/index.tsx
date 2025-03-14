@@ -15,7 +15,6 @@ import autoSavingFail from '../../assets/autoSave_fail.svg';
 import Saving from '../../assets/ic_bar_saving.svg';
 import Saved from '../../assets/ic_bar_saved.svg';
 import Failed from '../../assets/ic_bar_failed.svg';
-import { T } from '../../types/translate';
 
 function AppBar() {
   const navigate = useNavigate();
@@ -58,7 +57,11 @@ function AppBar() {
 
   return (
     <section className="sticky top-0 z-50 flex flex-col">
-      {isShowDonateAppBar && <DonateAppBar />}
+      {isShowDonateAppBar && (
+        <div className="h-[78px] bg-white">
+          <DonateAppBar />
+        </div>
+      )}
       <header className="flex items-center justify-between bg-white py-6 pl-5">
         <section className="flex flex-1 justify-start">
           <button type="button" onClick={handleBack}>

@@ -2,6 +2,9 @@ import React from 'react';
 
 import CoffeeWithCake from 'assets/im_donate_coffee&cake.svg';
 import Coffee from 'assets/im_donate_coffee.svg';
+import Woman from 'assets/im_appBar_donate.webp';
+import Forest from 'assets/im_appBanner_forest.webp';
+import Tumblbug from 'assets/im_appBanner_tumblbug.webp';
 
 export const DONATE_DESCRIPTION_CONTENTS = [
   {
@@ -94,4 +97,25 @@ export const DONATE_USAGE_CONTENTS = [
     title: '문자 발송비',
     price: '월 2만원',
   },
+];
+
+export const APP_BAR_BANNER_CONTENTS = [
+  {
+    id: 1,
+    category: 'EVENT',
+    link: '/donate',
+    image: Woman,
+  },
+  {
+    id: 2,
+    category: 'EVENT',
+    link: 'https://tumblbug.com/rainbowletter/story?utm_source=tumblbug&utm_medium=system_email&utm_campaign=alarm_start_project',
+    image: Tumblbug,
+  },
+  // {
+  //   id: 3,
+  //   category: 'EVENT',
+  //   link: '/donate',
+  //   image: Forest,
+  // },
 ];

@@ -99,17 +99,6 @@ export default function MonthCalendar({
     setIsShow((prev) => !prev);
   }, []);
 
-  const onClickNextMonth = useCallback(() => {
-    const lastDay = lastDayOfMonth(currentDate);
-    setCurrentDate(addDays(lastDay, 1));
-  }, [currentDate]);
-
-  const onClickPrevMonth = useCallback(() => {
-    setCurrentDate(
-      new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1)
-    );
-  }, [currentDate]);
-
   const onClickDateButton = useCallback(
     (date: string) => {
       setDate(new Date(date));
@@ -121,8 +110,7 @@ export default function MonthCalendar({
   );
 
   const onClickCalendarClose = useCallback(() => {
-    const action = letterSlice.actions.setCalendarClose();
-    dispatch(action);
+    dispatch(letterSlice.actions.setCalendarClose());
     setCurrentWeekDate(SAVE_DATE);
   }, [dispatch]);
 
@@ -163,6 +151,12 @@ export default function MonthCalendar({
     return new Date(Date.UTC(year, month - 1, date));
   };
 
+  const handleStandardDate = () => {
+    const date = new Date();
+
+    setCurrentDate(date);
+  };
+
   return (
     <>
       <section
@@ -175,35 +169,23 @@ export default function MonthCalendar({
         >
           <img src={Cancel} alt="취소 버튼" />
         </button>
-        <header className="flex w-full justify-between">
-          <button
-            type="button"
-            onClick={onClickPrevMonth}
-            className="flex items-center gap-1.5 p-2"
-          >
-            <img src={Left} alt="왼쪽 화살표 아이콘" />
-            <span className="mt-px text-[12px]">
-              {t('letterBox.prevMonth')}
-            </span>
-          </button>
+        <header className="flex w-full justify-end">
           <button
             type="button"
             onClick={handlePetsListShow}
-            className="flex items-center"
+            className="absolute left-1/2 flex -translate-x-1/2 items-center gap-1.5"
           >
             <p className="text-[1.125rem] font-bold">{yearAndMonth}</p>
             <img src={DropDown} alt="드롭다운 아이콘" />
           </button>
-          <button
-            type="button"
-            onClick={onClickNextMonth}
-            className="flex items-center gap-1.5 p-2"
+          <div
+            onClick={handleStandardDate}
+            className="cursor-pointer rounded-[50px] border border-[#BDBDBD] px-2 py-[2px]"
           >
-            <span className="mt-px text-[12px]">
-              {t('letterBox.nextMonth')}
-            </span>
-            <img src={Right} alt="오른쪽 화살표 아이콘" />
-          </button>
+            <p className="text-[12px] font-[500] leading-[16px] text-[#616161]">
+              {t('letterBox.thisMonth')}
+            </p>
+          </div>
         </header>
         <ul className="mt-[30px] w-[354px]">
           {monthCalendarList &&

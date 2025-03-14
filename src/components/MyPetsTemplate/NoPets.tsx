@@ -7,7 +7,7 @@ import PetHouse from '../../assets/ic_petsHouse.png';
 function NoPets() {
   const { t } = useTranslation<'translation'>();
   return (
-    <div className="flex h-[72vh] items-center justify-center">
+    <div className="flex h-[72vh] items-center justify-center px-5">
       <section className="flex w-full flex-col gap-y-12 text-center">
         <div className="flex flex-col">
           <img

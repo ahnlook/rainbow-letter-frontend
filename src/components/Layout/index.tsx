@@ -37,7 +37,7 @@ function Layout() {
     >
       <div
         className={`${
-          isHomeLayOut ? 'overflow-hidden px-0' : 'px-5'
+          isHomeLayOut ? 'px-0' : 'px-5'
         } w-full max-w-[24.375rem] bg-white`}
       >
         <Outlet />

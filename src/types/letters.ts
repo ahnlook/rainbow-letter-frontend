@@ -46,14 +46,54 @@ type ReplyType = {
   updatedAt: string;
 };
 
+// export interface LetterListResponse {
+//   id: number;
+//   summary: string;
+//   status: LetterStatus;
+//   petName: string;
+//   readStatus: ReadStatus;
+//   createdAt: string;
+//   number: number;
+// }
+
+export interface LetterItemPet {
+  id: number;
+  name: string;
+  deathAnniversary: null;
+  image: string;
+  personalities: string[];
+  species: string;
+  owner: string;
+  favorite: {
+    canIncrease: boolean;
+    dayIncreaseCount: number;
+    lastIncreasedAt: string;
+    total: number;
+  };
+}
+
+export interface LetterItemReply {
+  createdAt: string;
+  inspection: boolean;
+  inspectionTime: string;
+  promptType: string;
+  readStatus: string;
+  status: string;
+  submitTime: null | string;
+  content: string;
+  summary: string;
+}
+
 export interface LetterListResponse {
   id: number;
-  summary: string;
-  status: LetterStatus;
-  petName: string;
-  readStatus: ReadStatus;
+  sequence: number;
   createdAt: string;
-  number: number;
+  pet: LetterItemPet;
+  summary: string;
+  content: string;
+  shareLink: string;
+  image: string;
+  reply: LetterItemReply | null;
 }
 
 export interface LetterRequest {

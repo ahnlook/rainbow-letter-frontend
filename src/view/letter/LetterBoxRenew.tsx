@@ -1,25 +1,20 @@
 import React, { Suspense, useState, useEffect } from 'react';
-import { format } from 'date-fns';
 import { useLocation } from 'react-router-dom';
 
 import NoPets from 'components/MyPetsTemplate/NoPets';
 import Spinner from 'components/Spinner';
 import { PetResponse } from 'types/pets';
-import { LetterListResponse } from 'types/letters';
 import { getPets } from 'api/pets';
 
 const PetInfoCard = React.lazy(
   () => import('components/LetterBox/PetInfoCard')
 );
-const WeekCalendar = React.lazy(
-  () => import('components/LetterBox/WeekCalendar')
+const LetterList = React.lazy(
+  () => import('components/LetterBox/LetterListRenew')
 );
-const LetterList = React.lazy(() => import('components/LetterBox/LetterList'));
 
 export default function LetterBoxRenew() {
   const { state } = useLocation();
-  const [date, setDate] = useState(new Date());
-  const [letterList, setLetterList] = useState<LetterListResponse[]>([]);
   const [petsList, setPetsList] = useState<PetResponse[]>([]);
   const [selectedPet, setSelectedPet] = useState<PetResponse | null>(null);
   const [isEditing, setIsEditing] = useState(false);
@@ -44,10 +39,6 @@ export default function LetterBoxRenew() {
     })();
   }, []);
 
-  const mappedLetterListByDate = letterList.map((letter) =>
-    format(letter.createdAt, 'yyyy-MM-dd')
-  );
-
   if (isLoading) {
     return <Spinner />;
   }
@@ -64,20 +55,10 @@ export default function LetterBoxRenew() {
             onChange={setSelectedPet}
             setIsEditing={setIsEditing}
           />
-          <WeekCalendar
-            setDate={setDate}
-            letterList={mappedLetterListByDate}
-            setLetterList={setLetterList}
-            selectedPet={selectedPet}
-            setIsEditing={setIsEditing}
-          />
           <LetterList
-            date={date}
-            selectedPet={selectedPet}
-            letterList={letterList}
             setIsEditing={setIsEditing}
+            selectedPet={selectedPet}
             isEditing={isEditing}
-            setLetterList={setLetterList}
           />
         </main>
       )}

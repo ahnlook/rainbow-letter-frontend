@@ -20,9 +20,9 @@ export default function AdModal() {
       <p className="mb-4 mt-[1.625rem] text-gray-1 underline">AD</p>
       <div className="flex flex-col gap-4">
         <AppBar />
-        {MODAL_AD_CONTENTS_ITEMS.map((item) => (
+        {/* {MODAL_AD_CONTENTS_ITEMS.map((item) => (
           <ContentsItem item={item} className={item?.className} />
-        ))}
+        ))} */}
       </div>
     </div>
   );

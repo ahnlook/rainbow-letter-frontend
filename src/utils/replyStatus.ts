@@ -22,20 +22,20 @@ export const checkLetterStatus = (
   }
 };
 
-export const letterReplyStatus = (reply: string) => {
-  switch (reply) {
-    case 'REQUEST':
-      return 'replying';
-    case 'RESPONSE':
-      return 'received';
-    default:
-      return null;
+export const letterReplyStatus = (reply: string | null) => {
+  if (reply === null) {
+    return 'replying';
   }
+
+  return 'received';
 };
 
-export const isCheckUnread = (isRead: string, reply: string): boolean => {
-  if (reply === 'REQUEST') return false;
-  if (isRead === 'READ') return false;
+export const isCheckUnread = (
+  isRead: boolean,
+  submitTime: string | null
+): boolean => {
+  if (submitTime === null) return false;
+  if (isRead) return false;
 
   return true;
 };

@@ -1,7 +1,10 @@
-import Kakao from 'assets/im_modal_kakao.png';
+// import Kakao from 'assets/im_modal_kakao.png';
 import FitaPat from 'assets/im_modal_fitapat.png';
 import forest from 'assets/forest.svg';
 import woman from 'assets/im_donate_woman.svg';
+import Forest from '../../assets/im_ad_forest.webp';
+import Tumblbug from '../../assets/im_ad_tumblbug.webp';
+import Kakao from '../../assets/im_ad_kakao.webp';
 
 export interface Modal {
   type: string;
@@ -15,8 +18,8 @@ export interface Modal {
 
 export interface Modal_AD {
   id: number;
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   image: string;
   url: string;
   className?: string;
@@ -25,8 +28,16 @@ export interface Modal_AD {
 export const MODAL_AD_CONTENTS_ITEMS: Modal_AD[] = [
   {
     id: 1,
-    title: '무지개편지 카톡채널 OPEN',
-    description: '답장 링크 카톡으로 받기',
+    image: Tumblbug,
+    url: 'https://tumblbug.com/rainbowletter/story?utm_source=tumblbug&utm_medium=system_email&utm_campaign=alarm_start_project',
+  },
+  // {
+  //   id: 2,
+  //   image: Forest,
+  //   url: 'https://pf.kakao.com/_MNevG/105645061',
+  // },
+  {
+    id: 3,
     image: Kakao,
     url: 'https://pf.kakao.com/_MNevG/105645061',
   },

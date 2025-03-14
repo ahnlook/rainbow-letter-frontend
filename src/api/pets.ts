@@ -47,3 +47,24 @@ export const getDashboard = async (): Promise<any> => {
 
   return response.data;
 };
+
+export const getLetterListByPet = async (
+  petId: number,
+  after: number | undefined,
+  limit: number,
+  startDate?: string,
+  endDate?: string
+) => {
+  const queryParams = new URLSearchParams();
+
+  queryParams.append('limit', limit.toString());
+  if (after !== undefined) queryParams.append('after', after.toString());
+  if (startDate) queryParams.append('startDate', startDate);
+  if (endDate) queryParams.append('endDate', endDate);
+
+  const response = await apiRequest.get(
+    `${process.env.REACT_APP_UPLOAD_URL}${RESOURCE}/${petId}/letters?${queryParams.toString()}`
+  );
+
+  return response.data;
+};

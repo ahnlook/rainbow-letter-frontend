@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, ChangeEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -8,7 +8,7 @@ import Input from 'components/Input';
 import Radio from 'components/Radio/Radio';
 import RadioGroup from 'components/Radio/RadioGroup';
 import ContentsItem from 'components/Home/ContentsItem';
-import DonateContentsItem from 'components/Donate/AppBar';
+// import DonateContentsItem from 'components/Donate/AppBar';s
 import {
   MODAL_MESSAGE,
   Modal,
@@ -165,7 +165,7 @@ export default function ModalContents() {
           case 'COMPLETE':
             return (
               <div className="w-full pb-11 pt-[3.313rem]">
-                <header className="flex flex-col items-center justify-center rounded-[0.938rem] bg-orange-50 py-6 text-center">
+                <header className="flex flex-col items-center justify-center rounded-[0.938rem] py-6 text-center">
                   <img
                     src={WritingPad}
                     alt="편지지"
@@ -174,11 +174,11 @@ export default function ModalContents() {
                   <h3 className="mt-2 text-heading-3">{title}</h3>
                   <span className="mt-2">{body[0].contents}</span>
                 </header>
-                <p className="mb-4 mt-[1.625rem] text-gray-1 underline">AD</p>
-                <div className="flex flex-col gap-4">
-                  <DonateContentsItem />
+                <div className="mt-[1.625rem] flex flex-col gap-4">
                   {MODAL_AD_CONTENTS_ITEMS.map((item) => (
-                    <ContentsItem item={item} className={item?.className} />
+                    <Link to={item.url} target="_blank">
+                      <img src={item.image} />
+                    </Link>
                   ))}
                 </div>
                 <button
@@ -191,6 +191,17 @@ export default function ModalContents() {
                 >
                   <img src={CancelImage} alt="cancel" />
                 </button>
+                <div className="mt-7 flex w-full justify-center text-gray-1">
+                  <p
+                    onClick={() => {
+                      dispatch(modalActions.closeModal());
+                      navigate('/letter-box', { state: sentLetterTarget });
+                    }}
+                    className="w-fit cursor-pointer underline"
+                  >
+                    편지함으로 가기
+                  </p>
+                </div>
               </div>
             );
           case 'SAVING':

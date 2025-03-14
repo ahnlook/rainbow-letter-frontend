@@ -1,10 +1,3 @@
-<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<g id="Arrow drop down" clip-path="url(#clip0_2497_428)">
-<path id="Vector" d="M7 10L12 15L17 10H7Z" fill="#252525"/>
-</g>
-<defs>
-<clipPath id="clip0_2497_428">
-<rect width="24" height="24" fill="white"/>
-</clipPath>
-</defs>
+<svg width="8" height="6" viewBox="0 0 8 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path id="Vector" d="M6.92441 0.199951C7.73678 0.199951 8.18193 1.14609 7.66403 1.77197L4.73959 5.30613C4.35566 5.77011 3.64428 5.77011 3.26035 5.30613L0.335905 1.77197C-0.181995 1.14609 0.263154 0.199951 1.07552 0.199951L6.92441 0.199951Z" fill="#252525"/>
 </svg>
