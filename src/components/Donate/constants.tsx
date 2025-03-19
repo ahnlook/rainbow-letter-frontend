@@ -112,10 +112,10 @@ export const APP_BAR_BANNER_CONTENTS = [
     link: 'https://tumblbug.com/rainbowletter/story?utm_source=tumblbug&utm_medium=system_email&utm_campaign=alarm_start_project',
     image: Tumblbug,
   },
-  // {
-  //   id: 3,
-  //   category: 'EVENT',
-  //   link: '/donate',
-  //   image: Forest,
-  // },
+  {
+    id: 3,
+    category: 'EVENT',
+    link: 'https://pf.kakao.com/_MNevG/108670095',
+    image: Forest,
+  },
 ];

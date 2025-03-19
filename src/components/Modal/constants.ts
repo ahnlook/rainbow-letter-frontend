@@ -31,11 +31,11 @@ export const MODAL_AD_CONTENTS_ITEMS: Modal_AD[] = [
     image: Tumblbug,
     url: 'https://tumblbug.com/rainbowletter/story?utm_source=tumblbug&utm_medium=system_email&utm_campaign=alarm_start_project',
   },
-  // {
-  //   id: 2,
-  //   image: Forest,
-  //   url: 'https://pf.kakao.com/_MNevG/105645061',
-  // },
+  {
+    id: 2,
+    image: Forest,
+    url: 'https://pf.kakao.com/_MNevG/108670095',
+  },
   {
     id: 3,
     image: Kakao,

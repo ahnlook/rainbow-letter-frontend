@@ -16,12 +16,12 @@ export const BANNER_ITEMS = [
     link: 'https://tumblbug.com/rainbowletter/story?utm_source=tumblbug&utm_medium=system_email&utm_campaign=alarm_start_project',
     image: Tumblbug,
   },
-  // {
-  //   id: 3,
-  //   category: 'EVENT',
-  //   link: '/donate',
-  //   image: Forest,
-  // },
+  {
+    id: 3,
+    category: 'EVENT',
+    link: 'https://pf.kakao.com/_MNevG/108670095',
+    image: Forest,
+  },
 ];
 
 export const EN_BANNER_ITEMS = [
