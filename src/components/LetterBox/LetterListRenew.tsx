@@ -85,10 +85,10 @@ export default function LetterListRenew({
       const weeks = findWeeks();
 
       const startDate = isCalendarMode
-        ? format(new Date(weeks[0]), 'yyyy-MM-dd HH:mm:ss.SSS')
+        ? format(new Date(weeks[0]), 'yyyy-MM-dd 00:00:00.SSS')
         : format(startOfMonth(currentDate), 'yyyy-MM-dd HH:mm:ss.SSS');
       const endDate = isCalendarMode
-        ? format(new Date(weeks[weeks.length - 1]), 'yyyy-MM-dd HH:mm:ss.SSS')
+        ? format(new Date(weeks[weeks.length - 1]), 'yyyy-MM-dd 23:59:59.SSS')
         : format(endOfMonth(currentDate), 'yyyy-MM-dd HH:mm:ss.SSS');
 
       const { letters } = await getLetterListByPet(
