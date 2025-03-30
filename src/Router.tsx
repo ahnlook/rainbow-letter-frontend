@@ -35,6 +35,8 @@ import ToolTip from 'components/ToolTip';
 import LetterShowcase from 'components/LetterShowcase';
 import AdModal from 'components/WebView/AdModal';
 import Prompt from 'components/admin/setting/Prompt';
+import PinnedLetterForm from 'view/letter/PinnedLetterForm';
+import LetterShowCase from 'view/letterShowCase/LetterShowCase';
 
 function Router() {
   const { isOpen } = useSelector((state: State) => state.modal);
@@ -59,6 +61,10 @@ function Router() {
             <Route path="/share/:shareLink" element={<ShareLetter />} />
             <Route path="/contents" element={<Contents />} />
             <Route
+              path="/letters/letter-showcase"
+              element={<LetterShowCase />}
+            />
+            <Route
               path="/web-view/letter-showcase"
               element={<LetterShowcase />}
             />
@@ -75,6 +81,7 @@ function Router() {
               <Route path="/letter-box" element={<LetterBoxRenew />} />
               <Route path="/letter-box/:letterId" element={<DetailLetter />} />
               <Route path="/saved-image" element={<SavedImage />} />
+              <Route path="/letters/pin" element={<PinnedLetterForm />} />
             </Route>
           </Route>
           {/* NOTE: 관리자 권한이 필요한 페이지 */}

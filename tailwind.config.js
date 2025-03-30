@@ -93,6 +93,7 @@ module.exports = {
         modal: '0px 0px 6px 0px rgba(20, 20, 43, 0.10);',
         nav: '0 -5px 6px -5px rgba(0, 0, 0, 0.10)',
         lng: '0px 0px 3px rgba(0, 0, 0, 0.40)',
+        sharedLetter: '4px 4px 4px 0px #E8E8E8;',
       },
     },
   },

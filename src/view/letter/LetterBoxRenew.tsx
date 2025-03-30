@@ -46,7 +46,7 @@ export default function LetterBoxRenew() {
   return (
     <Suspense fallback={<Spinner />}>
       {petsList !== null && petsList.length < 1 ? (
-        <NoPets />
+        <NoPets height="h-[72vh]" />
       ) : (
         <main className="relative">
           <PetInfoCard

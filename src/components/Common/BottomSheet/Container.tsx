@@ -10,7 +10,7 @@ export default function Container({ children, isShow }: Props) {
     <section
       className={`${
         isShow ? 'block' : 'hidden'
-      } fixed inset-y-0 z-50 w-[24.375rem] bg-[#000000]/50`}
+      } fixed inset-y-0 z-50 w-[390px] bg-[#000000]/50`}
     >
       {children}
     </section>

@@ -1,5 +1,4 @@
 import apiRequest from 'api';
-import { formatDateToYMD } from '../utils/date';
 import {
   LetterRequest,
   LetterListResponse,

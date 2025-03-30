@@ -31,7 +31,11 @@ export default function LandingPage() {
       <PetsSection isLoggedIn={!!token} />
       <HomeDivider />
       <LetterShowcase />
-      {isKorean && <LetterPostButton />}
+      {isKorean && (
+        <div className="px-5">
+          <LetterPostButton />
+        </div>
+      )}
       <HomeDivider />
       <OpenTalk />
       <PhoneButton />

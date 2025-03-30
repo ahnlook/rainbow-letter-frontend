@@ -33,7 +33,8 @@ export default function NameSection({ onChange, selectedPet }: Props) {
     })();
   }, []);
 
-  if (petsList !== null && petsList.length < 1) return <NoPets />;
+  if (petsList !== null && petsList.length < 1)
+    return <NoPets height="h-[72vh]" />;
 
   return (
     <nav>

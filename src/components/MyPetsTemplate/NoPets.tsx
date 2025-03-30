@@ -4,10 +4,15 @@ import PetRegisterButton from 'components/MyPetsTemplate/PetRegisterButton';
 import { INFO_MESSAGES, USER_ACTIONS } from './constants';
 import PetHouse from '../../assets/ic_petsHouse.png';
 
-function NoPets() {
+type Props = {
+  height: string;
+};
+
+function NoPets({ height }: Props) {
   const { t } = useTranslation<'translation'>();
+
   return (
-    <div className="flex h-[72vh] items-center justify-center px-5">
+    <div className={`${height} flex items-center justify-center px-5`}>
       <section className="flex w-full flex-col gap-y-12 text-center">
         <div className="flex flex-col">
           <img

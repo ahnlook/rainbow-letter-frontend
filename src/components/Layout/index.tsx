@@ -16,6 +16,8 @@ function Layout() {
     pathname === '/donate' ||
     pathname === '/letter-box' ||
     pathname === '/contents' ||
+    pathname === '/letters/pin' ||
+    pathname === '/letters/letter-showcase' ||
     false;
 
   useEffect(() => {

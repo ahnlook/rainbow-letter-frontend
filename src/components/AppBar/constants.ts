@@ -38,6 +38,12 @@ const appBarConfig: AppBar = {
   '/contents': {
     titleKey: '컨텐츠',
   },
+  '/letters/letter-showcase': {
+    titleKey: '무지개에 걸린 편지',
+  },
+  '/letters/pin': {
+    titleKey: '내 편지 걸어보기',
+  },
   letterId: {
     titleKey: 'appBar.inBox',
   },

@@ -1,6 +1,7 @@
 import apiRequest from 'api';
 import { ApiResponse } from 'types/Api';
 import { PetResponse, PetsDashBoard } from 'types/pets';
+import { PinnedLetterFormType } from 'view/letter/PinnedLetterForm';
 
 const RESOURCE = '/api/pets';
 
@@ -64,6 +65,18 @@ export const getLetterListByPet = async (
 
   const response = await apiRequest.get(
     `${process.env.REACT_APP_UPLOAD_URL}${RESOURCE}/${petId}/letters?${queryParams.toString()}`
+  );
+
+  return response.data;
+};
+
+export const tryPinSharedLetter = async (
+  petId: number | undefined,
+  data: PinnedLetterFormType
+): Promise<any> => {
+  const response = await apiRequest.post(
+    `${process.env.REACT_APP_UPLOAD_URL}${RESOURCE}/${petId}/shared-letters`,
+    data
   );
 
   return response.data;

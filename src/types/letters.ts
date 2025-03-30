@@ -140,3 +140,33 @@ export interface Letter {
   };
   createdAt: string;
 }
+
+export interface SharedLetterResponse {
+  sharedLetters: SharedLetterItemType[];
+  paginationInfo: SharedLetterPageType;
+}
+
+export interface SharedLetterItemType {
+  id: number;
+  content: string;
+  recipientType: string;
+  pet: {
+    id: number;
+    name: string;
+    deathAnniversary: string;
+    image: string;
+    personalities: string[];
+    species: string;
+    owner: string;
+    favorite: {
+      canIncrease: true;
+      dayIncreaseCount: number;
+      lastIncreasedAt: Date;
+      total: number;
+    };
+  };
+}
+
+export interface SharedLetterPageType {
+  next: string;
+}

@@ -61,3 +61,19 @@ export const deleteUser = async () => {
 
   return response;
 };
+
+export const getSharedLetterByMe = async (
+  startDate: string,
+  endDate: string
+) => {
+  const queryParams = new URLSearchParams();
+
+  if (startDate) queryParams.append('startDate', startDate);
+  if (endDate) queryParams.append('endDate', endDate);
+
+  const response = await apiRequest.get(
+    `${process.env.REACT_APP_UPLOAD_URL}${RESOURCE}/@me/shared-letters?${queryParams.toString()}`
+  );
+
+  return response.data;
+};
