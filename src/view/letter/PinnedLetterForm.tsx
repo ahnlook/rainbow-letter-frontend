@@ -54,7 +54,7 @@ export default function PinnedLetterForm() {
     try {
       setIsLoading(true);
       await tryPinSharedLetter(selectedPet?.id, letterContents);
-      alert('편지가 성공적으로 걸렸습니다');
+      alert('편지는 매일 오전 10시에 걸려요');
       navigate('/letters/letter-showcase');
     } catch (err) {
       if (axios.isAxiosError(err)) {
