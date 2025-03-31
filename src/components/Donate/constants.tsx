@@ -107,12 +107,6 @@ export const APP_BAR_BANNER_CONTENTS = [
     image: Woman,
   },
   {
-    id: 2,
-    category: 'EVENT',
-    link: 'https://tumblbug.com/rainbowletter/story?utm_source=tumblbug&utm_medium=system_email&utm_campaign=alarm_start_project',
-    image: Tumblbug,
-  },
-  {
     id: 3,
     category: 'EVENT',
     link: 'https://pf.kakao.com/_MNevG/108670095',
