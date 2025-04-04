@@ -40,6 +40,7 @@ import Spinner from 'components/Spinner';
 import { RootState } from 'store';
 import Modal from 'components/Modal';
 import ReplyInfoModalForEn from 'components/Write/ReplyInfoModalForEn';
+import useCompressImage from 'components/Input/ImageInput/useCompressImage';
 
 export default function WriteLetter() {
   const dispatch = useDispatch();
@@ -60,6 +61,8 @@ export default function WriteLetter() {
   const [savedLetterId, setSavedLetterId] = useState<number | null>(null);
   const [isFetchLoading, setIsFetchLoading] = useState(true);
   const [isEnModalOpen, setEnModalOpen] = useState<boolean>(false);
+  const [originalFile, setOriginalFile] = useState<File | null>(null);
+  const { compressImage } = useCompressImage();
 
   // 편지쓰기 페이지 입장
   useEffect(() => {
@@ -207,7 +210,6 @@ export default function WriteLetter() {
   const uploadImage = async (image: string | File) => {
     const formData = generateFormData(image);
     const { data } = await resisterImage(formData, 'letter');
-
     return data.objectKey;
   };
 
@@ -233,10 +235,15 @@ export default function WriteLetter() {
     try {
       setIsLoading(true);
       const newLetter = { ...letter };
-      if (imageFile) {
-        const objectKey = await uploadImage(imageFile);
-        newLetter.image = objectKey;
+
+      if (originalFile) {
+        const compressedFile = await compressImage(originalFile);
+        if (compressedFile) {
+          const objectKey = await uploadImage(compressedFile);
+          newLetter.image = objectKey;
+        }
       }
+
       await sendLetter(selectedPet?.id, newLetter);
       await deleteSavedLetter(savedLetterId, selectedPet?.id);
 
@@ -251,7 +258,7 @@ export default function WriteLetter() {
     } finally {
       setIsLoading(false);
     }
-  }, [letter, imageFile, selectedPet]);
+  }, [letter, originalFile, selectedPet]);
 
   if (isFetchLoading) {
     return <Spinner />;
@@ -277,7 +284,10 @@ export default function WriteLetter() {
         />
       </LetterPaperWithImage>
       <TopicSuggestion />
-      <ImageUploadSection setImageFile={setImageFile} />
+      <ImageUploadSection
+        setImageFile={setImageFile}
+        setOriginalFile={setOriginalFile}
+      />
 
       {!isLoading ? (
         <Button

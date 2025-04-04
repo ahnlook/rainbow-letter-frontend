@@ -23,7 +23,7 @@ export interface PetRegister {
   image: {
     id: string;
     url: string;
-    file: string;
+    file: File;
   };
 }
 

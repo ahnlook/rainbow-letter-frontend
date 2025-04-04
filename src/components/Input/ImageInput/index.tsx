@@ -2,7 +2,6 @@ import { ChangeEvent, useState } from 'react';
 
 import ImageDeleteButton from 'components/Input/ImageInput/ImageDeleteButton';
 import thinPlus from '../../../assets/thinPlus.svg';
-import Spinner from 'components/Spinner';
 import { MoonLoader } from 'react-spinners';
 
 type Props = {

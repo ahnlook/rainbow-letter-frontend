@@ -7,6 +7,7 @@ import { isFutureDate } from 'utils/date';
 import { Dates } from 'types/date';
 import { PetRegister } from 'types/pets';
 import { isActualDate } from 'utils/validators';
+import useCompressImage from 'components/Input/ImageInput/useCompressImage';
 
 const usePetForm = (
   initialData: PetRegister,
@@ -16,6 +17,7 @@ const usePetForm = (
 ) => {
   const { pathname } = useLocation();
   const isEdit = pathname.includes('edit');
+  const { compressImage } = useCompressImage();
 
   const isDataComplete = (data: PetRegister) => {
     if (!data) return null;
@@ -88,11 +90,16 @@ const usePetForm = (
       if (image.id) {
         imageId = image.id;
       } else if (image.file) {
-        imageId = await uploadImage(image.file);
+        const compressedFile = await compressImage(image.file);
+        if (compressedFile) {
+          imageId = await uploadImage(compressedFile);
+        }
       }
+
       const formattedDeathAnniversary =
         mandatoryData.deathAnniversary &&
         formatDeathAnniversary(mandatoryData.deathAnniversary);
+
       const dataToSubmit = {
         ...mandatoryData,
         ...optionalData,

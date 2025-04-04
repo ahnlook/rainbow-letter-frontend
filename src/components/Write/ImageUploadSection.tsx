@@ -4,25 +4,26 @@ import { useTranslation } from 'react-i18next';
 import { INFO_MESSAGES } from 'components/Write/constants';
 import ImageInput from 'components/Input/ImageInput';
 import roundX from '../../assets/roundX.svg';
-import useCompressImage from 'components/Input/ImageInput/useCompressImage';
 
 type Props = {
   setImageFile: (file: File | string) => void;
+  setOriginalFile: (file: File | null) => void;
 };
 
-function ImageUploadSection({ setImageFile }: Props) {
+function ImageUploadSection({ setImageFile, setOriginalFile }: Props) {
   const [previewUrl, setPreviewUrl] = useState<string>('');
 
   const { t } = useTranslation<'translation'>();
-  const { compressedFile, compressedUrl, isCompressing, compressImage } =
-    useCompressImage();
 
-  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
 
       if (file && file.type.match('image.*')) {
-        await compressImage(file);
+        const previewUrl = URL.createObjectURL(file);
+        setPreviewUrl(previewUrl);
+        setOriginalFile(file);
+        setImageFile('');
         e.target.value = '';
       }
     }
@@ -31,14 +32,8 @@ function ImageUploadSection({ setImageFile }: Props) {
   const handleImageDelete = () => {
     setPreviewUrl('');
     setImageFile('');
+    setOriginalFile(null);
   };
-
-  useEffect(() => {
-    if (compressedFile && compressedUrl) {
-      setPreviewUrl(compressedUrl);
-      setImageFile(compressedFile);
-    }
-  }, [compressedFile, compressedUrl, setImageFile]);
 
   return (
     <section className="mt-10">
@@ -52,7 +47,6 @@ function ImageUploadSection({ setImageFile }: Props) {
       <ImageInput
         imageSrc={previewUrl}
         deleteIcon={roundX}
-        isLoading={isCompressing}
         onChange={handleImageChange}
         onDelete={handleImageDelete}
       />
