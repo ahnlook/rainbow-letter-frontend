@@ -5,6 +5,7 @@ import Coffee from 'assets/im_donate_coffee.svg';
 import Woman from 'assets/im_appBar_donate.webp';
 import Forest from 'assets/im_appBanner_forest.webp';
 import Tumblbug from 'assets/im_appBanner_tumblbug.webp';
+import Store from 'assets/im_appBarAd-store.webp';
 
 export const DONATE_DESCRIPTION_CONTENTS = [
   {
@@ -111,5 +112,11 @@ export const APP_BAR_BANNER_CONTENTS = [
     category: 'EVENT',
     link: 'https://pf.kakao.com/_MNevG/108670095',
     image: Forest,
+  },
+  {
+    id: 3,
+    category: 'EVENT',
+    link: 'https://smartstore.naver.com/rainbowletter/products/11806088454',
+    image: Store,
   },
 ];

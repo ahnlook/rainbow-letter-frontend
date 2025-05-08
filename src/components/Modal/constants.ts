@@ -5,6 +5,7 @@ import woman from 'assets/im_donate_woman.svg';
 import Forest from '../../assets/im_ad_forest.webp';
 import Tumblbug from '../../assets/im_ad_tumblbug.webp';
 import Kakao from '../../assets/im_ad_kakao.webp';
+import Store from '../../assets/im_ad_store.webp';
 
 export interface Modal {
   type: string;
@@ -26,6 +27,11 @@ export interface Modal_AD {
 }
 
 export const MODAL_AD_CONTENTS_ITEMS: Modal_AD[] = [
+  {
+    id: 1,
+    image: Store,
+    url: 'https://smartstore.naver.com/rainbowletter/products/11806088454',
+  },
   {
     id: 2,
     image: Forest,
