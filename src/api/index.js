@@ -3,10 +3,7 @@ import axios from 'axios';
 import { getToken, removeToken } from 'utils/localStorage';
 import { getCurrentLanguage } from 'utils/language';
 
-const baseURL =
-  process.env.NODE_ENV === 'production'
-    ? process.env.REACT_APP_PROD_URL
-    : process.env.REACT_APP_API_URL;
+const baseURL = process.env.REACT_APP_API_URL;
 // const baseURL = process.env.REACT_APP_API_URL_LEGACY;
 
 const baseInstance = axios.create({
