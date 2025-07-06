@@ -5,8 +5,8 @@ import { PetRegistrationProvider } from './contexts/PetRegistrationContext';
 import MaintenancePage from 'view/MaintenancePage';
 
 export const MAINTENANCE = {
-  startTime: '2025-02-20 23:00',
-  endTime: '2025-02-20 23:20',
+  startTime: '2025-07-06 22:00',
+  endTime: '2025-07-06 23:00',
 };
 
 function App() {
