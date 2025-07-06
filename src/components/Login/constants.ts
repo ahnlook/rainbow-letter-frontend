@@ -92,18 +92,27 @@ export const SNS_LOGIN = [
     id: 0,
     icon: GoogleIcon,
     name: 'google',
-    url: `${process.env.REACT_APP_API_URL}/api/oauth2/authorization/google`,
+    url:
+      process.env.NODE_ENV === 'production'
+        ? `${process.env.REACT_APP_PROD_URL}/api/oauth2/authorization/google`
+        : `${process.env.REACT_APP_API_URL}/api/oauth2/authorization/google`,
   },
   {
     id: 1,
     icon: NaverIcon,
     name: 'naver',
-    url: `${process.env.REACT_APP_API_URL}/api/oauth2/authorization/naver`,
+    url:
+      process.env.NODE_ENV === 'production'
+        ? `${process.env.REACT_APP_PROD_URL}/api/oauth2/authorization/naver`
+        : `${process.env.REACT_APP_API_URL}/api/oauth2/authorization/naver`,
   },
   {
     id: 2,
     icon: KaKaoIcon,
     name: 'kakao',
-    url: `${process.env.REACT_APP_API_URL}/api/oauth2/authorization/kakao`,
+    url:
+      process.env.NODE_ENV === 'production'
+        ? `${process.env.REACT_APP_PROD_URL}/api/oauth2/authorization/kakao`
+        : `${process.env.REACT_APP_API_URL}/api/oauth2/authorization/kakao`,
   },
 ];

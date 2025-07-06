@@ -3,7 +3,10 @@ import DefaultImage from 'assets/Logo_256px.png';
 export const formatImageType = (data?: string) => {
   if (!data) return DefaultImage;
 
-  const baseURL = process.env.REACT_APP_API_URL;
+  const baseURL =
+    process.env.NODE_ENV === 'production'
+      ? process.env.REACT_APP_PROD_URL
+      : process.env.REACT_APP_API_URL;
   return `${baseURL}/api/images/resources/${data}`;
 };
 
