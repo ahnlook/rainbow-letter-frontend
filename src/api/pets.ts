@@ -64,7 +64,7 @@ export const getLetterListByPet = async (
   if (endDate) queryParams.append('endDate', endDate);
 
   const response = await apiRequest.get(
-    `${process.env.REACT_APP_UPLOAD_URL}${RESOURCE}/${petId}/letters?${queryParams.toString()}`
+    `${RESOURCE}/${petId}/letters?${queryParams.toString()}`
   );
 
   return response.data;
@@ -75,7 +75,7 @@ export const tryPinSharedLetter = async (
   data: PinnedLetterFormType
 ): Promise<any> => {
   const response = await apiRequest.post(
-    `${process.env.REACT_APP_UPLOAD_URL}${RESOURCE}/${petId}/shared-letters`,
+    `${RESOURCE}/${petId}/shared-letters`,
     data
   );
 

@@ -94,6 +94,7 @@ export interface LetterListResponse {
   shareLink: string;
   image: string;
   reply: LetterItemReply | null;
+  letterStatus?: string;
 }
 
 export interface LetterRequest {
@@ -153,17 +154,7 @@ export interface SharedLetterItemType {
   pet: {
     id: number;
     name: string;
-    deathAnniversary: string;
     image: string;
-    personalities: string[];
-    species: string;
-    owner: string;
-    favorite: {
-      canIncrease: true;
-      dayIncreaseCount: number;
-      lastIncreasedAt: Date;
-      total: number;
-    };
   };
 }
 

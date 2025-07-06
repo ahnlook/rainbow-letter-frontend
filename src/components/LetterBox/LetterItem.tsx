@@ -12,6 +12,7 @@ type Props = {
   sequence: number;
   readLetterId: number[];
   id: number;
+  isReply: boolean;
 };
 
 export default function LetterItem({
@@ -21,25 +22,23 @@ export default function LetterItem({
   sequence,
   readLetterId,
   id,
+  isReply,
 }: Props) {
   const { lng } = useSelector((state: RootState) => state.common);
 
   const letterIndexValue = () => {
     if (lng === 'ko') {
-      return `${sequence + 1}번째 편지`;
+      return `${sequence}번째 편지`;
     }
 
-    return `Letter ${sequence + 1}`;
+    return `Letter ${sequence}`;
   };
 
   return (
     <li
-      className={`${isSelect ? 'bg-[#ff0000]/[.25]' : isCheckUnread(readLetterId.includes(id), letter?.submitTime || null) ? 'bg-yellow-50' : 'bg-gray-6'} relative mb-4 cursor-pointer rounded-xl p-[1.125rem]`}
+      className={`${isSelect ? 'bg-[#ff0000]/[.25]' : isCheckUnread(readLetterId.includes(id), isReply) ? 'bg-yellow-50' : 'bg-gray-6'} relative mb-4 cursor-pointer rounded-xl p-[1.125rem]`}
     >
-      <LetterStatus
-        submitTime={letter?.submitTime || null}
-        isRead={readLetterId.includes(id)}
-      />
+      <LetterStatus isReply={isReply} isRead={readLetterId.includes(id)} />
       <p className="mt-3 text-caption">
         {letter?.submitTime ? letter.summary : letterSummary}
       </p>

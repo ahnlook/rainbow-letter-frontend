@@ -72,7 +72,7 @@ export const getSharedLetterByMe = async (
   if (endDate) queryParams.append('endDate', endDate);
 
   const response = await apiRequest.get(
-    `${process.env.REACT_APP_UPLOAD_URL}${RESOURCE}/@me/shared-letters?${queryParams.toString()}`
+    `${RESOURCE}/@me/shared-letters?${queryParams.toString()}`
   );
 
   return response.data;

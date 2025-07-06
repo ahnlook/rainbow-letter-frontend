@@ -20,7 +20,7 @@ function ProtectedLayout() {
   useEffect(() => {
     if (!isLoggedIn) {
       removeToken();
-      navigate('/sign-up', { replace: true });
+      navigate('/login', { replace: true });
     }
   }, [isLoggedIn, location]);
 

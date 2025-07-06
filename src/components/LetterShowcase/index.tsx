@@ -12,10 +12,10 @@ import {
 } from 'api/shared-letter';
 import { SHOWCASE_LETTERS_FOR_EN } from './constants';
 import SharedLetterItem from './SharedLetterItem';
-import { SharedLetterItemType } from 'types/letters';
 import LetterItem from './LetterItem';
 import { getToken } from 'utils/localStorage';
 import { useNavigate } from 'react-router-dom';
+import { SharedLetterItemType } from 'types/letters';
 
 const LETTERS_PER_PAGE = 4;
 
@@ -61,23 +61,37 @@ function LetterShowcase() {
 
   const fetchLetters = async () => {
     try {
-      const { twoDaysAgo, today } = getSharedLetterDate();
       const token = getToken();
 
-      let myLetters = { sharedLetters: [] };
-      if (token) {
-        myLetters = await getSharedLetterByMe(twoDaysAgo, today);
-
-        if (myLetters.sharedLetters.length >= LETTERS_PER_PAGE) {
-          setLetters(myLetters.sharedLetters.slice(0, LETTERS_PER_PAGE));
-          setTimeout(() => {
-            sliderRef.current?.slickNext();
-          }, 50);
-          return;
-        }
+      if (!token) {
+        // 토큰이 없을 경우 샘플 편지만 표시
+        const sampleLetters = await getSampleSharedLetterList();
+        setLetters((sampleLetters ?? []).slice(0, LETTERS_PER_PAGE));
+        setTimeout(() => {
+          sliderRef.current?.slickNext();
+        }, 50);
+        return;
       }
 
-      // 다른 사람 편지 목록
+      // 토큰이 있는 경우
+      const { twoDaysAgo, today } = getSharedLetterDate();
+      let myLetters = { sharedLetters: [] };
+
+      // 내가 작성한 편지 가져오기
+      const letterByMe = await getSharedLetterByMe(twoDaysAgo, today);
+      if (letterByMe && letterByMe.length > 0) {
+        myLetters = { sharedLetters: letterByMe };
+      }
+
+      if (myLetters.sharedLetters.length >= LETTERS_PER_PAGE) {
+        setLetters(myLetters.sharedLetters.slice(0, LETTERS_PER_PAGE));
+        setTimeout(() => {
+          sliderRef.current?.slickNext();
+        }, 50);
+        return;
+      }
+
+      // 다른 사람 편지 목록 가져오기
       const remainingCount = LETTERS_PER_PAGE - myLetters.sharedLetters.length;
       const othersLetters = await getSharedLetterList(
         undefined,
@@ -89,7 +103,7 @@ function LetterShowcase() {
 
       const combinedLetters = [
         ...myLetters.sharedLetters,
-        ...othersLetters.sharedLetters,
+        ...(Array.isArray(othersLetters) ? othersLetters : []),
       ];
 
       if (combinedLetters.length >= LETTERS_PER_PAGE) {
@@ -100,11 +114,11 @@ function LetterShowcase() {
         return;
       }
 
-      // 샘플 편지 목록
+      // 부족한 경우 샘플 편지로 채우기
       const sampleLetters = await getSampleSharedLetterList();
       const finalLetters = [
         ...combinedLetters,
-        ...sampleLetters.sharedLetters.slice(
+        ...(sampleLetters ?? []).slice(
           0,
           LETTERS_PER_PAGE - combinedLetters.length
         ),
@@ -115,7 +129,7 @@ function LetterShowcase() {
         sliderRef.current?.slickNext();
       }, 50);
     } catch (error) {
-      console.warn(error);
+      console.error(error);
     }
   };
 

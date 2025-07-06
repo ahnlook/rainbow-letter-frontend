@@ -88,6 +88,8 @@ export default function LetterList({
     return `${t(formatDay(getDay(newDate)))}, ${formatMonthName(newDate.getMonth() + 1)} ${newDate.getDate()}`;
   };
 
+  console.log(letterList);
+
   return (
     <section className={`${isCalendarMode ? 'pt-6' : ''} relative px-3 pb-7`}>
       <div
@@ -136,6 +138,7 @@ export default function LetterList({
                   sequence={letter.sequence}
                   readLetterId={readLetterId}
                   id={letter.id}
+                  isReply={letter.letterStatus === 'RESPONSE'}
                 />
               </div>
             </div>
@@ -164,6 +167,7 @@ export default function LetterList({
                   sequence={letter.sequence}
                   readLetterId={readLetterId}
                   id={letter.id}
+                  isReply={letter.letterStatus === 'RESPONSE'}
                 />
               </Link>
             </div>

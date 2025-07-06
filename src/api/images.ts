@@ -17,10 +17,7 @@ export const resisterImage = async (
   file: any,
   type: string
 ): ApiResponse<ImageResponse> => {
-  const response = await apiRequest.post(
-    `${process.env.REACT_APP_UPLOAD_URL}${getUploadPath(type)}`,
-    file
-  );
+  const response = await apiRequest.post(`${getUploadPath(type)}`, file);
 
   return response;
 };

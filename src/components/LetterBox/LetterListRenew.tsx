@@ -175,7 +175,7 @@ export default function LetterListRenew({
     if (!isCalendarMode) {
       setHasMore(true);
     }
-  }, [isCalendarMode, currentDate]);
+  }, [isCalendarMode, currentDate, selectedPet?.id]);
 
   useEffect(() => {
     if (!isEditing) {

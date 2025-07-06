@@ -6,21 +6,19 @@ import Check from '../../assets/ic_letterBox_green-check.svg';
 import GrayCheck from '../../assets/ic_letterBox_gray-check.svg';
 
 type Props = {
-  submitTime: null | string;
+  isReply: boolean;
   isRead: boolean;
 };
 
-export default function LetterStatus({ submitTime, isRead }: Props) {
+export default function LetterStatus({ isReply, isRead }: Props) {
   const { t } = useTranslation<'translation'>();
-  const letterStatus = letterReplyStatus(submitTime);
-  const isCompleteResponse = submitTime !== null;
-  const Icon = isCheckUnread(isRead, submitTime) ? Check : GrayCheck;
-  const TextColor = isCheckUnread(isRead, submitTime)
+  const letterStatus = letterReplyStatus(isReply);
+  const isCompleteResponse = !!isReply;
+  const Icon = isCheckUnread(isRead, isReply) ? Check : GrayCheck;
+  const TextColor = isCheckUnread(isRead, isReply)
     ? 'text-green-100'
     : 'text-gray-5';
-  const bgColor = isCheckUnread(isRead, submitTime)
-    ? 'bg-green-50'
-    : 'bg-gray-7';
+  const bgColor = isCheckUnread(isRead, isReply) ? 'bg-green-50' : 'bg-gray-7';
 
   return (
     <div

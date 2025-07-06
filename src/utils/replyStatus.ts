@@ -22,19 +22,16 @@ export const checkLetterStatus = (
   }
 };
 
-export const letterReplyStatus = (reply: string | null) => {
-  if (reply === null) {
+export const letterReplyStatus = (isReply: boolean) => {
+  if (!isReply) {
     return 'replying';
   }
 
   return 'received';
 };
 
-export const isCheckUnread = (
-  isRead: boolean,
-  submitTime: string | null
-): boolean => {
-  if (submitTime === null) return false;
+export const isCheckUnread = (isRead: boolean, isReply: boolean): boolean => {
+  if (!isReply) return false;
   if (isRead) return false;
 
   return true;

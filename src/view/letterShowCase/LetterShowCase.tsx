@@ -49,26 +49,28 @@ export default function LetterShowCase() {
     const twoDaysAgo = subDays(fixedToday, 2);
 
     return {
-      twoDaysAgo: format(twoDaysAgo, 'yyyy-MM-dd 10:00:00.000'),
-      today: format(fixedToday, 'yyyy-MM-dd 10:00:00.000'),
+      twoDaysAgo: twoDaysAgo.toISOString().split('.')[0],
+      today: fixedToday.toISOString().split('.')[0],
     };
   };
 
   const fetchMySharedLetter = async (token: string | null) => {
-    if (token) {
-      const { twoDaysAgo, today } = getSharedLetterDate();
-      const mySharedLetterList = await getSharedLetterByMe(twoDaysAgo, today);
-      setSharedLetterListByMe(mySharedLetterList.sharedLetters);
-      return mySharedLetterList.sharedLetters.length;
-    }
+    if (!token) return 0;
 
-    return 0;
+    const { twoDaysAgo, today } = getSharedLetterDate();
+    const mySharedLetterList = await getSharedLetterByMe(twoDaysAgo, today);
+    const letters = mySharedLetterList ?? [];
+    setSharedLetterListByMe(letters);
+    return letters.length;
   };
 
   const fetchAllSharedLetter = async (
     isInitial: boolean,
     myLettersCount: number
   ) => {
+    const token = getToken();
+    if (!token) return 0;
+
     const { twoDaysAgo, today } = getSharedLetterDate();
     const lastId = isInitial
       ? undefined
@@ -83,30 +85,23 @@ export default function LetterShowCase() {
         today
       );
 
+      const letters = Array.isArray(allSharedLetter) ? allSharedLetter : [];
+
       if (isInitial) {
-        setSharedLetterList(allSharedLetter.sharedLetters);
+        setSharedLetterList(letters);
       } else {
-        setSharedLetterList((prev) => [
-          ...prev,
-          ...allSharedLetter.sharedLetters,
-        ]);
+        setSharedLetterList((prev) => [...prev, ...letters]);
       }
 
-      setHasMore(allSharedLetter.sharedLetters?.length === LETTERS_PER_PAGE);
+      setHasMore(letters.length === LETTERS_PER_PAGE);
 
-      if (
-        isInitial &&
-        myLettersCount + allSharedLetter.sharedLetters.length < LETTERS_PER_PAGE
-      ) {
+      if (isInitial && myLettersCount + letters.length < LETTERS_PER_PAGE) {
         const sampleSharedLetter = await getSampleSharedLetterList();
-        setSharedLetterList((prev) => [
-          ...prev,
-          ...sampleSharedLetter.sharedLetters,
-        ]);
+        setSharedLetterList((prev) => [...prev, ...sampleSharedLetter]);
         setHasMore(false);
       }
 
-      return allSharedLetter.sharedLetters.length;
+      return letters.length;
     }
     return 0;
   };
@@ -115,6 +110,15 @@ export default function LetterShowCase() {
     try {
       setIsLoading(true);
       const token = getToken();
+
+      if (!token) {
+        // 토큰이 없을 경우 샘플 편지만 표시
+        const sampleSharedLetter = await getSampleSharedLetterList();
+        setSharedLetterList(sampleSharedLetter ?? []);
+        setSharedLetterListByMe([]);
+        setHasMore(false);
+        return;
+      }
 
       let totalLetters = 0;
 

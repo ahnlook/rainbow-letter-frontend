@@ -1,6 +1,6 @@
 import apiRequest from 'api';
 import { ApiResponse } from 'types/Api';
-import { SharedLetterResponse } from 'types/letters';
+import { SharedLetterResponse, SharedLetterItemType } from 'types/letters';
 
 const RESOURCE = '/api/shared-letters';
 
@@ -17,20 +17,23 @@ export const getSharedLetterList = async (
   if (after !== undefined) queryParams.append('after', after.toString());
   if (startDate) queryParams.append('startDate', startDate);
   if (endDate) queryParams.append('endDate', endDate);
-  if (randomSort) queryParams.append('randomSort', 'true');
+  queryParams.append('randomSort', randomSort ? 'true' : 'false');
 
   const response = await apiRequest.get(
-    `${process.env.REACT_APP_UPLOAD_URL}${RESOURCE}?${queryParams.toString()}`
+    `${RESOURCE}?${queryParams.toString()}`
   );
+
+  if (response.data.length === 0) {
+    return { sharedLetters: [], paginationInfo: { next: '' } };
+  }
 
   return response.data;
 };
 
-export const getSampleSharedLetterList =
-  async (): Promise<SharedLetterResponse> => {
-    const response = await apiRequest.get(
-      `${process.env.REACT_APP_UPLOAD_URL}${RESOURCE}/sample`
-    );
+export const getSampleSharedLetterList = async (): Promise<
+  SharedLetterItemType[]
+> => {
+  const response = await apiRequest.get(`${RESOURCE}/sample`);
 
-    return response.data;
-  };
+  return response.data;
+};
