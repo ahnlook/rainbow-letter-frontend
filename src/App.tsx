@@ -6,7 +6,7 @@ import MaintenancePage from 'view/MaintenancePage';
 
 export const MAINTENANCE = {
   startTime: '2025-07-06 22:00',
-  endTime: '2025-07-06 23:00',
+  endTime: '2025-07-06 23:59',
 };
 
 function App() {
