@@ -4,6 +4,7 @@ import { TITLES } from './constants';
 import PetRegistrationSection from './PetRegistrationSection';
 import roundX from '../../assets/roundX.svg';
 import { usePetRegistration } from '../../contexts/PetRegistrationContext';
+import { toast } from 'react-toastify';
 
 function PetImageSection() {
   const [previewUrl, setPreviewUrl] = useState('');
@@ -13,7 +14,13 @@ function PetImageSection() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
 
-    if (file && file.type.match('image.*')) {
+    if (file) {
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+      if (!allowedTypes.includes(file.type)) {
+        toast.error('이 사진은 업로드할 수 없어요!');
+        e.target.value = '';
+        return;
+      }
       const previewUrl = URL.createObjectURL(file);
       setPreviewUrl(previewUrl);
       setMandatoryData((prevData) => ({

@@ -37,6 +37,7 @@ import AdModal from 'components/WebView/AdModal';
 import Prompt from 'components/admin/setting/Prompt';
 import PinnedLetterForm from 'view/letter/PinnedLetterForm';
 import LetterShowCase from 'view/letterShowCase/LetterShowCase';
+import { ToastContainer } from 'react-toastify';
 
 function Router() {
   const { isOpen } = useSelector((state: State) => state.modal);
@@ -93,6 +94,18 @@ function Router() {
         </Routes>
         {isOpen && <Modal />}
         {toolTipOpen && <ToolTip />}
+        <ToastContainer
+          position="bottom-center"
+          autoClose={2000}
+          hideProgressBar
+          rtl={false}
+          closeButton={false}
+          toastClassName={() =>
+            'bg-white text-gray-1 border border-orange-400 rounded-[8px] flex items-center justify-center py-[14px] mb-16'
+          }
+          bodyClassName={() => 'flex font-normal'}
+          limit={1}
+        />
       </ScrollToTop>
     </BrowserRouter>
   );

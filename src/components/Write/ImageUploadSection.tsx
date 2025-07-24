@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { INFO_MESSAGES } from 'components/Write/constants';
 import ImageInput from 'components/Input/ImageInput';
 import roundX from '../../assets/roundX.svg';
+import { toast } from 'react-toastify';
 
 type Props = {
   setImageFile: (file: File | string) => void;
@@ -18,8 +19,13 @@ function ImageUploadSection({ setImageFile, setOriginalFile }: Props) {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       const file = e.target.files[0];
-
-      if (file && file.type.match('image.*')) {
+      if (file) {
+        const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+        if (!allowedTypes.includes(file.type)) {
+          toast.error('이 사진은 업로드할 수 없어요!');
+          e.target.value = '';
+          return;
+        }
         const previewUrl = URL.createObjectURL(file);
         setPreviewUrl(previewUrl);
         setOriginalFile(file);
