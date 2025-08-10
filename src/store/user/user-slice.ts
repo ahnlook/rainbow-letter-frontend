@@ -15,7 +15,13 @@ type UserState = {
 };
 
 const initialState: UserState = {
-  user: { id: '', email: '', phoneNumber: null, role: 'ROLE_USER' },
+  user: {
+    id: '',
+    email: '',
+    phoneNumber: null,
+    role: 'ROLE_USER',
+    isPetInitiatedLetterEnabled: false,
+  },
   status: 'idle',
   error: null,
 };

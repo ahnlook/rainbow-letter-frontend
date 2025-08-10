@@ -1,17 +1,13 @@
-import { useState, useEffect, useCallback, ChangeEvent } from 'react';
+import { useState, ChangeEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import Lottie from 'lottie-react';
 
 import Button from 'components/Button';
 import Input from 'components/Input';
-import Radio from 'components/Radio/Radio';
-import RadioGroup from 'components/Radio/RadioGroup';
-import ContentsItem from 'components/Home/ContentsItem';
-// import DonateContentsItem from 'components/Donate/AppBar';s
 import {
   MODAL_MESSAGE,
-  Modal,
   MODAL_AD_CONTENTS_ITEMS,
 } from 'components/Modal/constants';
 import { updatePhoneNumber } from 'api/user';
@@ -19,15 +15,14 @@ import { State } from 'types/store';
 import { validatePhoneNumber } from 'utils/validators';
 import { setExpireModal } from 'utils/localStorage';
 import { modalActions } from 'store/modal/modal-slice';
-import { letterActions } from 'store/letter/letter-slice';
 import { setSessionAutoSaveID } from 'utils/sessionStorage';
-import { postData } from 'api/data';
 import CancelImage from '../../assets/ph_x-bold.svg';
 import WritingPad from '../../assets/writing_pad.svg';
 import ErrorIcon from '../../assets/Error_icon.svg';
 import SaveComplete from '../../assets/save_complete.svg';
 import AlarmIcon from '../../assets/ic_Error_icon.svg';
 import { RootState } from 'store';
+import slideAnimation from '../../assets/lottie/slide-lottie.json';
 
 export default function ModalContents() {
   const dispatch = useDispatch();
@@ -38,11 +33,9 @@ export default function ModalContents() {
 
   const [value, setValue] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [selectRadio, setSelectRadio] = useState<string>('image_letter');
 
-  const { title, body } = MODAL_MESSAGE.find(
-    (item) => item.type === type
-  ) as Modal;
+  const modalData = MODAL_MESSAGE.find((item) => item.type === type);
+  const { title, body } = modalData || { title: '', body: [] };
 
   const registerPhoneNumber = async () => {
     try {
@@ -64,18 +57,6 @@ export default function ModalContents() {
     const date = Date.now() + 7 * 24 * 60 * 60 * 1000;
     setExpireModal(String(date));
   };
-
-  useEffect(() => {
-    dispatch(letterActions.selectLetter(selectRadio));
-  }, [selectRadio]);
-
-  const onClickSaveButton = useCallback(async () => {
-    dispatch(letterActions.saveToImage(true));
-    dispatch(modalActions.closeModal());
-    await postData({
-      event: selectRadio,
-    });
-  }, [selectRadio]);
 
   return (
     <>
@@ -276,56 +257,56 @@ export default function ModalContents() {
                 </div>
               </div>
             );
-          case 'IMAGE':
-            return (
-              <div className="top-[10%] w-full px-[1.562rem] py-[1.875rem]">
-                <header className="mt-1.5 flex flex-col justify-center text-left">
-                  <h3 className="whitespace-pre-wrap text-heading-3">
-                    {t(title)}
-                  </h3>
-                  <span className="mt-2.5 text-caption">
-                    {t(body[0].contents)}
-                  </span>
-                </header>
-                <div>
-                  <RadioGroup className="mb-5 mt-6 flex flex-col gap-[1.125rem]">
-                    <Radio
-                      onClick={setSelectRadio}
-                      selectRadio={selectRadio}
-                      name="saveImage"
-                      value="image_letter"
-                      defaultChecked
-                    >
-                      {t('modal.saveImage.myLetter')}
-                    </Radio>
-                    <Radio
-                      onClick={setSelectRadio}
-                      selectRadio={selectRadio}
-                      name="saveImage"
-                      value="image_reply"
-                    >
-                      {t('modal.saveImage.petLetter')}
-                    </Radio>
-                  </RadioGroup>
-                </div>
-                <div className="grid justify-items-end">
-                  <button
-                    type="button"
-                    onClick={onClickSaveButton}
-                    className="rounded-[6px] border-none bg-orange-400 px-8 py-2 text-[0.875rem] font-bold text-white"
-                  >
-                    {t('modal.saveImage.save')}
-                  </button>
-                </div>
-                <button
-                  type="button"
-                  onClick={() => dispatch(modalActions.closeModal())}
-                  className="absolute right-4 top-4"
-                >
-                  <img src={CancelImage} alt="cancel" />
-                </button>
-              </div>
-            );
+          // case 'IMAGE':
+          //   return (
+          //     <div className="top-[10%] w-full px-[1.562rem] py-[1.875rem]">
+          //       <header className="mt-1.5 flex flex-col justify-center text-left">
+          //         <h3 className="whitespace-pre-wrap text-heading-3">
+          //           {t(title)}
+          //         </h3>
+          //         <span className="mt-2.5 text-caption">
+          //           {t(body[0].contents)}
+          //         </span>
+          //       </header>
+          //       <div>
+          //         <RadioGroup className="mb-5 mt-6 flex flex-col gap-[1.125rem]">
+          //           <Radio
+          //             onClick={setSelectRadio}
+          //             selectRadio={selectRadio}
+          //             name="saveImage"
+          //             value="image_letter"
+          //             defaultChecked
+          //           >
+          //             {t('modal.saveImage.myLetter')}
+          //           </Radio>
+          //           <Radio
+          //             onClick={setSelectRadio}
+          //             selectRadio={selectRadio}
+          //             name="saveImage"
+          //             value="image_reply"
+          //           >
+          //             {t('modal.saveImage.petLetter')}
+          //           </Radio>
+          //         </RadioGroup>
+          //       </div>
+          //       <div className="grid justify-items-end">
+          //         <button
+          //           type="button"
+          //           onClick={onClickSaveButton}
+          //           className="rounded-[6px] border-none bg-orange-400 px-8 py-2 text-[0.875rem] font-bold text-white"
+          //         >
+          //           {t('modal.saveImage.save')}
+          //         </button>
+          //       </div>
+          //       <button
+          //         type="button"
+          //         onClick={() => dispatch(modalActions.closeModal())}
+          //         className="absolute right-4 top-4"
+          //       >
+          //         <img src={CancelImage} alt="cancel" />
+          //       </button>
+          //     </div>
+          //   );
           case 'SAVECOMPLETE':
             return (
               <div className="w-full px-[1.125rem] pb-7 pt-9">
@@ -383,6 +364,29 @@ export default function ModalContents() {
                     편지 삭제하기
                   </button>
                 </div>
+              </div>
+            );
+          case 'SLIDE':
+            return (
+              <div className="w-full py-10">
+                <div className="flex flex-col items-center">
+                  <h3 className="whitespace-pre-wrap">새로운 편지함 화면</h3>
+                  <p className="mt-1 text-heading-3 font-[600] text-[#424242]">
+                    화면을 좌우로 밀어 보세요
+                  </p>
+                  <Lottie
+                    animationData={slideAnimation}
+                    loop={true}
+                    className="mt-3 size-[108px]"
+                  />
+                </div>
+                <button
+                  type="button"
+                  onClick={() => dispatch(modalActions.closeModal())}
+                  className="absolute right-4 top-4"
+                >
+                  <img src={CancelImage} alt="cancel" />
+                </button>
               </div>
             );
           default:

@@ -3,6 +3,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import html2canvas from 'html2canvas';
 import { useTranslation } from 'react-i18next';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import Button from 'components/Button';
 import WrittenLetterPaper from 'components/Write/WrittenLetterPaper';
 import LetterPaperWithImage from 'components/Write/LetterPaperWithImage';
@@ -10,7 +13,6 @@ import SentPhoto from 'components/LetterBox/SentPhoto';
 import { USER_ACTIONS } from 'components/LetterBox/constants';
 import CoverImageWithTimeStamp from 'components/Common/CoverImageWithTimeStamp';
 import DownLoadButton from 'components/Write/DownLoadButton';
-
 import { RootState, useAppDispatch } from 'store';
 import { getLetter } from 'api/letter';
 import metaData from 'utils/metaData';
@@ -26,21 +28,24 @@ import captureLogo from '../../assets/detailLetter_logo.svg';
 import { toolTipActions } from 'store/toolTip/toolTip-slice';
 import { getFirstReplyUser } from 'utils/localStorage';
 import { getImage } from 'api/images';
+import LetterIcon from '../../assets/letter-icon.svg';
+import PetIcon from '../../assets/ic_letter_pet.svg';
+import { postData } from 'api/data';
 
 export default function DetailLetter() {
   // redux
   const dispatch = useAppDispatch();
   const { t } = useTranslation<'translation'>();
   const { lng } = useSelector((state: RootState) => state.common);
-  const isSave = useSelector((state: RootState) => state.letter.isSaveToImage);
-  const letterType = useSelector((state: RootState) => state.letter.letterType);
   const { isOpen } = useSelector((state: RootState) => state.toolTip);
 
   // ref
   const sectionRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<Slider>(null);
 
   // state
   const [letterData, setLetterData] = useState<any>();
+  const [currentSlide, setCurrentSlide] = useState<number>(0);
 
   // etc.
   const params = useParams();
@@ -57,6 +62,11 @@ export default function DetailLetter() {
         if (!isNotFirst) {
           dispatch(toolTipActions.openToolTip());
         }
+        const isSlideModal = localStorage.getItem('slideModal');
+        if (!isSlideModal) {
+          localStorage.setItem('slideModal', 'true');
+          dispatch(modalActions.openModal('SLIDE'));
+        }
       }
     })();
   }, []);
@@ -66,7 +76,7 @@ export default function DetailLetter() {
   };
 
   const handleSaveToImage = useCallback(
-    async (type: string | null) => {
+    async (type: string) => {
       const isIphone = isiPhone();
       let fileDate: string | null | undefined;
       let cate: string | null | undefined = '편지';
@@ -83,6 +93,9 @@ export default function DetailLetter() {
             const saveBtn = document.querySelector('.not-save') as HTMLElement;
             const sentPhoto = document.querySelector('.not-img') as HTMLElement;
             const logo = document.querySelector('.logo') as HTMLElement;
+            const slideBtn = document.querySelector(
+              '.slide-btn'
+            ) as HTMLElement;
 
             const textarea = document.querySelector(
               `${type === 'image_reply' ? '.reply_value' : '.letter_value'}`
@@ -99,12 +112,11 @@ export default function DetailLetter() {
             }
 
             if (letterBox) {
-              letterBox.style.paddingLeft = '20px';
-              letterBox.style.paddingRight = '20px';
               letterBox.style.paddingTop = '15px';
               button.style.display = 'none';
               unSelectedLetter.style.display = 'none';
               saveBtn.style.display = 'none';
+              slideBtn.style.display = 'none';
 
               const div = document.createElement('div');
               div.innerText = textarea.value;
@@ -147,7 +159,10 @@ export default function DetailLetter() {
               link.click();
             }
           })
-          .then(() => {
+          .then(async () => {
+            await postData({
+              event: type,
+            });
             if (isIphone) {
               return navigate('/saved-image');
             }
@@ -158,19 +173,20 @@ export default function DetailLetter() {
     [letterData]
   );
 
-  useEffect(() => {
-    if (isSave) {
-      handleSaveToImage(letterType);
-    }
-
-    return () => {
-      dispatch(letterActions.saveToImage(false));
-    };
-  }, [isSave, letterType]);
-
   const onClickSaveIcon = useCallback(async () => {
-    dispatch(modalActions.openModal('IMAGE'));
-  }, [dispatch]);
+    handleSaveToImage(currentSlide === 0 ? 'image_letter' : 'image_reply');
+  }, [currentSlide]);
+
+  const onToggleSlide = (slideIndex: number) => {
+    setCurrentSlide(slideIndex);
+    setTimeout(() => {
+      sliderRef.current?.slickGoTo(slideIndex);
+    }, 100);
+  };
+
+  const handleSlideChange = (index: number) => {
+    setCurrentSlide(index);
+  };
 
   const isExistReply = !!letterData?.reply?.content;
 
@@ -190,10 +206,22 @@ export default function DetailLetter() {
     return `Dear. ${letterData?.pet.name}`;
   }, [lng, letterData?.pet.name]);
 
+  const sliderSettings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    swipeToSlide: true,
+    adaptiveHeight: true,
+    beforeChange: (current: number, next: number) => handleSlideChange(next),
+  };
+
   return (
     <>
       {letterData && (
-        <main className="letterBox relative" ref={sectionRef}>
+        <section className="letterBox relative" ref={sectionRef}>
           {isOpen && (
             <div
               className={`${isExistReply ? 'opacity-100' : 'opacity-0'} absolute -right-[10px] -top-[16px] z-50 rounded-[12px] border border-orange-400 bg-white px-3 py-2 text-center transition-opacity duration-300`}
@@ -206,44 +234,99 @@ export default function DetailLetter() {
             </div>
           )}
 
-          {isExistReply && <DownLoadButton onClick={onClickSaveIcon} />}
-          <LetterPaperWithImage>
-            <CoverImageWithTimeStamp image={getImage(letterData?.pet.image)} />
+          <div className="slide-btn flex justify-between">
+            <div className="flex gap-x-1 text-sm">
+              <div
+                onClick={() => onToggleSlide(0)}
+                className={`${currentSlide === 0 ? 'border-black text-[#252525]' : 'border-transparent text-[#989898]'} flex cursor-pointer items-center gap-x-[2px] border-b px-3 py-2`}
+              >
+                <img
+                  src={LetterIcon}
+                  alt="letter"
+                  className={
+                    currentSlide === 0
+                      ? 'brightness-0'
+                      : 'opacity-40 brightness-0 saturate-0'
+                  }
+                />
+                <span>내 편지</span>
+              </div>
+              {isExistReply && (
+                <div
+                  onClick={() => onToggleSlide(1)}
+                  className={`${currentSlide === 1 ? 'border-black text-[#252525]' : 'border-transparent text-[#989898]'} flex cursor-pointer items-center gap-x-[2px] border-b px-3 py-2`}
+                >
+                  <img
+                    src={PetIcon}
+                    alt="pet"
+                    className={
+                      currentSlide === 1
+                        ? 'brightness-0'
+                        : 'opacity-40 brightness-0 saturate-0'
+                    }
+                  />
+                  <span>아이 편지</span>
+                </div>
+              )}
+            </div>
+            <DownLoadButton onClick={onClickSaveIcon} />
+          </div>
+
+          <Slider ref={sliderRef} {...sliderSettings} className="mt-4">
+            {/* 첫 번째 슬라이드: 내 편지 */}
+            <div>
+              <LetterPaperWithImage>
+                <CoverImageWithTimeStamp
+                  image={getImage(letterData?.pet.image)}
+                />
+                <WrittenLetterPaper
+                  petName={targetValueToPet}
+                  content={letterData.letter.content}
+                  className="pt-[15.187rem]"
+                  letterPaperColor="bg-gray-2"
+                  date={
+                    lng === 'ko'
+                      ? formatDateIncludingHangul(letterData.letter.createdAt)
+                      : formatDateIncludingEnglish(letterData.letter.createdAt)
+                  }
+                  saveType={{
+                    target: 'letter_down',
+                    unTargetValue: 'letter_value',
+                    date: 'letter_date',
+                  }}
+                />
+              </LetterPaperWithImage>
+            </div>
+
+            {/* 두 번째 슬라이드: 답장 (답장이 있는 경우에만) */}
             {isExistReply && (
-              <WrittenLetterPaper
-                petName={targetValueFromPet}
-                content={letterData.reply.content}
-                className="pt-[15.187rem]"
-                letterPaperColor="bg-orange-50"
-                date={
-                  lng === 'ko'
-                    ? formatDateIncludingHangul(letterData.letter.createdAt)
-                    : formatDateIncludingEnglish(letterData.letter.createdAt)
-                }
-                saveType={{
-                  target: 'reply_down',
-                  unTargetValue: 'reply_value',
-                  date: 'reply_date',
-                }}
-              />
+              <div>
+                <LetterPaperWithImage>
+                  <CoverImageWithTimeStamp
+                    image={getImage(letterData?.pet.image)}
+                  />
+                  <WrittenLetterPaper
+                    petName={targetValueFromPet}
+                    content={letterData.reply.content}
+                    className="pt-[15.187rem]"
+                    letterPaperColor="bg-orange-50"
+                    date={
+                      lng === 'ko'
+                        ? formatDateIncludingHangul(letterData.letter.createdAt)
+                        : formatDateIncludingEnglish(
+                            letterData.letter.createdAt
+                          )
+                    }
+                    saveType={{
+                      target: 'reply_down',
+                      unTargetValue: 'reply_value',
+                      date: 'reply_date',
+                    }}
+                  />
+                </LetterPaperWithImage>
+              </div>
             )}
-            <WrittenLetterPaper
-              petName={targetValueToPet}
-              content={letterData.letter.content}
-              className={isExistReply ? 'mt-4' : 'pt-[15.187rem]'}
-              letterPaperColor="bg-gray-2"
-              date={
-                lng === 'ko'
-                  ? formatDateIncludingHangul(letterData.letter.createdAt)
-                  : formatDateIncludingEnglish(letterData.letter.createdAt)
-              }
-              saveType={{
-                target: 'letter_down',
-                unTargetValue: 'letter_value',
-                date: 'letter_date',
-              }}
-            />
-          </LetterPaperWithImage>
+          </Slider>
           {letterData.letter.image && <SentPhoto letterData={letterData} />}
           <div className="w-full">
             <img src={captureLogo} alt="로고" className="logo hidden" />
@@ -256,7 +339,7 @@ export default function DetailLetter() {
           >
             {t(USER_ACTIONS.GO_TO_REPLY)}
           </Button>
-        </main>
+        </section>
       )}
     </>
   );

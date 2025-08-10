@@ -4,7 +4,6 @@ const initialState = {
   isSaving: false,
   isSuccess: false,
   letterType: null,
-  isSaveToImage: false,
   saveImageUrl: '',
   isCalendarOpen: false,
   sentLetterTarget: null,
@@ -36,9 +35,6 @@ const letterSlice = createSlice({
     },
     selectLetter(state, action) {
       state.letterType = action.payload;
-    },
-    saveToImage(state, action) {
-      state.isSaveToImage = action.payload;
     },
     setSaveImageUrl(state, action) {
       state.saveImageUrl = action.payload;

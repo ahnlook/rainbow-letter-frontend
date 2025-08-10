@@ -77,3 +77,33 @@ export const getSharedLetterByMe = async (
 
   return response.data;
 };
+
+export const updatePetInitiatedLetterEnabled = async (enabled: boolean) => {
+  return await apiRequest.put(`${RESOURCE}/pet-initiated-letters/enabled`, {
+    enabled,
+  });
+};
+
+export const getPetInitiatedLetterEnabledList = async (): ApiResponse<
+  {
+    petId: number;
+    petName: string;
+  }[]
+> => {
+  const response = await apiRequest.get(
+    `${RESOURCE}/pet-initiated-letters/pets`
+  );
+  return response;
+};
+
+export const addPetInitiatedLetterEnabled = async (petId: number) => {
+  return await apiRequest.post(`${RESOURCE}/pet-initiated-letters/pets`, {
+    petId,
+  });
+};
+
+export const deletePetInitiatedLetterEnabled = async (petId: number) => {
+  return await apiRequest.delete(`${RESOURCE}/pet-initiated-letters/pets/`, {
+    petId,
+  });
+};

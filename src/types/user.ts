@@ -6,6 +6,7 @@ export type User = {
   email: string;
   phoneNumber: string | null;
   role: Role;
+  isPetInitiatedLetterEnabled: boolean;
 };
 
 export interface UserRequestData {
