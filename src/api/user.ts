@@ -103,7 +103,7 @@ export const addPetInitiatedLetterEnabled = async (petId: number) => {
 };
 
 export const deletePetInitiatedLetterEnabled = async (petId: number) => {
-  return await apiRequest.delete(`${RESOURCE}/pet-initiated-letters/pets/`, {
-    petId,
+  return await apiRequest.delete(`${RESOURCE}/pet-initiated-letters/pets`, {
+    data: { petId },
   });
 };

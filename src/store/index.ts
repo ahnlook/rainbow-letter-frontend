@@ -12,6 +12,8 @@ import { setupListeners } from './listeners';
 import adminUserLettersSlice from './admin/useLetter-slice';
 import toolTipSlice from './toolTip/toolTip-slice';
 import commonSlice from './common/common-slice';
+import adminForeLettersSlice from './admin/foreLetters/letters-slice';
+import adminForeLetterUiSlice from './admin/foreLetters/letterUi-slice';
 
 export const listenerMiddleware = createListenerMiddleware();
 export const { startListening, stopListening } = listenerMiddleware;
@@ -28,7 +30,8 @@ const store = configureStore({
     adminLetter: adminLetterSlice.reducer,
     adminLetterUi: adminLetterUiSlice.reducer,
     adminUserLetters: adminUserLettersSlice.reducer,
-    // 여기에 다른 리듀서들을 추가
+    adminForeLetters: adminForeLettersSlice.reducer,
+    adminForeLetterUi: adminForeLetterUiSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().prepend(listenerMiddleware.middleware),

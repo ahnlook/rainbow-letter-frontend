@@ -38,6 +38,11 @@ import Prompt from 'components/admin/setting/Prompt';
 import PinnedLetterForm from 'view/letter/PinnedLetterForm';
 import LetterShowCase from 'view/letterShowCase/LetterShowCase';
 import { ToastContainer } from 'react-toastify';
+import ForeLetters from 'components/admin/foreLetters/list';
+import ForeLettersPrompt from 'components/admin/foreLetters/prompt';
+import ForeLetterDetail from 'components/admin/foreLetters/list/LetterDetail';
+import DetailPreLetter from 'view/letter/DetailPreLetter';
+import SharePreLetter from 'view/letter/SharePreLetter';
 
 function Router() {
   const { isOpen } = useSelector((state: State) => state.modal);
@@ -60,6 +65,7 @@ function Router() {
             <Route path="/users/password/reset" element={<Password />} />
             <Route path="/oauth/success" element={<Auth />} />
             <Route path="/share/:shareLink" element={<ShareLetter />} />
+            <Route path="/pre-share/:shareLink" element={<SharePreLetter />} />
             <Route path="/contents" element={<Contents />} />
             <Route
               path="/letters/letter-showcase"
@@ -81,15 +87,30 @@ function Router() {
               <Route path="/write-letter" element={<WriteLetter />} />
               <Route path="/letter-box" element={<LetterBoxRenew />} />
               <Route path="/letter-box/:letterId" element={<DetailLetter />} />
+              <Route
+                path="/letter-box/pre/:letterId"
+                element={<DetailPreLetter />}
+              />
               <Route path="/saved-image" element={<SavedImage />} />
               <Route path="/letters/pin" element={<PinnedLetterForm />} />
             </Route>
           </Route>
           {/* NOTE: 관리자 권한이 필요한 페이지 */}
           <Route element={<AdminLayout />}>
+            {/* NOTE: 일반편지 */}
             <Route path="/admin/setting-prompt" element={<Prompt />} />
             <Route path="/admin/letters" element={<Letters />} />
             <Route path="/admin/letters/:letterId" element={<LetterDetail />} />
+            {/* NOTE: 선편지 */}
+            <Route
+              path="/admin/fore-letters/prompt"
+              element={<ForeLettersPrompt />}
+            />
+            <Route path="/admin/fore-letters" element={<ForeLetters />} />
+            <Route
+              path="/admin/fore-letters/:letterId"
+              element={<ForeLetterDetail />}
+            />
           </Route>
         </Routes>
         {isOpen && <Modal />}

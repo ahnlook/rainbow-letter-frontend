@@ -389,6 +389,29 @@ export default function ModalContents() {
                 </button>
               </div>
             );
+          case 'EXPERIMENT_DATE':
+            return (
+              <div className="w-full px-[1.562rem] py-10">
+                <header className="flex flex-col items-center justify-center text-center">
+                  <img src={ErrorIcon} alt="편지지" />
+                  <h3 className="mt-5 whitespace-pre-wrap text-heading-3 font-bold text-black">
+                    오늘 20시 이후 <br /> 다시 시도해 주세요
+                  </h3>
+                  <span className="mt-3 leading-[20px] text-[#656565]">
+                    편지가 배달 중인 시간엔 <br /> 상태를 변경할 수 없어요
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      dispatch(modalActions.closeModal());
+                    }}
+                    className="absolute right-4 top-4"
+                  >
+                    <img src={CancelImage} alt="cancel" />
+                  </button>
+                </header>
+              </div>
+            );
           default:
             return null;
         }

@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { RootState } from 'store';
 import LetterItem from 'components/LetterBox/LetterItem';
 import Button from 'components/Button';
-import { LetterListResponse } from 'types/letters';
+import { LetterListResponse, PetLetterResponse } from 'types/letters';
 import { PetResponse } from 'types/pets';
 import { formatDay, formatMonthName, formatKoDay } from 'utils/date';
 import Plus from '../../assets/ic_letterBox_plus.svg';
@@ -24,6 +24,7 @@ type Props = {
   onClickEditButton: () => void;
   handleLocalModal: () => void;
   letterList: LetterListResponse[];
+  petLetters?: PetLetterResponse[];
   handleLetterCheck: (id: number) => void;
   selectedLetterList: number[];
   onLetterClick: (letterId: number) => void;
@@ -40,6 +41,7 @@ export default function LetterList({
   onClickEditButton,
   handleLocalModal,
   letterList,
+  petLetters = [],
   handleLetterCheck,
   selectedLetterList,
   onLetterClick,
@@ -88,7 +90,21 @@ export default function LetterList({
     return `${t(formatDay(getDay(newDate)))}, ${formatMonthName(newDate.getMonth() + 1)} ${newDate.getDate()}`;
   };
 
-  console.log(letterList);
+  const combinedList = useMemo(() => {
+    const letters = letterList.map((letter) => ({
+      ...letter,
+      type: 'letter' as const,
+    }));
+    const pets = petLetters.map((petLetter) => ({
+      ...petLetter,
+      type: 'petLetter' as const,
+    }));
+
+    return [...letters, ...pets].sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  }, [letterList, petLetters]);
 
   return (
     <section className={`${isCalendarMode ? 'pt-6' : ''} relative px-3 pb-7`}>
@@ -119,26 +135,32 @@ export default function LetterList({
       )}
       {isEditing ? (
         <ul className={isCalendarMode ? 'mt-5' : 'flex flex-col gap-1'}>
-          {letterList.map((letter) => (
-            <div>
+          {combinedList.map((item, index) => (
+            <div key={`combined-item-${item.type}-${item.id}-${index}`}>
               {!isCalendarMode && (
                 <p className="mb-3 text-[14px] font-bold text-[#616161]">
-                  {listDate(letter.createdAt)}
+                  {listDate(item.createdAt)}
                 </p>
               )}
               <div
-                key={`letter-item-edit-${letter.id}`}
-                id={String(letter.id)}
-                onClick={() => handleLetterCheck(letter.id)}
+                id={String(item.id)}
+                onClick={() =>
+                  item.type === 'letter' && handleLetterCheck(item.id)
+                }
               >
                 <LetterItem
-                  letter={letter?.reply}
-                  letterSummary={letter.summary}
-                  isSelect={selectedLetterList.includes(letter.id)}
-                  sequence={letter.sequence}
+                  letter={item.reply || null}
+                  letterSummary={item.summary}
+                  isSelect={selectedLetterList.includes(item.id)}
+                  sequence={item.sequence || 0}
                   readLetterId={readLetterId}
-                  id={letter.id}
-                  isReply={letter.letterStatus === 'RESPONSE'}
+                  id={item.id}
+                  isReply={
+                    item.type === 'letter'
+                      ? item.letterStatus === 'RESPONSE'
+                      : !item.readStatus
+                  }
+                  type={item.type}
                 />
               </div>
             </div>
@@ -146,30 +168,48 @@ export default function LetterList({
         </ul>
       ) : (
         <ul className={isCalendarMode ? 'mt-5' : 'flex flex-col gap-1'}>
-          {letterList.map((letter) => (
-            <div key={`letter-item-edit-${letter.id}`}>
+          {combinedList.map((item, index) => (
+            <div key={`combined-item-${item.type}-${item.id}-${index}`}>
               {!isCalendarMode && (
                 <p
                   className={`${lng === 'en' ? 'text-[16px] text-[#424242]' : 'text-[14px] text-[#616161]'} mb-3 font-bold`}
                 >
-                  {listDate(letter.createdAt)}
+                  {listDate(item.createdAt)}
                 </p>
               )}
-              <Link
-                to={`/letter-box/${letter.id}`}
-                key={`letter-item-${letter.id}`}
-                state={{ index: letter.id }}
-                onClick={() => onLetterClick(letter.id)}
-              >
-                <LetterItem
-                  letter={letter?.reply}
-                  letterSummary={letter.summary}
-                  sequence={letter.sequence}
-                  readLetterId={readLetterId}
-                  id={letter.id}
-                  isReply={letter.letterStatus === 'RESPONSE'}
-                />
-              </Link>
+              {item.type === 'letter' ? (
+                <Link
+                  to={`/letter-box/${item.id}`}
+                  state={{ index: item.id }}
+                  onClick={() => onLetterClick(item.id)}
+                >
+                  <LetterItem
+                    letter={item.reply}
+                    letterSummary={item.summary}
+                    sequence={item.sequence}
+                    readLetterId={readLetterId}
+                    id={item.id}
+                    isReply={item.letterStatus === 'RESPONSE' || false}
+                    type={item.type}
+                  />
+                </Link>
+              ) : (
+                <Link
+                  to={`/letter-box/pre/${item.id}`}
+                  state={{ index: item.id }}
+                  onClick={() => onLetterClick(item.id)}
+                >
+                  <LetterItem
+                    letter={item.reply || null}
+                    letterSummary={item.summary}
+                    sequence={item.sequence || 0}
+                    readLetterId={readLetterId}
+                    id={item.id}
+                    isReply={!item.readStatus}
+                    type={item.type}
+                  />
+                </Link>
+              )}
             </div>
           ))}
         </ul>
@@ -185,7 +225,7 @@ export default function LetterList({
           </span>
         </Button>
       )}
-      {!isCalendarMode && letterList.length > 0 && (
+      {!isCalendarMode && combinedList.length > 0 && (
         <div>
           <div
             onClick={onClickTopScroll}

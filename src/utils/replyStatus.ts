@@ -30,7 +30,10 @@ export const letterReplyStatus = (isReply: boolean) => {
   return 'received';
 };
 
-export const isCheckUnread = (isRead: boolean, isReply: boolean): boolean => {
+export const isCheckUnread = (
+  isRead: boolean,
+  isReply: boolean | undefined
+): boolean => {
   if (!isReply) return false;
   if (isRead) return false;
 

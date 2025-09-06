@@ -50,7 +50,7 @@ export default function BottomSheetContents({
       <button
         type="button"
         onClick={onClickAddPet}
-        className="absolute bottom-0 my-3 flex flex-row items-center gap-1.5 rounded-[8px] border border-orange-400 px-5 py-2.5"
+        className="absolute bottom-10 my-3 flex flex-row items-center gap-1.5 rounded-[8px] border border-orange-400 px-5 py-2.5"
       >
         <img src={Plus} alt="추가하기 아이콘" />
         <span className="leading-[16px] text-orange-400">

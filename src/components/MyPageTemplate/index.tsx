@@ -14,6 +14,9 @@ import {
 import { fetchUserInfo } from 'store/user/user-actions';
 import LogOut from 'components/LogOut';
 import { saveToSessionStorage } from 'utils/sessionStorage';
+import ExperimentSection from './ExperimentSection';
+import UserIcon from '../../assets/ic_myPage_user.svg';
+import InfoIcon from '../../assets/ic_myPage_info.svg';
 
 function MyPageTemplate() {
   const { t } = useTranslation<'translation'>();
@@ -28,8 +31,11 @@ function MyPageTemplate() {
 
   return (
     <>
-      <h2 className="p-2.5 text-heading-3">{t(PAGE_TITLES.MY_INFO)}</h2>
-      <div className="flex flex-col gap-y-[1.375rem]">
+      <div className="flex items-center gap-1 p-2.5">
+        <img src={UserIcon} alt="user" />
+        <h2 className="text-heading-3">{t(PAGE_TITLES.MY_INFO)}</h2>
+      </div>
+      <div className="flex flex-col">
         <div>
           <div className="p-2.5 text-solo-large">
             {t(USER_INFO_LABELS.EMAIL)}
@@ -46,10 +52,17 @@ function MyPageTemplate() {
           label={t(USER_ACTIONS.CHANGE_PASSWORD)}
         />
         <Divider />
+        <ExperimentSection isOn={user.isPetInitiatedLetterEnabled} />
+
+        <Divider />
+        <div className="mt-9 flex items-center gap-1 p-2.5">
+          <img src={InfoIcon} alt="info" />
+          <h2 className="text-heading-3">기타</h2>
+        </div>
         <MenuItemLink to="faqs" label={t(PAGE_TITLES.FAQ)} />
         <MenuItemLink to="leave" label={t(USER_ACTIONS.LEAVE)} />
         <LogOut>
-          <div className="p-2.5 text-solo-large text-alarm-red">
+          <div className="mt-5 p-2.5 text-solo-large text-alarm-red">
             {t(USER_ACTIONS.LOG_OUT)}
           </div>
         </LogOut>

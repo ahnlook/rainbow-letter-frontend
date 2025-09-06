@@ -12,6 +12,7 @@ import Stamp from '../../assets/ic_letterBox_stamp.svg';
 import Cancel from '../../assets/ic_calendar_x.svg';
 import { PetResponse } from 'types/pets';
 import { getLetterListByDate } from 'api/letter';
+import { getLetterListByPet } from 'api/pets';
 import useCalendar from 'hooks/useCalendar';
 import { useTranslation } from 'react-i18next';
 
@@ -46,6 +47,7 @@ export default function MonthCalendar({
   // state
   const [isShow, setIsShow] = useState(false);
   const [monthLetterList, setMonthLetterList] = useState<any>([]);
+  const [monthPetLetters, setMonthPetLetters] = useState<any>([]);
   const SAVE_DATE = currentWeekDate;
 
   // etc.
@@ -80,6 +82,7 @@ export default function MonthCalendar({
     (async () => {
       if (selectedPet?.id === undefined) return;
 
+      // 기존 letterList 가져오기
       const {
         data: { letters },
       } = await getLetterListByDate(
@@ -88,11 +91,47 @@ export default function MonthCalendar({
         lastDayOfTheMonth
       );
       setMonthLetterList(letters || []);
+
+      // petLetters도 가져오기
+      try {
+        // 날짜 형식을 LocalDateTime에 맞게 변경 (yyyy-MM-ddTHH:mm:ss 형식)
+        const startDate = `${firstDayOfTheMonth}T00:00:00`;
+        const endDate = `${lastDayOfTheMonth}T23:59:59`;
+
+        const { petLetters } = await getLetterListByPet(
+          selectedPet?.id,
+          undefined,
+          1000,
+          startDate,
+          endDate
+        );
+        setMonthPetLetters(petLetters || []);
+      } catch (error) {
+        console.error('Failed to fetch pet letters:', error);
+        setMonthPetLetters([]);
+      }
     })();
   }, [firstDayOfTheMonth]);
 
-  const mappedLetterListByDate = monthLetterList.map((letter: any) =>
-    format(new Date(letter.createdAt), 'yyyy-MM-dd')
+  // letterList와 petLetters를 합친 combinedList 생성
+  const combinedList = useMemo(() => {
+    const letters = monthLetterList.map((letter: any) => ({
+      ...letter,
+      type: 'letter' as const,
+    }));
+    const pets = monthPetLetters.map((petLetter: any) => ({
+      ...petLetter,
+      type: 'petLetter' as const,
+    }));
+
+    return [...letters, ...pets].sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+  }, [monthLetterList, monthPetLetters]);
+
+  const mappedLetterListByDate = combinedList.map((item: any) =>
+    format(new Date(item.createdAt), 'yyyy-MM-dd')
   );
 
   const handlePetsListShow = useCallback(() => {

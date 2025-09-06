@@ -40,6 +40,14 @@ export const getLetter = async (
   return response;
 };
 
+export const getPreLetter = async (
+  id: string | undefined
+): ApiResponse<LetterItemResponse> => {
+  const response = await apiRequest.get(`api/pet-initiated-letters/${id}`);
+
+  return response;
+};
+
 export const sendLetter = async (
   id: number | undefined,
   letter: LetterRequest
@@ -53,6 +61,16 @@ export const getShareLetter = async (
   uuid: string | undefined
 ): ApiResponse<LetterItemResponse> => {
   const response = await apiRequest.get(`${RESOURCE}/share/${uuid}`);
+
+  return response;
+};
+
+export const getSharePreLetter = async (
+  uuid: string | undefined
+): ApiResponse<LetterItemResponse> => {
+  const response = await apiRequest.get(
+    `api/pet-initiated-letters/share/${uuid}`
+  );
 
   return response;
 };

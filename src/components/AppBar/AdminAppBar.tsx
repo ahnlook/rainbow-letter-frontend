@@ -19,6 +19,14 @@ const appBarConfig: AppBarConfig = {
     title: '편지 리스트 관리',
     backTo: -1,
   },
+  '/admin/fore-letters/prompt': {
+    title: 'AI 선편지 프롬프트 관리',
+    backTo: -1,
+  },
+  '/admin/fore-letters': {
+    title: 'AI 선편지 자동 발송 관리',
+    backTo: -1,
+  },
   letterId: {
     title: '편지 상세 정보',
     backTo: -1,

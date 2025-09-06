@@ -63,11 +63,11 @@ export const getLetterListByPet = async (
   if (startDate) queryParams.append('startDate', startDate);
   if (endDate) queryParams.append('endDate', endDate);
 
-  const response = await apiRequest.get(
+  const { data } = await apiRequest.get(
     `${RESOURCE}/${petId}/letters?${queryParams.toString()}`
   );
 
-  return response.data;
+  return data;
 };
 
 export const tryPinSharedLetter = async (

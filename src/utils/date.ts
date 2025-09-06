@@ -52,6 +52,16 @@ export const formatDateToYYDDMMHHMM = (date: string): string => {
   return `${year}.${month}.${day} ${hours}:${minutes}`;
 };
 
+export const formatDateToYYDDMM = (date: string): string => {
+  if (!date) return '';
+  const newDate = new Date(date);
+  const year = newDate.getFullYear().toString().substr(-2);
+  const month = (newDate.getMonth() + 1).toString().padStart(2, '0');
+  const day = newDate.getDate().toString().padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+};
+
 export const getPastDate = (daysAgo: number) => {
   const date = new Date();
   date.setDate(date.getDate() - daysAgo);

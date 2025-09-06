@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'store';
 import WeekCalendar from './WeekCalendar';
 import LetterList from './LetterList';
-import { LetterListResponse } from 'types/letters';
+import { LetterListResponse, PetLetterResponse } from 'types/letters';
 import { PetResponse } from 'types/pets';
 import Left from '../../assets/ic_letterBox_left.svg';
 import Right from '../../assets/ic_letterBox_right.svg';
@@ -62,6 +62,7 @@ export default function LetterListRenew({
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [readLetterId, setReadLetterId] = useState<number[]>([]);
+  const [petLetters, setPetLetters] = useState<PetLetterResponse[]>([]);
 
   const today = new Date();
 
@@ -71,6 +72,40 @@ export default function LetterListRenew({
     );
 
     return weekCalendarList[findIndex];
+  };
+
+  const fetchPetLettersOnly = async () => {
+    if (!selectedPet?.id) return;
+
+    try {
+      const weeks = findWeeks();
+
+      const startDate = isCalendarMode
+        ? format(new Date(weeks[0]), 'yyyy-MM-dd 00:00:00.SSS')
+        : format(startOfMonth(currentDate), 'yyyy-MM-dd HH:mm:ss.SSS');
+      const endDate = isCalendarMode
+        ? format(new Date(weeks[weeks.length - 1]), 'yyyy-MM-dd 23:59:59.SSS')
+        : format(endOfMonth(currentDate), 'yyyy-MM-dd HH:mm:ss.SSS');
+
+      const { petLetters } = await getLetterListByPet(
+        selectedPet.id,
+        undefined,
+        isCalendarMode ? 1000 : 5,
+        startDate,
+        endDate
+      );
+
+      setPetLetters(petLetters || []);
+
+      dispatch(
+        letterSlice.actions.setLetterBoxState({
+          ...letterBoxState,
+          isExistState: false,
+        })
+      );
+    } catch (error) {
+      console.error('Failed to fetch pet letters:', error);
+    }
   };
 
   const fetchLetters = async (isInitial: boolean = false) => {
@@ -91,13 +126,14 @@ export default function LetterListRenew({
         ? format(new Date(weeks[weeks.length - 1]), 'yyyy-MM-dd 23:59:59.SSS')
         : format(endOfMonth(currentDate), 'yyyy-MM-dd HH:mm:ss.SSS');
 
-      const { letters } = await getLetterListByPet(
+      const { letters, petLetters } = await getLetterListByPet(
         selectedPet.id,
         lastId,
         isCalendarMode ? 1000 : 5,
         startDate,
         endDate
       );
+      setPetLetters(petLetters);
 
       if (!shouldRestoreState) {
         if (isInitial) {
@@ -170,7 +206,12 @@ export default function LetterListRenew({
       setIsToolTipOpen(true);
     }
 
-    fetchLetters(true);
+    if (shouldRestoreState) {
+      // shouldRestoreState가 true일 때는 petLetters만 다시 가져옴
+      fetchPetLettersOnly();
+    } else {
+      fetchLetters(true);
+    }
 
     if (!isCalendarMode) {
       setHasMore(true);
@@ -185,6 +226,10 @@ export default function LetterListRenew({
 
   const mappedLetterListByDate = letterList.map((letter) =>
     format(letter.createdAt.split('T')[0], 'yyyy-MM-dd')
+  );
+
+  const mappedPetLettersByDate = petLetters.map((petLetter) =>
+    format(petLetter.createdAt.split('T')[0], 'yyyy-MM-dd')
   );
 
   const yearAndMonth = useMemo(() => {
@@ -311,6 +356,14 @@ export default function LetterListRenew({
       )
     : letterList;
 
+  const filteredPetLetters = isCalendarMode
+    ? petLetters.filter(
+        (petLetter) =>
+          format(petLetter.createdAt.split('T')[0], 'yyyy-MM-dd') ===
+          format(currentDate, 'yyyy-MM-dd')
+      )
+    : petLetters;
+
   return (
     <section>
       {lng === 'en' && (
@@ -399,7 +452,7 @@ export default function LetterListRenew({
       </div>
       {isCalendarMode && (
         <WeekCalendar
-          letterList={mappedLetterListByDate}
+          letterList={[...mappedLetterListByDate, ...mappedPetLettersByDate]}
           selectedPet={selectedPet}
           setIsEditing={setIsEditing}
           currentDate={currentDate}
@@ -417,6 +470,7 @@ export default function LetterListRenew({
         onClickEditButton={onClickEditButton}
         handleLocalModal={handleLocalModal}
         letterList={filteredLetter}
+        petLetters={filteredPetLetters}
         handleLetterCheck={handleLetterCheck}
         selectedLetterList={selectedLetterList}
         onLetterClick={onLetterClick}

@@ -12,7 +12,8 @@ type Props = {
   sequence: number;
   readLetterId: number[];
   id: number;
-  isReply: boolean;
+  isReply?: boolean;
+  type?: 'letter' | 'petLetter';
 };
 
 export default function LetterItem({
@@ -23,30 +24,35 @@ export default function LetterItem({
   readLetterId,
   id,
   isReply,
+  type,
 }: Props) {
   const { lng } = useSelector((state: RootState) => state.common);
 
   const letterIndexValue = () => {
-    if (lng === 'ko') {
-      return `${sequence}번째 편지`;
+    if (lng !== 'ko') {
+      return `Letter ${sequence}`;
     }
-
-    return `Letter ${sequence}`;
   };
 
   return (
     <li
-      className={`${isSelect ? 'bg-[#ff0000]/[.25]' : isCheckUnread(readLetterId.includes(id), isReply) ? 'bg-yellow-50' : 'bg-gray-6'} relative mb-4 cursor-pointer rounded-xl p-[1.125rem]`}
+      className={`${isSelect ? 'bg-[#ff0000]/[.25]' : isCheckUnread(readLetterId.includes(id), isReply) ? 'bg-yellow-50' : 'bg-gray-6'} relative mb-4 cursor-pointer rounded-xl p-4`}
     >
-      <LetterStatus isReply={isReply} isRead={readLetterId.includes(id)} />
+      <LetterStatus
+        isReply={isReply || false}
+        isRead={readLetterId.includes(id)}
+        type={type}
+      />
       <p className="mt-3 text-caption">
         {letter?.submitTime ? letter.summary : letterSummary}
       </p>
-      <p className="mt-5 text-caption text-gray-3">{letterIndexValue()}</p>
+      <p className={`${lng !== 'ko' ? 'mt-5 text-caption text-gray-3' : ''} `}>
+        {letterIndexValue()}
+      </p>
       <img
         src={Stamp}
         alt="우표 이미지"
-        className="absolute right-[18px] top-[18px]"
+        className="absolute right-[18px] top-3"
       />
     </li>
   );

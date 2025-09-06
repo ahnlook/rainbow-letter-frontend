@@ -19,7 +19,7 @@ export default function Section({
     if (isShow) {
       BottonSheetRef.current?.style.setProperty(
         'transform',
-        `translateY(-${250}px)`
+        `translateY(-${280}px)`
       );
     } else {
       BottonSheetRef.current?.style.setProperty(
@@ -44,7 +44,7 @@ export default function Section({
   return (
     <div
       ref={BottonSheetRef}
-      className="delay-30 fixed -bottom-[15.625rem] z-50 flex h-[15.625rem] w-full max-w-[390px] justify-center rounded-t-2xl bg-white shadow-home duration-700 ease-in-out"
+      className="delay-30 fixed -bottom-[18.625rem] z-50 flex h-[18.625rem] w-full max-w-[390px] justify-center rounded-t-2xl bg-white shadow-home duration-700 ease-in-out"
     >
       {children}
       <button

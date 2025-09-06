@@ -8,6 +8,14 @@ export const getAIConfig = async () => {
   return response.data;
 };
 
+export const getForeLetterAIConfig = async () => {
+  const response = await apiRequest.get(
+    `${RESOURCE}/setting/pet-initiated-letter`
+  );
+
+  return response.data;
+};
+
 export const getAIParameters = async () => {
   const response = await apiRequest.get(`${RESOURCE}/parameters`);
 
@@ -22,6 +30,15 @@ interface AIConfig {
 
 export const putAIConfig = async (config: AIConfig) => {
   const response = await apiRequest.put(`${RESOURCE}/config`, config);
+
+  return response.data;
+};
+
+export const putForeLetterAIConfig = async (config: AIConfig) => {
+  const response = await apiRequest.put(
+    `${RESOURCE}/config/pet-initiated-letter`,
+    config
+  );
 
   return response.data;
 };

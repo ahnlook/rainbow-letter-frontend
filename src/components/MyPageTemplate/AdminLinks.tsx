@@ -11,8 +11,17 @@ function AdminLinks() {
     <>
       <h2 className="p-2.5 text-heading-3">관리자 페이지</h2>
       <div className="flex flex-col gap-y-2">
-        <MenuItemLink to="/admin/letters" label="편지 리스트" />
-        <MenuItemLink to="/admin/setting-prompt" label="프롬프트 관리" />
+        <MenuItemLink to="/admin/letters" label="일반편지 리스트" />
+        <MenuItemLink
+          to="/admin/setting-prompt"
+          label="일반편지 프롬프트 관리"
+        />
+        <div className="h-2" />
+        <MenuItemLink to="/admin/fore-letters" label="AI 선편지 리스트" />
+        <MenuItemLink
+          to="/admin/fore-letters/prompt"
+          label="AI 선편지 프롬프트 관리"
+        />
       </div>
       <div className="pb-5 pt-2.5">
         <Divider />

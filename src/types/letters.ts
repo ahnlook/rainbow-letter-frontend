@@ -97,6 +97,20 @@ export interface LetterListResponse {
   letterStatus?: string;
 }
 
+export interface PetLetterResponse {
+  id: number;
+  content: string;
+  createdAt: string;
+  summary: string;
+  sequence?: number;
+  pet?: LetterItemPet;
+  shareLink?: string;
+  image?: string;
+  reply?: LetterItemReply | null;
+  letterStatus?: string;
+  readStatus?: boolean;
+}
+
 export interface LetterRequest {
   summary: string;
   content: string;
