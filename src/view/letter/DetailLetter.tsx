@@ -295,7 +295,6 @@ export default function DetailLetter() {
                     date: 'letter_date',
                   }}
                 />
-                <SentPhoto letterData={letterData} />
               </LetterPaperWithImage>
             </div>
 
