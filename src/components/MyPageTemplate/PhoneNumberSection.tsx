@@ -53,9 +53,9 @@ function PhoneNumberSection({ phoneNumber }: Props) {
         답장 알림을 카카오톡으로 받아볼 수 있어요
       </p>
       <div className="flex flex-col gap-2">
-        <div className="mt-3 flex items-center justify-between gap-x-2.5 text-solo-medium text-gray-1">
+        <div className="mt-3 flex max-w-[350px] items-center justify-between gap-x-2.5 text-solo-medium text-gray-1">
           <input
-            className={`grow rounded-md bg-gray-2 px-3 py-2 ${
+            className={`flex-1 rounded-md bg-gray-2 px-3 py-2 ${
               isValidPhone ? 'border-none' : 'border border-alarm-red'
             }`}
             type="tel"
