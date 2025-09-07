@@ -68,7 +68,7 @@ function PhoneNumberSection({ phoneNumber }: Props) {
           />
           {phoneNumber === null ? (
             <button
-              className="rounded-2xl border border-[#616161] px-2.5 py-2 text-xs font-bold leading-3 text-[#616161]"
+              className="shrink-0 rounded-2xl border border-[#616161] px-2.5 py-2 text-xs font-bold leading-3 text-[#616161]"
               disabled={!isValidPhone}
               onClick={handleUpdatePhoneNumber}
             >
@@ -76,7 +76,7 @@ function PhoneNumberSection({ phoneNumber }: Props) {
             </button>
           ) : isEditing ? (
             <button
-              className="rounded-2xl border border-[#616161] px-2.5 py-2 text-xs font-bold leading-3 text-[#616161]"
+              className="shrink-0 rounded-2xl border border-[#616161] px-2.5 py-2 text-xs font-bold leading-3 text-[#616161]"
               disabled={!isValidPhone}
               onClick={handleUpdatePhoneNumber}
             >
@@ -84,7 +84,7 @@ function PhoneNumberSection({ phoneNumber }: Props) {
             </button>
           ) : (
             <button
-              className="rounded-2xl border border-[#616161] px-2.5 py-2 text-xs font-bold leading-3 text-[#616161]"
+              className="shrink-0 rounded-2xl border border-[#616161] px-2.5 py-2 text-xs font-bold leading-3 text-[#616161]"
               onClick={handleEditClick}
             >
               수정
