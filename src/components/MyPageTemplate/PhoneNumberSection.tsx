@@ -1,6 +1,6 @@
-import { ChangeEvent, useState, useMemo } from 'react';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from 'store';
+import { ChangeEvent, useState, useMemo, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from 'store';
 
 import { updatePhoneNumber, deletePhoneNumber } from 'store/user/user-actions';
 import {
@@ -16,30 +16,45 @@ type Props = {
 
 function PhoneNumberSection({ phoneNumber }: Props) {
   const dispatch = useDispatch<AppDispatch>();
+  const reduxPhoneNumber = useSelector(
+    (state: RootState) => state.user.user.phoneNumber
+  );
   const [newPhoneNumber, setNewPhoneNumber] = useState(phoneNumber || '');
   const [isValidPhone, setIsValidPhone] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
+
+  // Redux store의 phoneNumber나 props의 phoneNumber가 변경되면 동기화 (편집 중이 아닐 때만)
+  useEffect(() => {
+    if (!isEditing) {
+      const currentPhoneNumber = reduxPhoneNumber || phoneNumber || '';
+      setNewPhoneNumber(currentPhoneNumber);
+    }
+  }, [reduxPhoneNumber, phoneNumber, isEditing]);
 
   const handlePhoneNumberChange = (e: ChangeEvent<HTMLInputElement>) => {
     setNewPhoneNumber(e.target.value);
     setIsValidPhone(validatePhoneNumber(e.target.value));
   };
 
-  const handleUpdatePhoneNumber = () => {
+  const handleUpdatePhoneNumber = async () => {
     if (newPhoneNumber === phoneNumber) return;
 
-    const action = newPhoneNumber
-      ? dispatch(updatePhoneNumber(newPhoneNumber))
-      : dispatch(deletePhoneNumber());
+    try {
+      const action = newPhoneNumber
+        ? await dispatch(updatePhoneNumber(newPhoneNumber))
+        : await dispatch(deletePhoneNumber());
 
-    const message =
-      phoneNumber === null
-        ? '등록이 완료되었습니다.'
-        : '수정이 완료되었습니다.';
-    alert(message);
+      const message =
+        phoneNumber === null
+          ? '등록이 완료되었습니다.'
+          : '수정이 완료되었습니다.';
+      alert(message);
 
-    setIsEditing(false);
-    return action;
+      setIsEditing(false);
+      return action;
+    } catch (error) {
+      alert('휴대폰 번호 업데이트에 실패했습니다.');
+    }
   };
 
   const handleEditClick = () => {

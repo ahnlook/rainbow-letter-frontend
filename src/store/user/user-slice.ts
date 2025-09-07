@@ -52,7 +52,13 @@ const userSlice = createSlice({
         }
       })
       .addCase(updatePhoneNumber.fulfilled, (state, action) => {
-        state.user.phoneNumber = action.payload.phoneNumber;
+        // API 응답에서 phoneNumber를 찾거나, 없으면 요청한 값 사용
+        if (action.payload && action.payload.phoneNumber) {
+          state.user.phoneNumber = action.payload.phoneNumber;
+        } else {
+          // API 응답에 phoneNumber가 없으면 요청한 값으로 업데이트
+          state.user.phoneNumber = action.meta.arg;
+        }
       })
       .addCase(deletePhoneNumber.fulfilled, (state) => {
         state.status = 'success';
