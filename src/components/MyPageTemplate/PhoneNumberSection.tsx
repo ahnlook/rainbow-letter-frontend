@@ -55,7 +55,7 @@ function PhoneNumberSection({ phoneNumber }: Props) {
       <div className="flex flex-col gap-2">
         <div className="mt-3 flex max-w-[350px] items-center justify-between gap-x-2.5 text-solo-medium text-gray-1">
           <input
-            className={`flex-1 rounded-md bg-gray-2 px-3 py-2 ${
+            className={`w-[250px] rounded-md bg-gray-2 px-3 py-2 ${
               isValidPhone ? 'border-none' : 'border border-alarm-red'
             }`}
             type="tel"
@@ -68,7 +68,7 @@ function PhoneNumberSection({ phoneNumber }: Props) {
           />
           {phoneNumber === null ? (
             <button
-              className="min-w-[43px] shrink-0 rounded-2xl border border-[#616161] px-2.5 py-2 text-xs font-bold leading-3 text-[#616161]"
+              className="text-nowrap rounded-2xl border border-[#616161] px-2.5 py-2 text-xs font-bold leading-3 text-[#616161]"
               disabled={!isValidPhone}
               onClick={handleUpdatePhoneNumber}
             >
@@ -76,7 +76,7 @@ function PhoneNumberSection({ phoneNumber }: Props) {
             </button>
           ) : isEditing ? (
             <button
-              className="min-w-[43px] shrink-0 rounded-2xl border border-[#616161] px-2.5 py-2 text-xs font-bold leading-3 text-[#616161]"
+              className="text-nowrap rounded-2xl border border-[#616161] px-2.5 py-2 text-xs font-bold leading-3 text-[#616161]"
               disabled={!isValidPhone}
               onClick={handleUpdatePhoneNumber}
             >
@@ -84,7 +84,7 @@ function PhoneNumberSection({ phoneNumber }: Props) {
             </button>
           ) : (
             <button
-              className="min-w-[43px] shrink-0 rounded-2xl border border-[#616161] px-2.5 py-2 text-xs font-bold leading-3 text-[#616161]"
+              className="text-nowrap rounded-2xl border border-[#616161] px-2.5 py-2 text-xs font-bold leading-3 text-[#616161]"
               onClick={handleEditClick}
             >
               수정
