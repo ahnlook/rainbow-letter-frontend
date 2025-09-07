@@ -23,6 +23,7 @@ import SaveComplete from '../../assets/save_complete.svg';
 import AlarmIcon from '../../assets/ic_Error_icon.svg';
 import { RootState } from 'store';
 import slideAnimation from '../../assets/lottie/slide-lottie.json';
+import { AxiosError } from 'axios';
 
 export default function ModalContents() {
   const dispatch = useDispatch();
@@ -42,13 +43,16 @@ export default function ModalContents() {
       if (!validatePhoneNumber(value)) {
         setErrorMessage('앗, 번호를 잘못 입력했어요');
       }
+      if (value.length !== 11) {
+        setErrorMessage('앗, 번호를 잘못 입력했어요');
+      }
       await updatePhoneNumber({
         phoneNumber: value,
       });
       dispatch(modalActions.openModal('COMPLETE'));
     } catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message);
+      if (error instanceof AxiosError) {
+        alert(error.response?.data.message);
       }
     }
   };

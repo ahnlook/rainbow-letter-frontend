@@ -12,9 +12,20 @@ export const fetchUserInfo = createAsyncThunk(
 
 export const updatePhoneNumber = createAsyncThunk(
   'user/updatePhoneNumber',
-  async (phoneNumber: string): Promise<any> => {
-    const response = await api.put('/api/users/phone-number', { phoneNumber });
-    return response.data;
+  async (phoneNumber: string, { rejectWithValue }): Promise<any> => {
+    try {
+      const response = await api.put('/api/users/phone-number', {
+        phoneNumber,
+      });
+      return response.data;
+    } catch (error: any) {
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      }
+      return rejectWithValue({
+        message: '휴대폰 번호 업데이트에 실패했습니다.',
+      });
+    }
   }
 );
 

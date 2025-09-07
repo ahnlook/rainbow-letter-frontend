@@ -23,7 +23,6 @@ function PhoneNumberSection({ phoneNumber }: Props) {
   const [isValidPhone, setIsValidPhone] = useState(true);
   const [isEditing, setIsEditing] = useState(false);
 
-  // Redux store의 phoneNumber나 props의 phoneNumber가 변경되면 동기화 (편집 중이 아닐 때만)
   useEffect(() => {
     if (!isEditing) {
       const currentPhoneNumber = reduxPhoneNumber || phoneNumber || '';
@@ -37,24 +36,25 @@ function PhoneNumberSection({ phoneNumber }: Props) {
   };
 
   const handleUpdatePhoneNumber = async () => {
-    if (newPhoneNumber === phoneNumber) return;
+    const action = newPhoneNumber
+      ? await dispatch(updatePhoneNumber(newPhoneNumber))
+      : await dispatch(deletePhoneNumber());
 
-    try {
-      const action = newPhoneNumber
-        ? await dispatch(updatePhoneNumber(newPhoneNumber))
-        : await dispatch(deletePhoneNumber());
-
-      const message =
-        phoneNumber === null
-          ? '등록이 완료되었습니다.'
-          : '수정이 완료되었습니다.';
-      alert(message);
-
-      setIsEditing(false);
-      return action;
-    } catch (error) {
-      alert('휴대폰 번호 업데이트에 실패했습니다.');
+    if (action.type.endsWith('/rejected')) {
+      const errorMessage =
+        action.payload?.message || '휴대폰 번호 업데이트에 실패했습니다.';
+      alert(errorMessage);
+      return;
     }
+
+    const message =
+      phoneNumber === null
+        ? '등록이 완료되었습니다.'
+        : '수정이 완료되었습니다.';
+    alert(message);
+
+    setIsEditing(false);
+    return action;
   };
 
   const handleEditClick = () => {
