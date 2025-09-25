@@ -170,10 +170,10 @@ export default function DetailPreLetter() {
 
   const targetValueToPet = useMemo(() => {
     if (lng === 'ko') {
-      return `${letterData?.petName}에게`;
+      return `${letterData?.petName}로부터`;
     }
 
-    return `Dear. ${letterData?.petName}`;
+    return `From. ${letterData?.petName}`;
   }, [lng, letterData?.petName]);
 
   return (
