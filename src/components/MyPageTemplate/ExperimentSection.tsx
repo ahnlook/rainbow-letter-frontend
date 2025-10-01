@@ -78,7 +78,7 @@ export default function ExperimentSection({ isOn }: Props) {
     const currentMinute = now.getMinutes();
     const currentTime = currentHour * 60 + currentMinute;
 
-    const startTime = 19 * 60 + 30;
+    const startTime = 19 * 60;
     const endTime = 20 * 60;
 
     if (currentTime >= startTime && currentTime < endTime) {
