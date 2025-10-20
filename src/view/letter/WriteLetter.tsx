@@ -211,14 +211,41 @@ export default function WriteLetter() {
     try {
       const formData = generateFormData(image);
       const { data } = await resisterImage(formData, 'letter');
-      
+
       if (!data || !data.objectKey) {
         throw new Error('서버에서 이미지 키를 반환하지 않았습니다.');
       }
-      
+
       return data.objectKey;
     } catch (error) {
       console.error('이미지 업로드 API 호출 실패:', error);
+
+      // 더 구체적인 에러 정보 제공 (사용자가 캡쳐할 수 있도록 alert로 표시)
+      const apiEndpoint = 'POST /api/images/letter';
+      let errorMessage = `오류가 생겼어요. 고객센터에 문의해 주세요 (${apiEndpoint})\n\n`;
+
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          errorMessage += `서버 응답 에러: ${error.response.status}\n응답 데이터: ${JSON.stringify(error.response.data)}`;
+          console.error(
+            '서버 응답 에러:',
+            error.response.status,
+            error.response.data
+          );
+        } else if (error.request) {
+          errorMessage += '네트워크 에러 - 서버에 요청이 전달되지 않음';
+          console.error('네트워크 에러 - 서버에 요청이 전달되지 않음');
+        } else {
+          errorMessage += `요청 설정 에러: ${error.message}`;
+          console.error('요청 설정 에러:', error.message);
+        }
+      } else {
+        errorMessage += `알 수 없는 에러: ${error}`;
+        console.error('알 수 없는 에러:', error);
+      }
+
+      alert(errorMessage);
+
       throw error;
     }
   };
@@ -246,23 +273,57 @@ export default function WriteLetter() {
       setIsLoading(true);
       const newLetter = { ...letter };
 
+      // 이미지 업로드 처리
       if (originalFile) {
+        let imageUploadSuccess = false;
+
         try {
+          // 1차 시도: 압축된 이미지로 업로드
           const compressedFile = await compressImage(originalFile);
           if (compressedFile) {
             const objectKey = await uploadImage(compressedFile);
             newLetter.image = objectKey;
+            imageUploadSuccess = true;
           } else {
-            console.warn('이미지 압축에 실패했습니다. 원본 이미지로 업로드를 시도합니다.');
+            console.warn(
+              '이미지 압축에 실패했습니다. 원본 이미지로 업로드를 시도합니다.'
+            );
+            // 2차 시도: 원본 이미지로 업로드
             const objectKey = await uploadImage(originalFile);
             newLetter.image = objectKey;
+            imageUploadSuccess = true;
           }
         } catch (imageError) {
           console.error('이미지 업로드 실패:', imageError);
-          alert('이미지 업로드에 실패했습니다. 이미지 없이 편지를 전송합니다.');
+
+          // 3차 시도: 원본 이미지로 재시도 (네트워크 오류 등으로 인한 일시적 실패 대응)
+          try {
+            console.log('이미지 업로드 재시도 중...');
+            const objectKey = await uploadImage(originalFile);
+            newLetter.image = objectKey;
+            imageUploadSuccess = true;
+          } catch (retryError) {
+            console.error('이미지 업로드 재시도도 실패:', retryError);
+            // 사용자에게 선택권 제공
+            const shouldContinue = window.confirm(
+              '이미지 업로드에 실패했습니다. 이미지 없이 편지를 전송하시겠습니까?'
+            );
+            if (!shouldContinue) {
+              setIsLoading(false);
+              return; // 사용자가 취소한 경우 편지 전송 중단
+            }
+            // 사용자가 계속하기를 선택한 경우 이미지 없이 진행
+            newLetter.image = '';
+          }
+        }
+
+        // 이미지 업로드 성공 여부 로깅
+        if (imageUploadSuccess) {
+          console.log('이미지 업로드 성공:', newLetter.image);
         }
       }
 
+      // 편지 전송
       await sendLetter(selectedPet?.id, newLetter);
       await deleteSavedLetter(savedLetterId, selectedPet?.id);
 
@@ -274,7 +335,29 @@ export default function WriteLetter() {
       isCheckEnModalOpen();
     } catch (error) {
       console.error('편지 전송 실패:', error);
-      alert('편지 전송에 실패했습니다. 다시 시도해주세요.');
+
+      // 상세한 에러 정보를 alert로 표시 (개발 환경에서만)
+      const apiEndpoint = `POST /api/letters?pet=${selectedPet?.id}`;
+      let errorMessage = `오류가 생겼어요. 고객센터에 문의해 주세요 (${apiEndpoint})\n\n`;
+
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          errorMessage += `서버 응답 에러: ${error.response.status}\n응답 데이터: ${JSON.stringify(error.response.data)}`;
+        } else if (error.request) {
+          errorMessage += '네트워크 에러 - 서버에 요청이 전달되지 않음';
+        } else {
+          errorMessage += `요청 설정 에러: ${error.message}`;
+        }
+      } else {
+        errorMessage += `알 수 없는 에러: ${error}`;
+      }
+
+      // 개발 환경에서만 상세 에러 정보 표시
+      if (process.env.NODE_ENV === 'development') {
+        alert(errorMessage);
+      } else {
+        alert(`오류가 생겼어요. 고객센터에 문의해 주세요 (${apiEndpoint})`);
+      }
     } finally {
       setIsLoading(false);
     }
