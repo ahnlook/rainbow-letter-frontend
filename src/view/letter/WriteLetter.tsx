@@ -208,9 +208,19 @@ export default function WriteLetter() {
   }, [selectedPet?.id]);
 
   const uploadImage = async (image: string | File) => {
-    const formData = generateFormData(image);
-    const { data } = await resisterImage(formData, 'letter');
-    return data.objectKey;
+    try {
+      const formData = generateFormData(image);
+      const { data } = await resisterImage(formData, 'letter');
+      
+      if (!data || !data.objectKey) {
+        throw new Error('서버에서 이미지 키를 반환하지 않았습니다.');
+      }
+      
+      return data.objectKey;
+    } catch (error) {
+      console.error('이미지 업로드 API 호출 실패:', error);
+      throw error;
+    }
   };
 
   const isCheckPhoneNumberModalOpen = async () => {
@@ -237,10 +247,19 @@ export default function WriteLetter() {
       const newLetter = { ...letter };
 
       if (originalFile) {
-        const compressedFile = await compressImage(originalFile);
-        if (compressedFile) {
-          const objectKey = await uploadImage(compressedFile);
-          newLetter.image = objectKey;
+        try {
+          const compressedFile = await compressImage(originalFile);
+          if (compressedFile) {
+            const objectKey = await uploadImage(compressedFile);
+            newLetter.image = objectKey;
+          } else {
+            console.warn('이미지 압축에 실패했습니다. 원본 이미지로 업로드를 시도합니다.');
+            const objectKey = await uploadImage(originalFile);
+            newLetter.image = objectKey;
+          }
+        } catch (imageError) {
+          console.error('이미지 업로드 실패:', imageError);
+          alert('이미지 업로드에 실패했습니다. 이미지 없이 편지를 전송합니다.');
         }
       }
 
@@ -254,7 +273,8 @@ export default function WriteLetter() {
       }
       isCheckEnModalOpen();
     } catch (error) {
-      console.log(error);
+      console.error('편지 전송 실패:', error);
+      alert('편지 전송에 실패했습니다. 다시 시도해주세요.');
     } finally {
       setIsLoading(false);
     }
