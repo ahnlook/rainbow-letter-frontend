@@ -191,7 +191,7 @@ export default function ExperimentSection({ isOn }: Props) {
           </button>
         </div>
         <p className="mt-2 text-sm text-[#616161]">
-          월, 수, 금 저녁 8시 아이가 먼저 편지를 보내요
+          금요일 저녁 8시 아이가 먼저 편지를 보내요
         </p>
         {isEnabled && (
           <div className="mt-4 flex flex-wrap gap-2.5">
