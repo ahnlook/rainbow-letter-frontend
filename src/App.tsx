@@ -1,27 +1,36 @@
+import { useState, useEffect } from 'react';
 import Router from 'Router';
 
 import { PetRegistrationProvider } from './contexts/PetRegistrationContext';
-import { useMaintenance } from './hooks/useMaintenance';
-import { useTDSUserAgent } from './hooks/useTDSUserAgent';
 import MaintenancePage from 'view/MaintenancePage';
-import { TDSMobileProvider } from '@toss/tds-mobile';
+
+export const MAINTENANCE = {
+  startTime: '2025-07-06 22:00',
+  endTime: '2025-07-06 23:59',
+};
 
 function App() {
-  const isMaintenanceTime = useMaintenance();
-  const userAgent = useTDSUserAgent();
+  const [isMaintenanceTime, setIsMaintenanceTime] = useState(false);
+
+  useEffect(() => {
+    const checkMaintenanceTime = () => {
+      const now = new Date().getTime();
+      const start = new Date(MAINTENANCE.startTime).getTime();
+      const end = new Date(MAINTENANCE.endTime).getTime();
+
+      setIsMaintenanceTime(now >= start && now <= end);
+    };
+
+    checkMaintenanceTime();
+    const timer = setInterval(checkMaintenanceTime, 10000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   return (
-    <>
-      {isMaintenanceTime ? (
-        <MaintenancePage />
-      ) : (
-        <TDSMobileProvider userAgent={userAgent}>
-          <PetRegistrationProvider>
-            <Router />
-          </PetRegistrationProvider>
-        </TDSMobileProvider>
-      )}
-    </>
+    <PetRegistrationProvider>
+      {isMaintenanceTime ? <MaintenancePage /> : <Router />}
+    </PetRegistrationProvider>
   );
 }
 
