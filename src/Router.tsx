@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { lazy, Suspense } from 'react';
 import { RootState } from 'store';
 
 import { State } from 'types/store';
@@ -43,6 +44,9 @@ import ForeLettersPrompt from 'components/admin/foreLetters/prompt';
 import ForeLetterDetail from 'components/admin/foreLetters/list/LetterDetail';
 import DetailPreLetter from 'view/letter/DetailPreLetter';
 import SharePreLetter from 'view/letter/SharePreLetter';
+import { isAitBuild } from 'utils/aitEnv';
+
+const AitButtonTest = lazy(() => import('view/dev/AitButtonTest'));
 
 function Router() {
   const { isOpen } = useSelector((state: State) => state.modal);
@@ -55,6 +59,17 @@ function Router() {
       <ScrollToTop>
         <Routes>
           <Route element={<Layout />}>
+            {isAitBuild() && (
+              <Route
+                path="/ait-test"
+                element={
+                  <Suspense fallback={null}>
+                    <AitButtonTest />
+                  </Suspense>
+                }
+              />
+            )}
+
             <Route path="/" element={<Home />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/landing" element={<LandingPage />} />
