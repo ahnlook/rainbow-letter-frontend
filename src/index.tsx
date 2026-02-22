@@ -8,33 +8,6 @@ import './i18n';
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
 
-const isAitRuntime = () => {
-  if (process.env.REACT_APP_ENABLE_AIT_PROVIDER !== 'true') {
-    return false;
-  }
-
-  if (typeof window === 'undefined') {
-    return false;
-  }
-
-  return Boolean(window.ReactNativeWebView);
-};
-
-const renderApp = async () => {
-  const app = (
-    <Provider store={store}>
-      <App />
-    </Provider>
-  );
-
-  if (isAitRuntime()) {
-    const { TDSMobileAITProvider } = await import('@toss/tds-mobile-ait');
-    return <TDSMobileAITProvider>{app}</TDSMobileAITProvider>;
-  }
-
-  return app;
-};
-
 if ('service-worker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
@@ -51,18 +24,8 @@ if ('service-worker' in navigator) {
   });
 }
 
-renderApp()
-  .then((element) => {
-    root.render(element);
-  })
-  .catch((error) => {
-    console.error(
-      'Failed to render AIT provider. Falling back to app only.',
-      error
-    );
-    root.render(
-      <Provider store={store}>
-        <App />
-      </Provider>
-    );
-  });
+root.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);

@@ -43,7 +43,6 @@ import ForeLettersPrompt from 'components/admin/foreLetters/prompt';
 import ForeLetterDetail from 'components/admin/foreLetters/list/LetterDetail';
 import DetailPreLetter from 'view/letter/DetailPreLetter';
 import SharePreLetter from 'view/letter/SharePreLetter';
-import AitButtonTest from 'view/dev/AitButtonTest';
 
 function Router() {
   const { isOpen } = useSelector((state: State) => state.modal);
@@ -56,9 +55,6 @@ function Router() {
       <ScrollToTop>
         <Routes>
           <Route element={<Layout />}>
-            {/* NOTE: AIT 테스트 페이지 */}
-            <Route path="/ait-test" element={<AitButtonTest />} />
-
             <Route path="/" element={<Home />} />
             <Route path="/donate" element={<Donate />} />
             <Route path="/landing" element={<LandingPage />} />
