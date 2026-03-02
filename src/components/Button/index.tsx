@@ -12,13 +12,13 @@ type Props = {
 function Button({ className, disabled, children, onClick, id }: Props) {
   const styles = className || '';
   const disabledStyles = disabled
-    ? 'bg-gray-1 text-gray-1'
+    ? 'bg-orange-400/30 text-white'
     : 'bg-orange-400 text-white';
 
   return (
     <button
       id={id}
-      className={`${styles} ${disabledStyles} h-[4.375rem] w-full rounded-2xl text-heading-3 font-semibold`}
+      className={`${styles} ${disabledStyles} w-full rounded-2xl px-5 py-4 text-base font-semibold`}
       type="button"
       disabled={disabled}
       onClick={onClick}
