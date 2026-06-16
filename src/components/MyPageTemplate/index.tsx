@@ -52,9 +52,9 @@ function MyPageTemplate() {
           label={t(USER_ACTIONS.CHANGE_PASSWORD)}
         />
         <Divider />
-        <ExperimentSection isOn={user.isPetInitiatedLetterEnabled} />
+        {/* <ExperimentSection isOn={user.isPetInitiatedLetterEnabled} />
 
-        <Divider />
+        <Divider /> */}
         <div className="mt-9 flex items-center gap-1 p-2.5">
           <img src={InfoIcon} alt="info" />
           <h2 className="text-heading-3">기타</h2>
